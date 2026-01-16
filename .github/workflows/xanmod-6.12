@@ -12,6 +12,9 @@ jobs:
       KERNEL_LOCALVERSION: -cloud
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
     - name: Maximize build disk space
       uses: easimon/maximize-build-space@master
       with:
@@ -20,10 +23,6 @@ jobs:
         remove-haskell: true
         remove-codeql: true
         remove-docker-images: true
-
-      - name: Checkout
-        uses: actions/checkout@v6
-
 
       - name: Show system & set-timezone
         run: |
