@@ -61,31 +61,31 @@ jobs:
           cd kernel
           cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
 
-          scripts/config --enable CONFIG_GENERIC_CPU
-          scripts/config --set-val CONFIG_X86_64_VERSION 3
-          scripts/config --enable CONFIG_KERNEL_ZSTD
-          scripts/config --enable CONFIG_LTO
-          scripts/config --enable CONFIG_LTO_CLANG
-          scripts/config --disable CONFIG_LTO_CLANG_FULL
-          scripts/config --enable CONFIG_LTO_CLANG_THIN
-          scripts/config --disable CONFIG_LTO_NONE
-          scripts/config --set-val CONFIG_NR_CPUS 8
-          scripts/config --set-val CONFIG_RCU_FANOUT 8
-          scripts/config --set-val CONFIG_RCU_FANOUT_LEAF 8
-          scripts/config --enable CONFIG_HZ_100
-          scripts/config --set-val CONFIG_HZ 100
-          scripts/config --enable CONFIG_NO_HZ_IDLE
-          scripts/config --disable CONFIG_NO_HZ_FULL
-          scripts/config --disable CONFIG_HZ_250
-          scripts/config --enable CONFIG_FUTEX
-          scripts/config --enable CONFIG_FUTEX_PI
-          scripts/config --enable CONFIG_EPOLL
-          scripts/config --enable CONFIG_SIGNALFD
-          scripts/config --enable CONFIG_TIMERFD
-          scripts/config --enable CONFIG_EVENTFD
-          scripts/config --enable CONFIG_AIO
-          scripts/config --enable CONFIG_IO_URING
-          scripts/config --enable CONFIG_RCU_LAZY
+          #scripts/config --enable CONFIG_GENERIC_CPU
+          #scripts/config --set-val CONFIG_X86_64_VERSION 3
+          #scripts/config --enable CONFIG_KERNEL_ZSTD
+          #scripts/config --enable CONFIG_LTO
+          #scripts/config --enable CONFIG_LTO_CLANG
+          #scripts/config --disable CONFIG_LTO_CLANG_FULL
+          #scripts/config --enable CONFIG_LTO_CLANG_THIN
+          #scripts/config --disable CONFIG_LTO_NONE
+          #scripts/config --set-val CONFIG_NR_CPUS 8
+          #scripts/config --set-val CONFIG_RCU_FANOUT 8
+          #scripts/config --set-val CONFIG_RCU_FANOUT_LEAF 8
+          #scripts/config --enable CONFIG_HZ_100
+          #scripts/config --set-val CONFIG_HZ 100
+          #scripts/config --enable CONFIG_NO_HZ_IDLE
+          #scripts/config --disable CONFIG_NO_HZ_FULL
+          #scripts/config --disable CONFIG_HZ_250
+          #scripts/config --enable CONFIG_FUTEX
+          #scripts/config --enable CONFIG_FUTEX_PI
+          #scripts/config --enable CONFIG_EPOLL
+          #scripts/config --enable CONFIG_SIGNALFD
+          #scripts/config --enable CONFIG_TIMERFD
+          #scripts/config --enable CONFIG_EVENTFD
+          #scripts/config --enable CONFIG_AIO
+          #scripts/config --enable CONFIG_IO_URING
+          #scripts/config --enable CONFIG_RCU_LAZY
           # 自己想做的调整想要的精简放这里
 
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
