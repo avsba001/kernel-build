@@ -59,7 +59,7 @@ jobs:
       - name: Apply cloud config for KVM VPS
         run:  |
           cd kernel
-          cp CONFIGS/x86_64/config .config
+          cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
 
           scripts/config --enable CONFIG_GENERIC_CPU
           scripts/config --set-val CONFIG_X86_64_VERSION 3
