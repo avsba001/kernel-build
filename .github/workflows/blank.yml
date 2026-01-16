@@ -126,6 +126,8 @@ jobs:
           tag_name: xanmod-cloud-${{ github.run_id }}
           name: XanMod Cloud Kernel
           files: artifacts/*
+          overwrite_files: true
+          token: ${{ secrets.GH_TOKEN }}  # 使用在Secrets中存储的Token
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
