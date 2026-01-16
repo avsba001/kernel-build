@@ -83,10 +83,10 @@ jobs:
 
       - name: Apply cloud config for KVM VPS
         run:  |
+          chmod +x ./config.sh
+          cp kernel/CONFIGS/xanmod/gcc/config_x86-64-v3 .config
           cd kernel
-          cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
-          chmod +x ${{ github.workspace }}/config.sh
-          .${{ github.workspace }}/config.sh CONFIGS/xanmod/gcc/config_x86-64-v3
+          ./config.sh kernel/CONFIGS/xanmod/gcc/config_x86-64-v3
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
           
