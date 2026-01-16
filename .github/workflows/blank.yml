@@ -80,11 +80,14 @@ jobs:
             kernel/arch/x86
             kernel/drivers
           key: kernel-6.12-xanmod-${{ github.ref }}
+      - name: List files in workspace
+        run: |
+          ls -al
 
       - name: Apply cloud config for KVM VPS
         run:  |
           cd kernel
-          cp ../../config.sh .
+          cp ../config.sh .
           chmod +x config.sh
           cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
           ./config.sh
