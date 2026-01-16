@@ -121,16 +121,28 @@ jobs:
           mv linux-headers-*.deb artifacts/
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: xanmod-cloud-${{ github.run_id }}
           name: XanMod Cloud Kernel
           files: artifacts/*
           overwrite_files: true
-          token: ${{ secrets.GH_TOKEN }}  # 使用在Secrets中存储的Token
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Delete workflow runs
+        if: always()
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 30
+          keep_minimum_runs: 5
+
+      - name: Remove old Releases
+        if: always()
+        uses: dev-drprasad/delete-older-releases@master
+        with:
+          keep_latest: 5
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
