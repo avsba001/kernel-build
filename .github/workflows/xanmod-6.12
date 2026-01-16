@@ -23,6 +23,12 @@ jobs:
           cat /proc/meminfo
           sudo timedatectl set-timezone Asia/Shanghai
 
+      - name: Cache LLVM
+        uses: actions/cache@v5
+        with:
+          path: /usr/lib/llvm-21
+          key: llvm-21-${{ runner.os }}
+
       - name: Install LLVM/Clang
         run: |
           sudo apt-get update
@@ -55,6 +61,15 @@ jobs:
       - name: Clone XanMod kernel
         run: |
           git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
+
+      - name: Cache kernel build
+        uses: actions/cache@v5
+        with:
+          path: |
+            kernel/.cache
+            kernel/arch/x86
+            kernel/drivers
+          key: kernel-6.12-xanmod-${{ github.ref }}
 
       - name: Apply cloud config for KVM VPS
         run:  |
