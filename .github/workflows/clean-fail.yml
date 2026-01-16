@@ -2,10 +2,15 @@ name: Delete All Failed Workflow Runs
 
 on:
   schedule:
-    - cron: '0 0 * * *' # 每天午夜运行一次
+    - cron: '0 0 * * *' # 每天午夜执行一次
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
 
 jobs:
   delete_failed_runs:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -21,12 +26,7 @@ jobs:
       - name: Authenticate GitHub CLI
         run: gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get All Workflow Runs and Delete Failed Ones
+      - name: Delete Failed Workflow Run
         run: |
-          echo "Fetching all workflow runs"
-          failed_runs=$(gh api /repos/${{ github.repository }}/actions/runs --jq '.workflow_runs[] | select(.conclusion=="failure") | .id')
-          
-          for run_id in $failed_runs; do
-            echo "Deleting failed workflow run: $run_id"
-            gh api --method DELETE "/repos/${{ github.repository }}/actions/runs/$run_id"
-          done
+          echo "Deleting failed run: ${{ github.event.workflow_run.id }}"
+          gh api --method DELETE "/repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}"
