@@ -1,0 +1,32 @@
+name: Delete All Failed Workflow Runs
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 每天午夜运行一次
+
+jobs:
+  delete_failed_runs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install GitHub CLI
+        run: |
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /usr/share/keyrings/githubcli.asc > /dev/null
+          sudo apt update
+          sudo apt install gh
+
+      - name: Authenticate GitHub CLI
+        run: gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get All Workflow Runs and Delete Failed Ones
+        run: |
+          echo "Fetching all workflow runs"
+          failed_runs=$(gh api /repos/${{ github.repository }}/actions/runs --jq '.workflow_runs[] | select(.conclusion=="failure") | .id')
+          
+          for run_id in $failed_runs; do
+            echo "Deleting failed workflow run: $run_id"
+            gh api --method DELETE "/repos/${{ github.repository }}/actions/runs/$run_id"
+          done
