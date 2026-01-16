@@ -93,12 +93,12 @@ jobs:
       - name: Build kernel vmlinux
         run: |
           cd kernel
-          make -j4 LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld vmlinux KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
+          make -j4 LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld vmlinux KCFLAGS="-march=x86-64-v3 -O2 -Wno-error"
 
       - name: Build kernel modules_prepare
         run: |
           cd kernel
-          make -j4 LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
+          make -j4 LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld modules_prepare KCFLAGS="-march=x86-64-v3 -O2 -Wno-error"
 
       - name: Build kernel deb packages
         run: |
