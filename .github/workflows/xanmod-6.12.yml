@@ -1,4 +1,4 @@
-name: Build XanMod Cloud Kernel 6.12
+name: Build
 
 on:
   workflow_dispatch:
