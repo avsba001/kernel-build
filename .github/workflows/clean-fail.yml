@@ -1,32 +1,18 @@
-name: Delete All Failed Workflow Runs
-
+name: Delete old workflow runs
 on:
   schedule:
-    - cron: '0 0 * * *' # 每天午夜执行一次
-  workflow_run:
-    workflows: ["Build"]
-    types:
-      - completed
-
+    - cron: '0 0 1 * *'
 jobs:
-  delete_failed_runs:
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+  del_runs:
     runs-on: ubuntu-latest
-
+    permissions:
+      actions: write
+      contents: read
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Install GitHub CLI
-        run: |
-          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /usr/share/keyrings/githubcli.asc > /dev/null
-          sudo apt update
-          sudo apt install gh
-
-      - name: Authenticate GitHub CLI
-        run: gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Delete Failed Workflow Run
-        run: |
-          echo "Deleting failed run: ${{ github.event.workflow_run.id }}"
-          gh api --method DELETE "/repos/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}"
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 30
+          keep_minimum_runs: 6
