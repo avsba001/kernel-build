@@ -66,8 +66,8 @@ jobs:
           scripts/config --enable CONFIG_KERNEL_ZSTD
           scripts/config --enable CONFIG_LTO
           scripts/config --enable CONFIG_LTO_CLANG
-          scripts/config --enable CONFIG_LTO_CLANG_FULL
-          scripts/config --disable CONFIG_LTO_CLANG_THIN
+          scripts/config --disable CONFIG_LTO_CLANG_FULL
+          scripts/config --enable CONFIG_LTO_CLANG_THIN
           scripts/config --disable CONFIG_LTO_NONE
           scripts/config --set-val CONFIG_NR_CPUS 8
           scripts/config --set-val CONFIG_RCU_FANOUT 8
