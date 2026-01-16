@@ -1,0 +1,119 @@
+name: Build XanMod Cloud Kernel
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      DEB_BUILD_OPTIONS: nocheck
+      KERNEL_LOCALVERSION: -cloud
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Show system & set-timezone
+        run: |
+          echo -e "Total CPU cores\t: $(nproc)"
+          cat /proc/cpuinfo
+          cat /proc/meminfo
+          sudo timedatectl set-timezone Asia/Shanghai
+
+      - name: Install LLVM/Clang
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget lsb-release gnupg
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 21 all
+          echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo -E apt-mark hold grub-efi-amd64-signed firefox snapd mysql* || true
+          sudo apt-get autoremove -y --purge
+          sudo apt-get clean
+          sudo -E apt-get -y update
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential bc bison flex \
+            libssl-dev libelf-dev libncurses-dev \
+            libdw-dev debhelper debhelper-compat dpkg-dev devscripts \
+            linux-libc-dev linux-firmware curl wget \
+            dwarves pahole fakeroot git pkg-config perl \
+            rsync xz-utils zstd binutils cpio initramfs-tools
+          sudo -E systemctl daemon-reload || true
+          sudo apt-get autoremove -y --purge
+          sudo apt-get clean
+
+      - name: Clone XanMod kernel
+        run: |
+          git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
+
+      - name: Apply cloud config for KVM VPS
+        run:  |
+          cd kernel
+          cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
+
+          #scripts/config --enable CONFIG_GENERIC_CPU
+          #scripts/config --set-val CONFIG_X86_64_VERSION 3
+          #scripts/config --enable CONFIG_KERNEL_ZSTD
+          #scripts/config --enable CONFIG_LTO
+          #scripts/config --enable CONFIG_LTO_CLANG
+          #scripts/config --disable CONFIG_LTO_CLANG_FULL
+          #scripts/config --enable CONFIG_LTO_CLANG_THIN
+          #scripts/config --disable CONFIG_LTO_NONE
+          #scripts/config --set-val CONFIG_NR_CPUS 8
+          #scripts/config --set-val CONFIG_RCU_FANOUT 8
+          #scripts/config --set-val CONFIG_RCU_FANOUT_LEAF 8
+          #scripts/config --enable CONFIG_HZ_100
+          #scripts/config --set-val CONFIG_HZ 100
+          #scripts/config --enable CONFIG_NO_HZ_IDLE
+          #scripts/config --disable CONFIG_NO_HZ_FULL
+          #scripts/config --disable CONFIG_HZ_250
+          #scripts/config --enable CONFIG_FUTEX
+          #scripts/config --enable CONFIG_FUTEX_PI
+          #scripts/config --enable CONFIG_EPOLL
+          #scripts/config --enable CONFIG_SIGNALFD
+          #scripts/config --enable CONFIG_TIMERFD
+          #scripts/config --enable CONFIG_EVENTFD
+          #scripts/config --enable CONFIG_AIO
+          #scripts/config --enable CONFIG_IO_URING
+          #scripts/config --enable CONFIG_RCU_LAZY
+          # 自己想做的调整想要的精简放这里
+
+          make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
+
+      - name: Build kernel vmlinux
+        run: |
+          cd kernel
+          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld vmlinux modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
+
+      - name: Build kernel modules_prepare
+        run: |
+          cd kernel
+          make -j4 LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
+
+      - name: Build kernel deb packages
+        run: |
+          cd kernel
+          KDEB_COMPRESS=xz make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld bindeb-pkg LOCALVERSION=${KERNEL_LOCALVERSION} KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
+
+      - name: Collect kernel artifacts
+        run: |
+          mkdir -p artifacts
+          mv linux-image-*.deb artifacts/
+          mv linux-headers-*.deb artifacts/
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: xanmod-cloud-${{ github.run_id }}
+          name: XanMod Cloud Kernel
+          files: artifacts/*
