@@ -85,8 +85,8 @@ jobs:
         run:  |
           cd kernel
           cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
-          chmod +x kernel_config.sh
-          ./kernel_config.sh CONFIGS/xanmod/gcc/config_x86-64-v3
+          chmod +x config.sh
+          ./config.sh CONFIGS/xanmod/gcc/config_x86-64-v3
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
           
