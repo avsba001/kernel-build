@@ -5392,7 +5392,7 @@ scripts/config --disable CONFIG_CLKBLD_I8253
 scripts/config --disable CONFIG_RAS
 scripts/config --disable CONFIG_LIBNVDIMM
 scripts/config --disable CONFIG_FUSE_PASSTHROUGH
-scripts/config --disable CONFIG_OVERLAY_FS
+scripts/config --enable CONFIG_OVERLAY_FS
 scripts/config --disable CONFIG_EXPORTFS
 scripts/config --disable CONFIG_FSNOTIFY
 scripts/config --disable CONFIG_FANOTIFY
