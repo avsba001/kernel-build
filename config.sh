@@ -3,8 +3,8 @@ set -e
 
 
 # 批量修改
-#scripts/config --enable CONFIG_GENERIC_CPU
-#scripts/config --set-val CONFIG_X86_64_VERSION 3
+scripts/config --enable CONFIG_GENERIC_CPU
+scripts/config --set-val CONFIG_X86_64_VERSION 3
 scripts/config --disable CONFIG_USELIB
 scripts/config --disable CONFIG_AUDIT
 scripts/config --disable CONFIG_AUDITSYSCALL
@@ -1426,7 +1426,6 @@ scripts/config --disable CONFIG_KEYBOARD_XTKBD
 scripts/config --disable CONFIG_KEYBOARD_CROS_EC
 scripts/config --disable CONFIG_KEYBOARD_MTK_PMIC
 scripts/config --disable CONFIG_KEYBOARD_CYPRESS_SF
-
 scripts/config --disable CONFIG_MOUSE_PS2
 scripts/config --disable CONFIG_MOUSE_PS2_ALPS
 scripts/config --disable CONFIG_MOUSE_PS2_BYD
@@ -1454,7 +1453,6 @@ scripts/config --disable CONFIG_MOUSE_VSXXXAA
 scripts/config --disable CONFIG_MOUSE_GPIO
 scripts/config --disable CONFIG_MOUSE_SYNAPTICS_I2C
 scripts/config --disable CONFIG_MOUSE_SYNAPTICS_USB
-
 scripts/config --disable CONFIG_JOYSTICK_ANALOG
 scripts/config --disable CONFIG_JOYSTICK_A3D
 scripts/config --disable CONFIG_JOYSTICK_ADC
@@ -1493,14 +1491,12 @@ scripts/config --disable CONFIG_JOYSTICK_QWIIC
 scripts/config --disable CONFIG_JOYSTICK_FSIA6B
 scripts/config --disable CONFIG_JOYSTICK_SENSEHAT
 scripts/config --disable CONFIG_JOYSTICK_SEESAW
-
 scripts/config --disable CONFIG_TABLET_USB_ACECAD
 scripts/config --disable CONFIG_TABLET_USB_AIPTEK
 scripts/config --disable CONFIG_TABLET_USB_HANWANG
 scripts/config --disable CONFIG_TABLET_USB_KBTAB
 scripts/config --disable CONFIG_TABLET_USB_PEGASUS
 scripts/config --disable CONFIG_TABLET_SERIAL_WACOM4
-
 scripts/config --disable CONFIG_TOUCHSCREEN_88PM860X
 scripts/config --disable CONFIG_TOUCHSCREEN_ADS7846
 scripts/config --disable CONFIG_TOUCHSCREEN_AD7877
@@ -1585,7 +1581,6 @@ scripts/config --disable CONFIG_TOUCHSCREEN_IQS5XX
 scripts/config --disable CONFIG_TOUCHSCREEN_IQS7211
 scripts/config --disable CONFIG_TOUCHSCREEN_ZINITIX
 scripts/config --disable CONFIG_TOUCHSCREEN_HIMAX_HX83112B
-
 scripts/config --disable CONFIG_INPUT_MISC
 scripts/config --disable CONFIG_INPUT_88PM860X_ONKEY
 scripts/config --disable CONFIG_INPUT_88PM80X_ONKEY
@@ -2733,7 +2728,6 @@ scripts/config --disable CONFIG_VIDEO_CX231XX
 scripts/config --disable CONFIG_VIDEO_CX231XX_RC
 scripts/config --disable CONFIG_VIDEO_CX231XX_ALSA
 scripts/config --disable CONFIG_VIDEO_CX231XX_DVB
-
 # 禁用数字 TV USB 设备相关配置
 scripts/config --disable CONFIG_DVB_AS102
 scripts/config --disable CONFIG_DVB_B2C2_FLEXCOP_USB
@@ -3108,41 +3102,12 @@ scripts/config --disable CONFIG_DVB_CXD2099
 scripts/config --disable CONFIG_DVB_SP2
 scripts/config --disable CONFIG_DVB_DUMMY_FE
 
-# 禁用图形相关的配置
-scripts/config --disable CONFIG_VIDEO
-scripts/config --disable CONFIG_AUXDISPLAY
-scripts/config --disable CONFIG_CHARLCD
-scripts/config --disable CONFIG_HD44780_COMMON
-scripts/config --disable CONFIG_HD44780
-scripts/config --disable CONFIG_LCD2S
-scripts/config --disable CONFIG_PARPORT_PANEL
-scripts/config --disable CONFIG_PANEL_PARPORT
-scripts/config --disable CONFIG_PANEL_PROFILE
-scripts/config --disable CONFIG_CHARLCD_BL_FLASH
-scripts/config --disable CONFIG_KS0108
-scripts/config --disable CONFIG_KS0108_PORT
-scripts/config --disable CONFIG_CFAG12864B
-scripts/config --disable CONFIG_LINEDISP
-scripts/config --disable CONFIG_IMG_ASCII_LCD
-scripts/config --disable CONFIG_HT16K33
-scripts/config --disable CONFIG_MAX6959
-scripts/config --disable CONFIG_SEG_LED_GPIO
-
-# 禁用显卡支持
+# 禁用不需要的显卡硬件支持
 scripts/config --disable CONFIG_AGP
-scripts/config --disable CONFIG_AGP_AMD64
-scripts/config --disable CONFIG_AGP_INTEL
-scripts/config --disable CONFIG_AGP_SIS
-scripts/config --disable CONFIG_AGP_VIA
-scripts/config --disable CONFIG_INTEL_GTT
 scripts/config --disable CONFIG_VGA_SWITCHEROO
 scripts/config --disable CONFIG_DRM
 scripts/config --disable CONFIG_DRM_MIPI_DBI
 scripts/config --disable CONFIG_DRM_MIPI_DSI
-scripts/config --disable CONFIG_DRM_DEBUG_MM
-scripts/config --disable CONFIG_DRM_PANIC
-scripts/config --disable CONFIG_DRM_DEBUG_MODESET_LOCK
-scripts/config --disable CONFIG_DRM_CLIENT_SELECTION
 scripts/config --disable CONFIG_DRM_FBDEV_EMULATION
 scripts/config --disable CONFIG_DRM_FBDEV_OVERALLOC
 scripts/config --disable CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM
@@ -3150,162 +3115,42 @@ scripts/config --disable CONFIG_DRM_LOAD_EDID_FIRMWARE
 scripts/config --disable CONFIG_DRM_DISPLAY_HELPER
 scripts/config --disable CONFIG_DRM_DISPLAY_DP_AUX_CEC
 scripts/config --disable CONFIG_DRM_DISPLAY_DP_AUX_CHARDEV
-scripts/config --disable CONFIG_DRM_DISPLAY_DP_HELPER
-scripts/config --disable CONFIG_DRM_DISPLAY_DP_TUNNEL
-scripts/config --disable CONFIG_DRM_DISPLAY_HDCP_HELPER
-scripts/config --disable CONFIG_DRM_DISPLAY_HDMI_HELPER
 scripts/config --disable CONFIG_DRM_TTM
-scripts/config --disable CONFIG_DRM_EXEC
-scripts/config --disable CONFIG_DRM_GPUVM
-scripts/config --disable CONFIG_DRM_BUDDY
 scripts/config --disable CONFIG_DRM_VRAM_HELPER
 scripts/config --disable CONFIG_DRM_TTM_HELPER
 scripts/config --disable CONFIG_DRM_GEM_DMA_HELPER
 scripts/config --disable CONFIG_DRM_GEM_SHMEM_HELPER
 scripts/config --disable CONFIG_DRM_SUBALLOC_HELPER
 scripts/config --disable CONFIG_DRM_SCHED
-
-# 禁用AMD显卡支持
+scripts/config --disable CONFIG_DRM_NOUVEAU
 scripts/config --disable CONFIG_DRM_RADEON
 scripts/config --disable CONFIG_DRM_AMDGPU
-scripts/config --disable CONFIG_DRM_AMDGPU_SI
-scripts/config --disable CONFIG_DRM_AMDGPU_CIK
-scripts/config --disable CONFIG_DRM_AMDGPU_USERPTR
-scripts/config --disable CONFIG_DRM_AMD_ISP
-scripts/config --disable CONFIG_DRM_AMDGPU_WERROR
-
-# 禁用nouveau驱动
-scripts/config --disable CONFIG_DRM_NOUVEAU
-scripts/config --disable CONFIG_NOUVEAU_DEBUG
-scripts/config --disable CONFIG_NOUVEAU_DEBUG_DEFAULT
-scripts/config --disable CONFIG_DRM_NOUVEAU_BACKLIGHT
-scripts/config --disable CONFIG_DRM_NOUVEAU_SVM
-scripts/config --disable CONFIG_DRM_NOUVEAU_GSP_DEFAULT
-
-# 禁用Intel显卡支持
 scripts/config --disable CONFIG_DRM_I915
-scripts/config --disable CONFIG_DRM_I915_FORCE_PROBE
-scripts/config --disable CONFIG_DRM_I915_CAPTURE_ERROR
-scripts/config --disable CONFIG_DRM_I915_COMPRESS_ERROR
-scripts/config --disable CONFIG_DRM_I915_USERPTR
-scripts/config --disable CONFIG_DRM_I915_GVT_KVMGT
-scripts/config --disable CONFIG_DRM_I915_PXP
-scripts/config --disable CONFIG_DRM_I915_DP_TUNNEL
-
-# 禁用其他显卡相关配置
-scripts/config --disable CONFIG_DRM_I915_WERROR
-scripts/config --disable CONFIG_DRM_I915_REPLAY_GPU_HANGS_API
-scripts/config --disable CONFIG_DRM_I915_DEBUG
-scripts/config --disable CONFIG_DRM_I915_SW_FENCE_DEBUG_OBJECTS
-scripts/config --disable CONFIG_DRM_I915_SW_FENCE_CHECK_DAG
-scripts/config --disable CONFIG_DRM_I915_DEBUG_GUC
-scripts/config --disable CONFIG_DRM_I915_SELFTEST
-scripts/config --disable CONFIG_DRM_I915_LOW_LEVEL_TRACEPOINTS
-
-# 禁用Xe显卡支持
 scripts/config --disable CONFIG_DRM_XE
-scripts/config --disable CONFIG_DRM_XE_DISPLAY
-scripts/config --disable CONFIG_DRM_XE_FORCE_PROBE
-
-# 禁用VGEM、VKMS、VMWGFX等虚拟显卡支持
-scripts/config --disable CONFIG_DRM_VGEM
-scripts/config --disable CONFIG_DRM_VKMS
-scripts/config --disable CONFIG_DRM_VMWGFX
-scripts/config --disable CONFIG_DRM_VMWGFX_MKSSTATS
-scripts/config --disable CONFIG_DRM_GMA500
-scripts/config --disable CONFIG_DRM_UDL
-scripts/config --disable CONFIG_DRM_AST
-scripts/config --disable CONFIG_DRM_MGAG200
-scripts/config --disable CONFIG_DRM_QXL
 scripts/config --disable CONFIG_DRM_VIRTIO_GPU
-scripts/config --disable CONFIG_DRM_VIRTIO_GPU_KMS
+scripts/config --disable CONFIG_DRM_VMWGFX
+scripts/config --disable CONFIG_DRM_AST
+scripts/config --disable CONFIG_DRM_QXL
+scripts/config --disable CONFIG_DRM_MGAG200
 
-# 禁用显示面板配置
-scripts/config --disable CONFIG_DRM_PANEL_AUO_A030JTN01
-scripts/config --disable CONFIG_DRM_PANEL_ILITEK_ILI9341
-scripts/config --disable CONFIG_DRM_PANEL_ORISETECH_OTA5601A
-scripts/config --disable CONFIG_DRM_PANEL_RASPBERRYPI_TOUCHSCREEN
-scripts/config --disable CONFIG_DRM_PANEL_WIDECHIPS_WS2401
-
-# 禁用显示桥接器
-scripts/config --disable CONFIG_DRM_BRIDGE
-scripts/config --disable CONFIG_DRM_PANEL_BRIDGE
-scripts/config --disable CONFIG_DRM_ANALOGIX_ANX78XX
-scripts/config --disable CONFIG_DRM_ANALOGIX_DP
-scripts/config --disable CONFIG_DRM_ETNAVIV
-scripts/config --disable CONFIG_DRM_BOCHS
-scripts/config --disable CONFIG_DRM_CIRRUS_QEMU
-scripts/config --disable CONFIG_DRM_GM12U320
-scripts/config --disable CONFIG_DRM_PANEL_MIPI_DBI
-scripts/config --disable CONFIG_DRM_SIMPLEDRM
-scripts/config --disable CONFIG_TINYDRM_HX8357D
-scripts/config --disable CONFIG_TINYDRM_ILI9163
-scripts/config --disable CONFIG_TINYDRM_ILI9225
-scripts/config --disable CONFIG_TINYDRM_ILI9341
-scripts/config --disable CONFIG_TINYDRM_ILI9486
-scripts/config --disable CONFIG_TINYDRM_MI0283QT
-scripts/config --disable CONFIG_TINYDRM_REPAPER
-scripts/config --disable CONFIG_TINYDRM_ST7586
-scripts/config --disable CONFIG_TINYDRM_ST7735R
-scripts/config --disable CONFIG_DRM_XEN
-scripts/config --disable CONFIG_DRM_XEN_FRONTEND
-scripts/config --disable CONFIG_DRM_VBOXVIDEO
-scripts/config --disable CONFIG_DRM_GUD
-scripts/config --disable CONFIG_DRM_SSD130X
-scripts/config --disable CONFIG_DRM_SSD130X_I2C
-scripts/config --disable CONFIG_DRM_SSD130X_SPI
-scripts/config --disable CONFIG_DRM_HYPERV
-scripts/config --disable CONFIG_DRM_PRIVACY_SCREEN
-
-# 禁用帧缓冲设备相关配置
+# 禁用帧缓冲设备支持
 scripts/config --disable CONFIG_FB
-scripts/config --disable CONFIG_FB_HECUBA
-scripts/config --disable CONFIG_FB_SVGALIB
-scripts/config --disable CONFIG_FB_CIRRUS
-scripts/config --disable CONFIG_FB_PM2
-scripts/config --disable CONFIG_FB_CYBER2000
-scripts/config --disable CONFIG_FB_ARC
-scripts/config --disable CONFIG_FB_ASILIANT
-scripts/config --disable CONFIG_FB_IMSTT
-scripts/config --disable CONFIG_FB_VGA16
-scripts/config --disable CONFIG_FB_UVESA
-scripts/config --disable CONFIG_FB_VESA
-scripts/config --disable CONFIG_FB_EFI
-scripts/config --disable CONFIG_FB_N411
-scripts/config --disable CONFIG_FB_HGA
-scripts/config --disable CONFIG_FB_OPENCORES
-scripts/config --disable CONFIG_FB_S1D13XXX
-scripts/config --disable CONFIG_FB_NVIDIA
-scripts/config --disable CONFIG_FB_RIVA
-scripts/config --disable CONFIG_FB_I740
-scripts/config --disable CONFIG_FB_MATROX
-scripts/config --disable CONFIG_FB_RADEON
-scripts/config --disable CONFIG_FB_ATY128
-scripts/config --disable CONFIG_FB_ATY
-scripts/config --disable CONFIG_FB_S3
-scripts/config --disable CONFIG_FB_SAVAGE
-scripts/config --disable CONFIG_FB_SIS
-scripts/config --disable CONFIG_FB_VIA
-scripts/config --disable CONFIG_FB_NEOMAGIC
-scripts/config --disable CONFIG_FB_KYRO
-scripts/config --disable CONFIG_FB_3DFX
-scripts/config --disable CONFIG_FB_VOODOO1
-scripts/config --disable CONFIG_FB_VT8623
-scripts/config --disable CONFIG_FB_TRIDENT
-scripts/config --disable CONFIG_FB_ARK
-scripts/config --disable CONFIG_FB_PM3
-scripts/config --disable CONFIG_FB_CARMINE
-scripts/config --disable CONFIG_FB_SM501
-scripts/config --disable CONFIG_FB_SMSCUFX
-scripts/config --disable CONFIG_FB_UDL
-scripts/config --disable CONFIG_FB_IBM_GXT4500
 scripts/config --disable CONFIG_FB_VIRTUAL
-scripts/config --disable CONFIG_XEN_FBDEV_FRONTEND
-scripts/config --disable CONFIG_FB_METRONOME
-scripts/config --disable CONFIG_FB_MB862XX
-scripts/config --disable CONFIG_FB_HYPERV
-scripts/config --disable CONFIG_FB_SSD1307
-scripts/config --disable CONFIG_FB_SM712
+scripts/config --disable CONFIG_FB_CYBER2000
+scripts/config --disable CONFIG_FB_RADEON
+scripts/config --disable CONFIG_FB_SAVAGE
+scripts/config --disable CONFIG_FB_VESA
+# 保留 VNC 和 noVNC 支持
+scripts/config --enable CONFIG_VNC
+scripts/config --enable CONFIG_VNC_SERVER
+scripts/config --enable CONFIG_VNC_VSP
+scripts/config --enable CONFIG_FB_VESA
+scripts/config --enable CONFIG_FB_VIRTUAL
+scripts/config --enable CONFIG_VGA
+
+# 保留虚拟显卡支持
+scripts/config --enable CONFIG_VIRTIO_GPU
+scripts/config --enable CONFIG_VIRTIO_GPU_KMS
 
 # 禁用背光和LCD设备支持
 scripts/config --disable CONFIG_LCD_CLASS_DEVICE
