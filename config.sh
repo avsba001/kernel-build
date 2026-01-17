@@ -224,8 +224,8 @@ scripts/config --disable CONFIG_ARCH_SUPPORTS_CFI_CLANG
 scripts/config --disable CONFIG_HAVE_CFI_ICALL_NORMALIZE_INTEGERS_CLANG
 scripts/config --disable CONFIG_X86_MEM_ENCRYPT
 scripts/config --disable CONFIG_AMD_MEM_ENCRYPT
-scripts/config --enable CONFIG_LTO_CLANG_THIN
-scripts/config --disable CONFIG_LTO_CLANG_FULL
+scripts/config --disable CONFIG_LTO_CLANG_THIN
+scripts/config --enable CONFIG_LTO_CLANG_FULL
 scripts/config --disable CONFIG_MODULE_SIG
 scripts/config --disable CONFIG_MODULE_SIG_ALL
 scripts/config --disable CONFIG_MODULE_SIG_SHA512
