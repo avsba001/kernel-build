@@ -5537,10 +5537,11 @@ scripts/config --disable CONFIG_CPU_IDLE_GOV_TEO
 scripts/config --disable CONFIG_CPU_IDLE_GOV_HALTPOLL
 scripts/config --disable CONFIG_HALTPOLL_CPUIDLE
 scripts/config --enable CONFIG_CGROUP_BPF
-scripts/config --disable TRANSPARENT_HUGEPAGE
-scripts/config --disable TRANSPARENT_HUGEPAGE_ALWAYS
-scripts/config --disable TRANSPARENT_HUGEPAGE_MADVISE
-scripts/config --disable TRANSPARENT_HUGEPAGE_NEVER
-
+scripts/config --disable CONFIG_TRANSPARENT_HUGEPAGE
+scripts/config --disable CONFIG_TRANSPARENT_HUGEPAGE_ALWAYS
+scripts/config --disable CONFIG_TRANSPARENT_HUGEPAGE_MADVISE
+scripts/config --disable CONFIG_TRANSPARENT_HUGEPAGE_NEVER
+scripts/config --disable CONFIG_QNX4FS_FS
+scripts/config --disable CONFIG_QNX6FS_FS
 
 # 这里可以继续写更多选项
