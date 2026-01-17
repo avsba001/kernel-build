@@ -5435,5 +5435,26 @@ scripts/config --disable CONFIG_ISCSI_TCP
 scripts/config --disable CONFIG_ISCSI_BOOT_SYSFS
 scripts/config --disable CONFIG_SCSI_QLA_ISCSI
 scripts/config --disable CONFIG_ISCSI_TARGET
+scripts/config --disable CONFIG_XEN
+scripts/config --disable CONFIG_XEN_PV
+scripts/config --disable CONFIG_XEN_512GB
+scripts/config --disable CONFIG_XEN_PV_SMP
+scripts/config --disable CONFIG_XEN_PV_DOM0
+scripts/config --disable CONFIG_XEN_PVHVM
+scripts/config --disable CONFIG_XEN_PVHVM_SMP
+scripts/config --disable CONFIG_XEN_PVHVM_GUEST
+scripts/config --disable CONFIG_XEN_SAVE_RESTORE
+scripts/config --disable CONFIG_XEN_PVH
+scripts/config --disable CONFIG_XEN_DOM0
+scripts/config --disable CONFIG_XEN_PV_MSR_SAFE
+scripts/config --disable CONFIG_PCI_XEN
+scripts/config --disable CONFIG_KVM_XEN
+scripts/config --disable CONFIG_XEN_PCIDEV_FRONTEND
+scripts/config --disable CONFIG_XEN_BLKDEV_FRONTEND
+scripts/config --disable CONFIG_XEN_SCSI_FRONTEND
+scripts/config --disable CONFIG_XEN_NETDEV_FRONTEND
+scripts/config --disable CONFIG_HVC_XEN
+scripts/config --disable CONFIG_HVC_XEN_FRONTEND
+
 # 这里可以继续写更多选项
 
