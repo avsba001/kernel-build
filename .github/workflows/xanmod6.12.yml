@@ -80,10 +80,6 @@ jobs:
             kernel/arch/x86
             kernel/drivers
           key: kernel-6.12-xanmod-${{ github.ref }}
-          
-      - name: 查看文件目录
-        run: |
-          ls -al
 
       - name: 从仓库更新 config 配置
         run:  |
@@ -115,6 +111,11 @@ jobs:
           cd kernel
           KDEB_COMPRESS=xz make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld bindeb-pkg LOCALVERSION=${KERNEL_LOCALVERSION} KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
 
+      - name: 查看文件目录
+        run: |
+          cd kernel
+          ls -al
+          
       - name: 归档文件 kernel artifacts
         run: |
           mkdir -p artifacts
