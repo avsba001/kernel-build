@@ -125,7 +125,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: xanmod-cloud-${{ github.run_id }}
+          tag_name: xanmod-cloud-6.12
           name: XanMod Cloud Kernel
           files: artifacts/*
           overwrite_files: true
