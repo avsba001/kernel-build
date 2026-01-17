@@ -408,7 +408,6 @@ scripts/config --disable CONFIG_NET_9P_RDMA
 scripts/config --disable CONFIG_CAIF
 scripts/config --disable CONFIG_CAIF_NETDEV
 scripts/config --disable CONFIG_CAIF_USB
-scripts/config --disable CONFIG_CEPH_LIB
 scripts/config --disable CONFIG_NFC
 scripts/config --disable CONFIG_NFC_DIGITAL
 scripts/config --disable CONFIG_NFC_NCI
@@ -5180,23 +5179,10 @@ scripts/config --disable CONFIG_DEFAULT_SECURITY_SMACK
 scripts/config --disable CONFIG_DEFAULT_SECURITY_TOMOYO
 scripts/config --disable CONFIG_DEFAULT_SECURITY_DAC
 scripts/config --disable CONFIG_SECURITY_LANDLOCK
-scripts/config --disable CONFIG_USER_STACKTRACE_SUPPORT
 scripts/config --disable CONFIG_NOP_TRACER
-scripts/config --disable CONFIG_HAVE_RETHOOK
 scripts/config --disable CONFIG_REHOOK
 scripts/config --disable CONFIG_HAVE_FUNCTION_GRAPH_TRACER
 scripts/config --disable CONFIG_HAVE_FUNCTION_GRAPH_RETVAL
-scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE_WITH_REGS
-scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS
-scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE_WITH_ARGS
-scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE_NO_PATCHABLE
-scripts/config --disable CONFIG_HAVE_FTRACE_MCOUNT_RECORD
-scripts/config --disable CONFIG_HAVE_SYSCALL_TRACEPOINTS
-scripts/config --disable CONFIG_HAVE_FENTRY
-scripts/config --disable CONFIG_HAVE_OBJTOOL_MCOUNT
-scripts/config --disable CONFIG_HAVE_OBJTOOL_NOP_MCOUNT
-scripts/config --disable CONFIG_HAVE_C_RECORDMCOUNT
-scripts/config --disable CONFIG_HAVE_BUILDTIME_MCOUNT_SORT
 scripts/config --disable CONFIG_BUILDTIME_MCOUNT_SORT
 scripts/config --disable CONFIG_TRACER_MAX_TRACE
 scripts/config --disable CONFIG_TRACE_CLOCK
@@ -5205,7 +5191,6 @@ scripts/config --disable CONFIG_EVENT_TRACING
 scripts/config --disable CONFIG_CONTEXT_SWITCH_TRACER
 scripts/config --disable CONFIG_TRACING
 scripts/config --disable CONFIG_GENERIC_TRACER
-scripts/config --disable CONFIG_TRACING_SUPPORT
 scripts/config --disable CONFIG_HID
 scripts/config --disable CONFIG_HID_GENERIC
 scripts/config --disable CONFIG_PMIC_ADP5520
@@ -5263,20 +5248,10 @@ scripts/config --disable CONFIG_HUGETLB_PAGE
 scripts/config --disable CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
 scripts/config --disable CONFIG_DEBUG_FS
 scripts/config --disable CONFIG_MEMORY_NOTIFIER_ERROR_INJECT
-scripts/config --disable CONFIG_SLUB_DEBUG
-scripts/config --disable CONFIG_PAGE_POISONING
 scripts/config --disable CONFIG_ARCH_HAS_DEBUG_WX
-scripts/config --disable CONFIG_DEBUG_WX
-scripts/config --disable CONFIG_DEBUG_MEMORY_INIT
-scripts/config --disable CONFIG_HAVE_DEBUG_KMEMLEAK
 scripts/config --disable CONFIG_SCHED_DEBUG
-scripts/config --disable CONFIG_SCHED_INFO
-scripts/config --disable CONFIG_LOCK_DEBUGGING_SUPPORT
 scripts/config --disable CONFIG_STACKTRACE
 scripts/config --disable CONFIG_RCU_EXP_CPU_STALL_TIMEOUT
-scripts/config --disable CONFIG_HAVE_FUNCTION_TRACER
-scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE
-scripts/config --disable CONFIG_FTRACE
 scripts/config --disable CONFIG_FUNCTION_TRACER
 scripts/config --disable CONFIG_FUNCTION_GRAPH_TRACER
 scripts/config --disable CONFIG_DYNAMIC_FTRACE
@@ -5557,6 +5532,4 @@ scripts/config --disable CONFIG_TEST_FREE_PAGES
 scripts/config --disable CONFIG_TEST_FPU
 scripts/config --disable CONFIG_TEST_CLOCKSOURCE_WATCHDOG
 scripts/config --disable CONFIG_MEMTEST
-
 # 这里可以继续写更多选项
-
