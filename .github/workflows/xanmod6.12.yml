@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Maximize build space
+      - name: 最大化可用空间
         run: |
           echo "-- Dotnet"
           sudo rm -rf /usr/share/dotnet
@@ -32,14 +32,14 @@ jobs:
 
           df -h
 
-      - name: Show system & set-timezone
+      - name: 显示系统信息 & 设置时区
         run: |
           echo -e "Total CPU cores\t: $(nproc)"
           cat /proc/cpuinfo
           cat /proc/meminfo
           sudo timedatectl set-timezone Asia/Shanghai
 
-      - name: Install LLVM/Clang
+      - name: 安装 LLVM/Clang
         run: |
           sudo apt-get update
           sudo apt-get install -y wget lsb-release gnupg
@@ -48,7 +48,7 @@ jobs:
           sudo ./llvm.sh 21 all
           echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
 
-      - name: Install dependencies
+      - name: 安装依赖 dependencies
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -68,11 +68,11 @@ jobs:
           sudo apt-get autoremove -y --purge
           sudo apt-get clean
 
-      - name: Clone XanMod kernel
+      - name: 下载 XanMod 内核
         run: |
           git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
 
-      - name: Cache kernel build
+      - name: 缓存内核编译源码
         uses: actions/cache@v5
         with:
           path: |
@@ -84,7 +84,7 @@ jobs:
         run: |
           ls -al
 
-      - name: Apply cloud config for KVM VPS
+      - name: 从仓库更新 config 配置
         run:  |
           cd kernel
           cp ../config.sh .
@@ -94,33 +94,33 @@ jobs:
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
           
-      - name: Export final kernel .config
+      - name: 导出最终内核配置 .config
         run: |
           mkdir -p artifacts
           cp kernel/.config artifacts/config-6.12-clang-${{ github.run_id }}
 
-      - name: Build kernel vmlinux
+      - name: 构建 kernel vmlinux
         run: |
           cd kernel
           make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld vmlinux modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
 
-      - name: Build kernel modules_prepare
+      - name: 构建内核模块 kernel modules_prepare
         run: |
           cd kernel
           make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
 
-      - name: Build kernel deb packages
+      - name: 构建内核软件包 kernel deb packages
         run: |
           cd kernel
           KDEB_COMPRESS=xz make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld bindeb-pkg LOCALVERSION=${KERNEL_LOCALVERSION} KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
 
-      - name: Collect kernel artifacts
+      - name: 归档文件 kernel artifacts
         run: |
           mkdir -p artifacts
           mv linux-image-*.deb artifacts/
           mv linux-headers-*.deb artifacts/
 
-      - name: Release
+      - name: 发布
         uses: softprops/action-gh-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -130,14 +130,14 @@ jobs:
           files: artifacts/*
           overwrite_files: true
 
-      - name: Delete workflow runs
+      - name: 删除长久过期工作流
         if: always()
         uses: Mattraks/delete-workflow-runs@main
         with:
           retain_days: 30
           keep_minimum_runs: 5
 
-      - name: Remove old Releases
+      - name: 删除旧的发布文件
         if: always()
         uses: dev-drprasad/delete-older-releases@master
         with:
