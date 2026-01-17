@@ -80,7 +80,8 @@ jobs:
             kernel/arch/x86
             kernel/drivers
           key: kernel-6.12-xanmod-${{ github.ref }}
-      - name: List files in workspace
+          
+      - name: 查看文件目录
         run: |
           ls -al
 
