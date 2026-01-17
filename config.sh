@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 set -e
-
-
 # 批量修改
 scripts/config --enable CONFIG_GENERIC_CPU
 scripts/config --set-val CONFIG_X86_64_VERSION 3
@@ -36,7 +34,6 @@ scripts/config --enable CONFIG_MEMCG
 scripts/config --enable CONFIG_CGROUP_PIDS
 scripts/config --enable CONFIG_CGROUP_FREEZER
 scripts/config --enable CONFIG_CGROUP_DEVICE
-
 # 关闭高级 cgroup 特性
 scripts/config --disable CONFIG_BLK_CGROUP
 scripts/config --disable CONFIG_CGROUP_WRITEBACK
@@ -112,9 +109,6 @@ scripts/config --disable CONFIG_PERF_EVENTS_INTEL_RAPL
 scripts/config --disable CONFIG_PERF_EVENTS_INTEL_CSTATE
 scripts/config --disable CONFIG_PERF_EVENTS_AMD_UNCORE
 scripts/config --disable CONFIG_PERF_EVENTS_AMD_BRS
-scripts/config --disable CONFIG_NUMA
-scripts/config --disable CONFIG_AMD_NUMA
-scripts/config --disable CONFIG_X86_64_ACPI_NUMA
 scripts/config --disable CONFIG_MTRR_SANITIZER
 scripts/config --disable CONFIG_X86_SGX
 scripts/config --disable CONFIG_X86_USER_SHADOW_STACK
@@ -1082,12 +1076,10 @@ scripts/config --disable CONFIG_DP83TG720_PHY
 scripts/config --disable CONFIG_VITESSE_PHY
 scripts/config --disable CONFIG_XILINX_GMII2RGMII
 scripts/config --disable CONFIG_MICREL_KS8995MA
-
 # PSE / regulators（可保留或禁用视硬件需求）
 scripts/config --disable CONFIG_PSE_REGULATOR
 scripts/config --disable CONFIG_PSE_PD692X0
 scripts/config --disable CONFIG_PSE_TPS23881
-
 # CAN 核心和驱动
 scripts/config --disable CONFIG_CAN_DEV
 scripts/config --disable CONFIG_CAN_VCAN
@@ -1124,13 +1116,11 @@ scripts/config --disable CONFIG_CAN_SJA1000_ISA
 scripts/config --disable CONFIG_CAN_SJA1000_PLATFORM
 scripts/config --disable CONFIG_CAN_SOFTING
 scripts/config --disable CONFIG_CAN_SOFTING_CS
-
 # CAN SPI 接口
 scripts/config --disable CONFIG_CAN_HI311X
 scripts/config --disable CONFIG_CAN_MCP251X
 scripts/config --disable CONFIG_CAN_MCP251XFD
 scripts/config --disable CONFIG_CAN_MCP251XFD_SANITY
-
 # CAN USB 接口
 scripts/config --disable CONFIG_CAN_8DEV_USB
 scripts/config --disable CONFIG_CAN_EMS_USB
@@ -1142,7 +1132,6 @@ scripts/config --disable CONFIG_CAN_KVASER_USB
 scripts/config --disable CONFIG_CAN_MCBA_USB
 scripts/config --disable CONFIG_CAN_PEAK_USB
 scripts/config --disable CONFIG_CAN_UCAN
-
 # CAN 调试
 scripts/config --disable CONFIG_CAN_DEBUG_DEVICES
 # PPP/SLIP
@@ -1164,7 +1153,6 @@ scripts/config --disable CONFIG_SLHC
 scripts/config --disable CONFIG_SLIP_COMPRESSED
 scripts/config --disable CONFIG_SLIP_SMART
 scripts/config --disable CONFIG_SLIP_MODE_SLIP6
-
 # USB 网络驱动
 scripts/config --disable CONFIG_USB_NET_DRIVERS
 scripts/config --disable CONFIG_USB_CATC
@@ -1242,7 +1230,6 @@ scripts/config --disable CONFIG_BRCMUTIL
 scripts/config --disable CONFIG_BRCMSMAC
 scripts/config --disable CONFIG_BRCMFMAC
 scripts/config --disable CONFIG_LIBIPW
-scripts/config --disable CONFIG_IWLEGACY
 scripts/config --disable CONFIG_IPW2100
 scripts/config --disable CONFIG_IPW2200
 scripts/config --disable CONFIG_IWL4965
@@ -1806,7 +1793,6 @@ scripts/config --disable CONFIG_SPI_TLE62X0
 scripts/config --disable CONFIG_SPI_SLAVE
 scripts/config --disable CONFIG_SPI_SLAVE_TIME
 scripts/config --disable CONFIG_SPI_SLAVE_SYSTEM_CONTROL
-scripts/config --disable CONFIG_SPI_DYNAMIC
 scripts/config --disable CONFIG_SPMI
 scripts/config --disable CONFIG_SPMI_HISI3670
 scripts/config --disable CONFIG_HSI
@@ -1941,7 +1927,6 @@ scripts/config --disable CONFIG_POWER_RESET_ATC260X
 scripts/config --disable CONFIG_POWER_RESET_MT6323
 scripts/config --disable CONFIG_POWER_RESET_RESTART
 scripts/config --disable CONFIG_POWER_RESET_TPS65086
-scripts/config --disable CONFIG_POWER_SUPPLY
 scripts/config --disable CONFIG_POWER_SUPPLY_HWMON
 scripts/config --disable CONFIG_GENERIC_ADC_BATTERY
 scripts/config --disable CONFIG_IP5XXX_POWER
@@ -2161,7 +2146,6 @@ scripts/config --disable CONFIG_SENSORS_PECI_CPUTEMP
 scripts/config --disable CONFIG_SENSORS_PECI_DIMMTEMP
 scripts/config --disable CONFIG_SENSORS_PECI
 scripts/config --disable CONFIG_SENSORS_PMBUS
-scripts/config --disable CONFIG_SENSORS_PMBUS
 scripts/config --disable CONFIG_SENSORS_ACBEL_FSG032
 scripts/config --disable CONFIG_SENSORS_ADM1266
 scripts/config --disable CONFIG_SENSORS_ADM1275
@@ -2223,8 +2207,6 @@ scripts/config --disable CONFIG_SENSORS_SBTSI
 scripts/config --disable CONFIG_SENSORS_SBRMI
 scripts/config --disable CONFIG_SENSORS_SHT15
 scripts/config --disable CONFIG_SENSORS_SHT21
-scripts/config --disable CONFIG_SENSORS_SHT3x
-scripts/config --disable CONFIG_SENSORS_SHT4x
 scripts/config --disable CONFIG_SENSORS_SHTC1
 scripts/config --disable CONFIG_SENSORS_SIS5595
 scripts/config --disable CONFIG_SENSORS_SY7636A
@@ -2284,7 +2266,6 @@ scripts/config --disable CONFIG_SENSORS_HP_WMI
 scripts/config --disable CONFIG_THERMAL_STATISTICS
 scripts/config --disable CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE
 scripts/config --disable CONFIG_THERMAL_GOV_FAIR_SHARE
-scripts/config --disable CONFIG_THERMAL_GOV_STEP_WISE
 scripts/config --disable CONFIG_THERMAL_GOV_BANG_BANG
 scripts/config --disable CONFIG_THERMAL_GOV_USER_SPACE
 scripts/config --disable CONFIG_THERMAL_GOV_POWER_ALLOCATOR
@@ -2388,21 +2369,6 @@ scripts/config --disable CONFIG_MFD_CS42L43_SDW
 scripts/config --disable CONFIG_MFD_MADERA
 scripts/config --disable CONFIG_MFD_MADERA_I2C
 scripts/config --disable CONFIG_MFD_MADERA_SPI
-scripts/config --disable CONFIG_MFD_WL1273_CORE
-scripts/config --disable CONFIG_MFD_LM3533
-scripts/config --disable CONFIG_MFD_TQMX86
-scripts/config --disable CONFIG_MFD_VX855
-scripts/config --disable CONFIG_MFD_ARIZONA
-scripts/config --disable CONFIG_MFD_ARIZONA_I2C
-scripts/config --disable CONFIG_MFD_ARIZONA_SPI
-scripts/config --disable CONFIG_MFD_WM8994
-scripts/config --disable CONFIG_MFD_WCD934X
-scripts/config --disable CONFIG_MFD_ATC260X
-scripts/config --disable CONFIG_MFD_ATC260X_I2C
-scripts/config --disable CONFIG_RAVE_SP_CORE
-scripts/config --disable CONFIG_MFD_INTEL_M10_BMC_CORE
-scripts/config --disable CONFIG_MFD_INTEL_M10_BMC_SPI
-scripts/config --disable CONFIG_MFD_INTEL_M10_BMC_PMCI
 scripts/config --disable CONFIG_MFD_MC13XXX
 scripts/config --disable CONFIG_MFD_MC13XXX_SPI
 scripts/config --disable CONFIG_MFD_MC13XXX_I2C
@@ -2453,7 +2419,6 @@ scripts/config --disable CONFIG_RAVE_SP_CORE
 scripts/config --disable CONFIG_MFD_INTEL_M10_BMC_CORE
 scripts/config --disable CONFIG_MFD_INTEL_M10_BMC_SPI
 scripts/config --disable CONFIG_MFD_INTEL_M10_BMC_PMCI
-scripts/config --disable CONFIG_REGULATOR_FIXED_VOLTAGE
 scripts/config --disable CONFIG_REGULATOR_VIRTUAL_CONSUMER
 scripts/config --disable CONFIG_REGULATOR_USERSPACE_CONSUMER
 scripts/config --disable CONFIG_REGULATOR_88PG86X
@@ -2755,22 +2720,18 @@ scripts/config --disable CONFIG_DVB_USB_VP7045
 scripts/config --disable CONFIG_SMS_USB_DRV
 scripts/config --disable CONFIG_DVB_TTUSB_BUDGET
 scripts/config --disable CONFIG_DVB_TTUSB_DEC
-
 # 禁用 USB 视频设备相关配置
 scripts/config --disable CONFIG_VIDEO_EM28XX
 scripts/config --disable CONFIG_VIDEO_EM28XX_V4L2
 scripts/config --disable CONFIG_VIDEO_EM28XX_ALSA
 scripts/config --disable CONFIG_VIDEO_EM28XX_DVB
 scripts/config --disable CONFIG_VIDEO_EM28XX_RC
-
 # 禁用 USB SDR 设备相关配置
 scripts/config --disable CONFIG_USB_AIRSPY
 scripts/config --disable CONFIG_USB_HACKRF
 scripts/config --disable CONFIG_USB_MSI2500
-
 # 禁用 PCI 媒体支持
 scripts/config --disable CONFIG_MEDIA_PCI_SUPPORT
-
 # 禁用视频/音频捕获和处理设备相关配置
 scripts/config --disable CONFIG_VIDEO_MGB4
 scripts/config --disable CONFIG_VIDEO_SOLO6X10
@@ -2803,7 +2764,6 @@ scripts/config --disable CONFIG_VIDEO_SAA7134_RC
 scripts/config --disable CONFIG_VIDEO_SAA7134_DVB
 scripts/config --disable CONFIG_VIDEO_SAA7134_GO7007
 scripts/config --disable CONFIG_VIDEO_SAA7164
-
 # 禁用数字 TV PCI 适配器相关配置
 scripts/config --disable CONFIG_DVB_B2C2_FLEXCOP_PCI
 scripts/config --disable CONFIG_DVB_DDBRIDGE
@@ -2821,7 +2781,6 @@ scripts/config --disable CONFIG_DVB_BUDGET_CORE
 scripts/config --disable CONFIG_DVB_BUDGET
 scripts/config --disable CONFIG_DVB_BUDGET_CI
 scripts/config --disable CONFIG_DVB_BUDGET_AV
-
 # 禁用摄像头 ISP 和镜头驱动
 scripts/config --disable CONFIG_VIDEO_THP7312
 scripts/config --disable CONFIG_VIDEO_AD5820
@@ -2830,7 +2789,6 @@ scripts/config --disable CONFIG_VIDEO_DW9714
 scripts/config --disable CONFIG_VIDEO_DW9719
 scripts/config --disable CONFIG_VIDEO_DW9768
 scripts/config --disable CONFIG_VIDEO_DW9807_VCM
-
 # 禁用音频解码器、处理器和混音器
 scripts/config --disable CONFIG_VIDEO_CS3308
 scripts/config --disable CONFIG_VIDEO_CS5345
@@ -2848,7 +2806,6 @@ scripts/config --disable CONFIG_VIDEO_UDA1342
 scripts/config --disable CONFIG_VIDEO_VP27SMPX
 scripts/config --disable CONFIG_VIDEO_WM8739
 scripts/config --disable CONFIG_VIDEO_WM8775
-
 # 禁用RDS解码器和视频解码器
 scripts/config --disable CONFIG_VIDEO_SAA6588
 scripts/config --disable CONFIG_VIDEO_ADV7180
@@ -2879,7 +2836,6 @@ scripts/config --disable CONFIG_VIDEO_VPX3220
 # 禁用视频解码器
 scripts/config --disable CONFIG_VIDEO_SAA717X
 scripts/config --disable CONFIG_VIDEO_CX25840
-
 # 禁用视频编码器
 scripts/config --disable CONFIG_VIDEO_ADV7170
 scripts/config --disable CONFIG_VIDEO_ADV7175
@@ -2890,30 +2846,23 @@ scripts/config --disable CONFIG_VIDEO_AK881X
 scripts/config --disable CONFIG_VIDEO_SAA7127
 scripts/config --disable CONFIG_VIDEO_SAA7185
 scripts/config --disable CONFIG_VIDEO_THS8200
-
 # 禁用视频改善芯片
 scripts/config --disable CONFIG_VIDEO_UPD64031A
 scripts/config --disable CONFIG_VIDEO_UPD64083
-
 # 禁用音频/视频压缩芯片
 scripts/config --disable CONFIG_VIDEO_SAA6752HS
-
 # 禁用SDR调谐器
 scripts/config --disable CONFIG_SDR_MAX2175
-
 # 禁用各种视频I2C和辅助芯片
 scripts/config --disable CONFIG_VIDEO_I2C
 scripts/config --disable CONFIG_VIDEO_M52790
 scripts/config --disable CONFIG_VIDEO_ST_MIPID02
 scripts/config --disable CONFIG_VIDEO_THS7303
-
 # 禁用SPI视频适配器
 scripts/config --disable CONFIG_CXD2880_SPI_DRV
 scripts/config --disable CONFIG_VIDEO_GS1662
-
 # 禁用媒体调谐器
 scripts/config --disable CONFIG_MEDIA_TUNER
-
 # 禁用定制的TV调谐器
 scripts/config --disable CONFIG_MEDIA_TUNER_E4000
 scripts/config --disable CONFIG_MEDIA_TUNER_FC0011
@@ -2952,7 +2901,6 @@ scripts/config --disable CONFIG_MEDIA_TUNER_TUA9001
 scripts/config --disable CONFIG_MEDIA_TUNER_XC2028
 scripts/config --disable CONFIG_MEDIA_TUNER_XC4000
 scripts/config --disable CONFIG_MEDIA_TUNER_XC5000
-
 # 禁用DVB前端定制化
 scripts/config --disable CONFIG_DVB_M88DS3103
 scripts/config --disable CONFIG_DVB_MXL5XX
@@ -2962,7 +2910,6 @@ scripts/config --disable CONFIG_DVB_STV090x
 scripts/config --disable CONFIG_DVB_STV0910
 scripts/config --disable CONFIG_DVB_STV6110x
 scripts/config --disable CONFIG_DVB_STV6111
-
 # 禁用DVB-S前端
 scripts/config --disable CONFIG_DVB_CX24110
 scripts/config --disable CONFIG_DVB_CX24116
@@ -2991,7 +2938,6 @@ scripts/config --disable CONFIG_DVB_TUNER_ITD1000
 scripts/config --disable CONFIG_DVB_VES1X93
 scripts/config --disable CONFIG_DVB_ZL10036
 scripts/config --disable CONFIG_DVB_ZL10039
-
 # 禁用其他前端相关配置
 scripts/config --disable CONFIG_DVB_AF9013
 scripts/config --disable CONFIG_DVB_AS102_FE
@@ -3022,13 +2968,11 @@ scripts/config --disable CONFIG_DVB_TDA1004X
 scripts/config --disable CONFIG_DVB_ZD1301_DEMOD
 scripts/config --disable CONFIG_DVB_ZL10353
 scripts/config --disable CONFIG_DVB_CXD2880
-
 # 禁用DVB-C前端
 scripts/config --disable CONFIG_DVB_STV0297
 scripts/config --disable CONFIG_DVB_TDA10021
 scripts/config --disable CONFIG_DVB_TDA10023
 scripts/config --disable CONFIG_DVB_VES1820
-
 # 禁用ATSC前端
 scripts/config --disable CONFIG_DVB_AU8522
 scripts/config --disable CONFIG_DVB_AU8522_DTV
@@ -3044,21 +2988,17 @@ scripts/config --disable CONFIG_DVB_OR51132
 scripts/config --disable CONFIG_DVB_OR51211
 scripts/config --disable CONFIG_DVB_S5H1409
 scripts/config --disable CONFIG_DVB_S5H1411
-
 # 禁用ISDB-T前端
 scripts/config --disable CONFIG_DVB_DIB8000
 scripts/config --disable CONFIG_DVB_MB86A20S
 scripts/config --disable CONFIG_DVB_S921
-
 # 禁用ISDB-S和ISDB-T前端
 scripts/config --disable CONFIG_DVB_MN88443X
 scripts/config --disable CONFIG_DVB_TC90522
-
 # 禁用数字地面仅调谐器/PLL
 scripts/config --disable CONFIG_DVB_PLL
 scripts/config --disable CONFIG_DVB_TUNER_DIB0070
 scripts/config --disable CONFIG_DVB_TUNER_DIB0090
-
 # 禁用DVB-S控制设备
 scripts/config --disable CONFIG_DVB_A8293
 scripts/config --disable CONFIG_DVB_AF9033
@@ -3083,7 +3023,6 @@ scripts/config --disable CONFIG_DVB_DRX39XYJ
 scripts/config --disable CONFIG_DVB_CXD2099
 scripts/config --disable CONFIG_DVB_SP2
 scripts/config --disable CONFIG_DVB_DUMMY_FE
-
 # 禁用不需要的显卡硬件支持
 scripts/config --disable CONFIG_AGP
 scripts/config --disable CONFIG_VGA_SWITCHEROO
@@ -3114,7 +3053,6 @@ scripts/config --disable CONFIG_DRM_VMWGFX
 scripts/config --disable CONFIG_DRM_AST
 scripts/config --disable CONFIG_DRM_QXL
 scripts/config --disable CONFIG_DRM_MGAG200
-
 # 禁用帧缓冲设备支持
 scripts/config --disable CONFIG_FB
 scripts/config --disable CONFIG_FB_VIRTUAL
@@ -3129,11 +3067,9 @@ scripts/config --enable CONFIG_VNC_VSP
 scripts/config --enable CONFIG_FB_VESA
 scripts/config --enable CONFIG_FB_VIRTUAL
 scripts/config --enable CONFIG_VGA
-
 # 保留虚拟显卡支持
 scripts/config --enable CONFIG_VIRTIO_GPU
 scripts/config --enable CONFIG_VIRTIO_GPU_KMS
-
 # 禁用背光和LCD设备支持
 scripts/config --disable CONFIG_LCD_CLASS_DEVICE
 scripts/config --disable CONFIG_LCD_L4F00242T03
@@ -3227,8 +3163,6 @@ scripts/config --disable CONFIG_SND_SOC_ZL38060
 scripts/config --disable CONFIG_VGASTATE
 scripts/config --disable CONFIG_VIDEOMODE_HELPERS
 scripts/config --disable CONFIG_HDMI
-scripts/config --disable CONFIG_VGA_CONSOLE
-scripts/config --disable CONFIG_DUMMY_CONSOLE
 scripts/config --disable CONFIG_FRAMEBUFFER_CONSOLE
 scripts/config --disable CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY
 scripts/config --disable CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
@@ -3389,7 +3323,6 @@ scripts/config --disable CONFIG_AMD_SFH_HID
 scripts/config --disable CONFIG_SURFACE_HID
 scripts/config --disable CONFIG_SURFACE_KBD
 scripts/config --disable CONFIG_SURFACE_HID_CORE
-scripts/config --disable CONFIG_USB_OHCI_LITTLE_ENDIAN
 scripts/config --disable CONFIG_USB_SUPPORT
 scripts/config --disable CONFIG_USB_COMMON
 scripts/config --disable CONFIG_USB_LED_TRIG
@@ -3747,7 +3680,6 @@ scripts/config --disable CONFIG_INFINIBAND_RTRS_CLIENT
 scripts/config --disable CONFIG_INFINIBAND_RTRS_SERVER
 scripts/config --disable CONFIG_INFINIBAND_OPA_VNIC
 scripts/config --disable CONFIG_EDAC_ATOMIC_SCRUB
-scripts/config --disable CONFIG_EDAC_SUPPORT
 scripts/config --disable CONFIG_EDAC
 scripts/config --disable CONFIG_EDAC_LEGACY_SYSFS
 scripts/config --disable CONFIG_EDAC_DEBUG
@@ -3770,7 +3702,6 @@ scripts/config --disable CONFIG_EDAC_I10NM
 scripts/config --disable CONFIG_EDAC_PND2
 scripts/config --disable CONFIG_EDAC_IGEN6
 scripts/config --disable CONFIG_RTC_LIB
-scripts/config --disable CONFIG_RTC_MC146818_LIB
 scripts/config --disable CONFIG_RTC_CLASS
 scripts/config --disable CONFIG_RTC_HCTOSYS
 scripts/config --disable CONFIG_RTC_HCTOSYS_DEVICE
@@ -3996,14 +3927,12 @@ scripts/config --disable CONFIG_HYPERV_UTILS
 scripts/config --disable CONFIG_HYPERV_BALLOON
 scripts/config --disable CONFIG_XEN_BALLOON
 scripts/config --disable CONFIG_XEN_BALLOON_MEMORY_HOTPLUG
-scripts/config --disable CONFIG_XEN_MEMORY_HOTPLUG_LIMIT
 scripts/config --disable CONFIG_XEN_SCRUB_PAGES_DEFAULT
 scripts/config --disable CONFIG_XEN_DEV_EVTCHN
 scripts/config --disable CONFIG_XEN_BACKEND
 scripts/config --disable CONFIG_XENFS
 scripts/config --disable CONFIG_XEN_COMPAT_XENFS
 scripts/config --disable CONFIG_XEN_SYS_HYPERVISOR
-scripts/config --disable CONFIG_XEN_XENBUS_FRONTEND
 scripts/config --disable CONFIG_XEN_GNTDEV
 scripts/config --disable CONFIG_XEN_GNTDEV_DMABUF
 scripts/config --disable CONFIG_XEN_GRANT_DEV_ALLOC
@@ -4019,11 +3948,7 @@ scripts/config --disable CONFIG_XEN_PRIVCMD_EVENTFD
 scripts/config --disable CONFIG_XEN_ACPI_PROCESSOR
 scripts/config --disable CONFIG_XEN_MCE_LOG
 scripts/config --disable CONFIG_XEN_HAVE_PVMMU
-scripts/config --disable CONFIG_XEN_EFI
-scripts/config --disable CONFIG_XEN_AUTO_XLATE
-scripts/config --disable CONFIG_XEN_ACPI
 scripts/config --disable CONFIG_XEN_SYMS
-scripts/config --disable CONFIG_XEN_HAVE_VPMU
 scripts/config --disable CONFIG_XEN_FRONT_PGDIR_SHBUF
 scripts/config --disable CONFIG_XEN_UNPOPULATED_ALLOC
 scripts/config --disable CONFIG_XEN_GRANT_DMA_OPS
@@ -4459,10 +4384,8 @@ scripts/config --disable CONFIG_SIEMENS_SIMATIC_IPC_BATT_F7188X
 scripts/config --disable CONFIG_SILICOM_PLATFORM
 scripts/config --disable CONFIG_WINMATE_FM07_KEYS
 scripts/config --disable CONFIG_SEL3350_PLATFORM
-scripts/config --disable CONFIG_P2SB
 scripts/config --disable CONFIG_HAVE_CLK
 scripts/config --disable CONFIG_HAVE_CLK_PREPARE
-scripts/config --disable CONFIG_COMMON_CLK
 scripts/config --disable CONFIG_COMMON_CLK_WM831X
 scripts/config --disable CONFIG_LMK04832
 scripts/config --disable CONFIG_COMMON_CLK_MAX9485
@@ -4476,11 +4399,9 @@ scripts/config --disable CONFIG_CLK_TWL
 scripts/config --disable CONFIG_CLK_TWL6040
 scripts/config --disable CONFIG_COMMON_CLK_PALMAS
 scripts/config --disable CONFIG_COMMON_CLK_PWM
-scripts/config --disable CONFIG_XILINX_VCU
 scripts/config --disable CONFIG_HWSPINLOCK
 scripts/config --disable CONFIG_CLKEVT_I8253
 scripts/config --disable CONFIG_I8253_LOCK
-scripts/config --disable CONFIG_CLKBLD_I8253
 scripts/config --disable CONFIG_MAILBOX
 scripts/config --disable CONFIG_PCC
 scripts/config --disable CONFIG_ALTERA_MBOX
@@ -4645,9 +4566,6 @@ scripts/config --disable CONFIG_AD9467
 scripts/config --disable CONFIG_MEDIATEK_MT6359_AUXADC
 scripts/config --disable CONFIG_PAC1921
 scripts/config --disable CONFIG_PAC1934
-scripts/config --disable CONFIG_TI_ADS1119
-scripts/config --disable CONFIG_TI_ADS1298
-scripts/config --disable CONFIG_ENS160
 scripts/config --disable CONFIG_TI_ADS1119
 scripts/config --disable CONFIG_TI_ADS1298
 scripts/config --disable CONFIG_XILINX_XADC
@@ -5029,7 +4947,6 @@ scripts/config --disable CONFIG_MCB_PCI
 scripts/config --disable CONFIG_MCB_LPC
 scripts/config --disable CONFIG_DWC_PCIE_PMU
 scripts/config --disable CONFIG_CXL_PMU
-scripts/config --disable CONFIG_RAS
 scripts/config --disable CONFIG_RAS_CEC
 scripts/config --disable CONFIG_RAS_CEC_DEBUG
 scripts/config --disable CONFIG_AMD_ATL
@@ -5042,7 +4959,6 @@ scripts/config --disable CONFIG_ANDROID_BINDER_IPC
 scripts/config --disable CONFIG_ANDROID_BINDERFS
 scripts/config --disable CONFIG_ANDROID_BINDER_DEVICES
 scripts/config --disable CONFIG_ANDROID_BINDER_IPC_SELFTEST
-scripts/config --disable CONFIG_LIBNVDIMM
 scripts/config --disable CONFIG_BLK_DEV_PMEM
 scripts/config --disable CONFIG_ND_CLAIM
 scripts/config --disable CONFIG_ND_BTT
@@ -5137,14 +5053,10 @@ scripts/config --disable CONFIG_UDF_FS
 scripts/config --disable CONFIG_BFS_FS
 scripts/config --disable CONFIG_EFS_FS
 scripts/config --disable CONFIG_HPFS_FS
-scripts/config --disable CONFIG_SECURITY_SMACK
-scripts/config --disable CONFIG_SECURITY_TOMOYO
-scripts/config --disable CONFIG_SECURITY_IPE
 scripts/config --disable CONFIG_SECURITY_SELINUX_DEBUG
 scripts/config --disable CONFIG_SECURITY_TOMOYO_OMIT_USERSPACE_LOADER
 scripts/config --disable CONFIG_SECURITY_APPARMOR_DEBUG
 scripts/config --disable CONFIG_SECURITY_APPARMOR_EXPORT_BINARY
-scripts/config --disable CONFIG_SECURITY_LOADPIN
 scripts/config --disable CONFIG_CRYPTO_TWOFISH
 scripts/config --disable CONFIG_CRYPTO_BLOWFISH
 scripts/config --disable CONFIG_CRYPTO_CAST5
@@ -5272,10 +5184,8 @@ scripts/config --disable CONFIG_USER_STACKTRACE_SUPPORT
 scripts/config --disable CONFIG_NOP_TRACER
 scripts/config --disable CONFIG_HAVE_RETHOOK
 scripts/config --disable CONFIG_REHOOK
-scripts/config --disable CONFIG_HAVE_FUNCTION_TRACER
 scripts/config --disable CONFIG_HAVE_FUNCTION_GRAPH_TRACER
 scripts/config --disable CONFIG_HAVE_FUNCTION_GRAPH_RETVAL
-scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE
 scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE_WITH_REGS
 scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS
 scripts/config --disable CONFIG_HAVE_DYNAMIC_FTRACE_WITH_ARGS
@@ -5296,14 +5206,8 @@ scripts/config --disable CONFIG_CONTEXT_SWITCH_TRACER
 scripts/config --disable CONFIG_TRACING
 scripts/config --disable CONFIG_GENERIC_TRACER
 scripts/config --disable CONFIG_TRACING_SUPPORT
-scripts/config --disable CONFIG_FTRACE
-scripts/config --disable CONFIG_HID_SUPPORT
 scripts/config --disable CONFIG_HID
-scripts/config --disable CONFIG_HID_BATTERY_STRENGTH
-scripts/config --disable CONFIG_HIDRAW
-scripts/config --disable CONFIG_UHID
 scripts/config --disable CONFIG_HID_GENERIC
-scripts/config --disable CONFIG_MFD_CORE
 scripts/config --disable CONFIG_PMIC_ADP5520
 scripts/config --disable CONFIG_MFD_AAT2870_CORE
 scripts/config --disable CONFIG_PMIC_DA903X
@@ -5314,11 +5218,6 @@ scripts/config --disable CONFIG_MFD_DA9055
 scripts/config --disable CONFIG_MFD_DA9062
 scripts/config --disable CONFIG_MFD_DA9063
 scripts/config --disable CONFIG_MFD_DA9150
-scripts/config --disable CONFIG_LPC_ICH
-scripts/config --disable CONFIG_LPC_SCH
-scripts/config --disable CONFIG_MFD_INTEL_LPSS
-scripts/config --disable CONFIG_MFD_INTEL_LPSS_ACPI
-scripts/config --disable CONFIG_MFD_INTEL_LPSS_PCI
 scripts/config --disable CONFIG_MFD_IQS62X
 scripts/config --disable CONFIG_MFD_JANZ_CMODIO
 scripts/config --disable CONFIG_MFD_KEMPLD
@@ -5355,15 +5254,6 @@ scripts/config --disable CONFIG_MFD_SM501
 scripts/config --disable CONFIG_MFD_SM501_GPIO
 scripts/config --disable CONFIG_MFD_SKY81452
 scripts/config --disable CONFIG_MFD_SYSCON
-scripts/config --disable CONFIG_MFD_LP8788
-scripts/config --disable CONFIG_MFD_PALMAS
-scripts/config --disable CONFIG_TPS6105X
-scripts/config --disable CONFIG_TPS65010
-scripts/config --disable CONFIG_TPS6507X
-scripts/config --disable CONFIG_MFD_CS40L50_CORE
-scripts/config --disable CONFIG_MFD_CS40L50_I2C
-scripts/config --disable CONFIG_MFD_CS40L50_SPI
-scripts/config --disable CONFIG_MFD_STEAMDECK
 scripts/config --disable CONFIG_DEBUG_KERNEL
 scripts/config --disable CONFIG_DEBUG_MISC
 scripts/config --disable CONFIG_DEBUG_INFO
@@ -5393,7 +5283,6 @@ scripts/config --disable CONFIG_DYNAMIC_FTRACE
 scripts/config --disable CONFIG_ARCH_HAS_KGDB
 scripts/config --disable CONFIG_HID_SUPPORT
 scripts/config --disable CONFIG_HID_BATTERY_STRENGTH
-scripts/config --disable CONFIG_HIDRAW
 scripts/config --disable CONFIG_UHID
 scripts/config --disable CONFIG_TOUCHSCREEN_GOODIX_BERLIN_CORE
 scripts/config --disable CONFIG_TOUCHSCREEN_GOODIX_BERLIN_I2C
@@ -5490,7 +5379,6 @@ scripts/config --disable CONFIG_SENSORS_SPD5118
 scripts/config --disable CONFIG_THERMAL_NETLINK
 scripts/config --disable CONFIG_THERMAL_CORE_TESTING
 scripts/config --disable CONFIG_THERMAL_GOV_STEP_WISE
-scripts/config --disable CONFIG_THERMAL_GOV_STEP_WISE
 scripts/config --disable CONFIG_X86_THERMAL_VECTOR
 scripts/config --disable CONFIG_SSB_POSSIBLE
 scripts/config --disable CONFIG_BCMA_POSSIBLE
@@ -5528,7 +5416,6 @@ scripts/config --disable CONFIG_COMMON_CLK
 scripts/config --disable CONFIG_CLKBLD_I8253
 scripts/config --disable CONFIG_RAS
 scripts/config --disable CONFIG_LIBNVDIMM
-scripts/config --disable CONFIG_FUSE_FS
 scripts/config --disable CONFIG_FUSE_PASSTHROUGH
 scripts/config --disable CONFIG_OVERLAY_FS
 scripts/config --disable CONFIG_EXPORTFS
@@ -5541,6 +5428,12 @@ scripts/config --disable CONFIG_FUSE_FS
 scripts/config --disable CONFIG_CUSE
 scripts/config --disable CONFIG_VIRTIO_FS
 scripts/config --disable CONFIG_FS_EN
-
-
+scripts/config --disable CONFIG_ISCSI_IBFT_FIND
+scripts/config --disable CONFIG_ISCSI_IBFT
+scripts/config --disable CONFIG_SCSI_ISCSI_ATTRS
+scripts/config --disable CONFIG_ISCSI_TCP
+scripts/config --disable CONFIG_ISCSI_BOOT_SYSFS
+scripts/config --disable CONFIG_SCSI_QLA_ISCSI
+scripts/config --disable CONFIG_ISCSI_TARGET
 # 这里可以继续写更多选项
+
