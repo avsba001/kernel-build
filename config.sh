@@ -5532,4 +5532,10 @@ scripts/config --disable CONFIG_TEST_FREE_PAGES
 scripts/config --disable CONFIG_TEST_FPU
 scripts/config --disable CONFIG_TEST_CLOCKSOURCE_WATCHDOG
 scripts/config --disable CONFIG_MEMTEST
+scripts/config --disable CONFIG_CPU_IDLE
+scripts/config --disable CONFIG_CPU_IDLE_GOV_MENU
+scripts/config --disable CONFIG_CPU_IDLE_GOV_TEO
+scripts/config --disable CONFIG_CPU_IDLE_GOV_HALTPOLL
+scripts/config --disable CONFIG_HALTPOLL_CPUIDLE
+
 # 这里可以继续写更多选项
