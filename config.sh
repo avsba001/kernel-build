@@ -5404,7 +5404,7 @@ scripts/config --disable CONFIG_HIDRAW
 scripts/config --disable CONFIG_USB_OHCI_LITTLE_ENDIAN
 scripts/config --disable CONFIG_EDAC_SUPPORT
 scripts/config --disable CONFIG_RTC_MC146818_LIB
-scripts/config --disable CONFIG_VIRTIO
+scripts/config --enable CONFIG_VIRTIO
 scripts/config --disable CONFIG_XEN_MEMORY_HOTPLUG_LIMIT
 scripts/config --disable CONFIG_XEN_XENBUS_FRONTEND
 scripts/config --disable CONFIG_XEN_AUTO_XLATE
@@ -5426,7 +5426,7 @@ scripts/config --disable CONFIG_QUOTA_NETLINK_INTERFACE
 scripts/config --disable CONFIG_AUTOFS_FS
 scripts/config --disable CONFIG_FUSE_FS
 scripts/config --disable CONFIG_CUSE
-scripts/config --disable CONFIG_VIRTIO_FS
+scripts/config --enable CONFIG_VIRTIO_FS
 scripts/config --disable CONFIG_FS_EN
 scripts/config --disable CONFIG_ISCSI_IBFT_FIND
 scripts/config --disable CONFIG_ISCSI_IBFT
