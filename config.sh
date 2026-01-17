@@ -47,7 +47,6 @@ scripts/config --disable CONFIG_CPUSETS
 scripts/config --disable CONFIG_PROC_PID_CPUSET
 scripts/config --disable CONFIG_CGROUP_CPUACCT
 scripts/config --disable CONFIG_CGROUP_PERF
-scripts/config --disable CONFIG_CGROUP_BPF
 scripts/config --disable CONFIG_CGROUP_MISC
 scripts/config --disable CONFIG_SOCK_CGROUP_DATA
 # CRIU / checkpoint
