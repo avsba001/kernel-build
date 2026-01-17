@@ -5550,5 +5550,19 @@ scripts/config --disable CONFIG_OCFS2_FS_O2CB
 scripts/config --disable CONFIG_OCFS2_FS_USERSPACE_CLUSTER
 scripts/config --disable CONFIG_OCFS2_FS_STATS
 scripts/config --disable CONFIG_OCFS2_DEBUG_MASKLOG
+scripts/config --disable CONFIG_OCFS2_DEBUG_FS
+scripts/config --disable CONFIG_BTRFS_FS
+scripts/config --disable CONFIG_BTRFS_FS_RUN_SANITY_TESTS
+scripts/config --disable CONFIG_BTRFS_DEBUG
+scripts/config --disable CONFIG_BTRFS_ASSERT
+scripts/config --disable CONFIG_BTRFS_FS_REF_VERIFY
+scripts/config --disable CONFIG_NILFS2_FS
+scripts/config --disable CONFIG_F2FS_FS
+scripts/config --disable CONFIG_BCACHEFS_FS
+scripts/config --disable CONFIG_BCACHEFS_DEBUG
+scripts/config --disable CONFIG_BCACHEFS_TESTS
+scripts/config --disable CONFIG_BCACHEFS_LOCK_TIME_STATS
+scripts/config --disable CONFIG_BCACHEFS_NO_LATENCY_ACCT
+scripts/config --disable CONFIG_BCACHEFS_PATH_TRACEPOINTS
 
 # 这里可以继续写更多选项
