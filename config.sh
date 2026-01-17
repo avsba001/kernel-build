@@ -5455,6 +5455,12 @@ scripts/config --disable CONFIG_XEN_SCSI_FRONTEND
 scripts/config --disable CONFIG_XEN_NETDEV_FRONTEND
 scripts/config --disable CONFIG_HVC_XEN
 scripts/config --disable CONFIG_HVC_XEN_FRONTEND
+scripts/config --disable CONFIG_CEPH_LIB
+scripts/config --disable CONFIG_CEPH_LIB_USE_DNS_RESOLVER
+scripts/config --disable CONFIG_CEPH_FS
+scripts/config --disable CONFIG_CEPH_FSCACHE
+scripts/config --disable CONFIG_CEPH_FS_POSIX_ACL
+scripts/config --disable CONFIG_CEPH_FS_SECURITY_LABEL
 
 # 这里可以继续写更多选项
 
