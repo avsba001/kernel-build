@@ -736,7 +736,6 @@ scripts/config --disable CONFIG_SCSI_BUSLOGIC
 scripts/config --disable CONFIG_SCSI_FLASHPOINT
 scripts/config --disable CONFIG_SCSI_MYRB
 scripts/config --disable CONFIG_SCSI_MYRS
-scripts/config --disable CONFIG_SCSI_VIRTIO   
 # 如果 VPS 已通过 virtio-blk / virtio-scsi 提供磁盘，这可以保留
 scripts/config --disable CONFIG_SCSI_CHELSIO_FCOE
 scripts/config --disable CONFIG_PCMCIA_AHA152X
@@ -3981,22 +3980,6 @@ scripts/config --disable CONFIG_TSM_REPORTS
 scripts/config --disable CONFIG_EFI_SECRET
 scripts/config --disable CONFIG_SEV_GUEST
 scripts/config --disable CONFIG_TDX_GUEST_DRIVER
-scripts/config --disable CONFIG_VIRTIO_ANCHOR
-scripts/config --disable CONFIG_VIRTIO
-scripts/config --disable CONFIG_VIRTIO_PCI_LIB
-scripts/config --disable CONFIG_VIRTIO_PCI_LIB_LEGACY
-scripts/config --disable CONFIG_VIRTIO_MENU
-scripts/config --disable CONFIG_VIRTIO_PCI
-scripts/config --disable CONFIG_VIRTIO_PCI_ADMIN_LEGACY
-scripts/config --disable CONFIG_VIRTIO_PCI_LEGACY
-scripts/config --disable CONFIG_VIRTIO_VDPA
-scripts/config --disable CONFIG_VIRTIO_PMEM
-scripts/config --disable CONFIG_VIRTIO_BALLOON
-scripts/config --disable CONFIG_VIRTIO_MEM
-scripts/config --disable CONFIG_VIRTIO_INPUT
-scripts/config --disable CONFIG_VIRTIO_MMIO
-scripts/config --disable CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES
-scripts/config --disable CONFIG_VIRTIO_DMA_SHARED_BUFFER
 scripts/config --disable CONFIG_VIRTIO_DEBUG
 scripts/config --disable CONFIG_VDPA
 scripts/config --disable CONFIG_VDPA_SIM
