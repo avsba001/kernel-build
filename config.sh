@@ -5543,5 +5543,12 @@ scripts/config --disable CONFIG_TRANSPARENT_HUGEPAGE_MADVISE
 scripts/config --disable CONFIG_TRANSPARENT_HUGEPAGE_NEVER
 scripts/config --disable CONFIG_QNX4FS_FS
 scripts/config --disable CONFIG_QNX6FS_FS
+scripts/config --disable CONFIG_GFS2_FS
+scripts/config --disable CONFIG_GFS2_FS_LOCKING_DLM
+scripts/config --disable CONFIG_OCFS2_FS
+scripts/config --disable CONFIG_OCFS2_FS_O2CB
+scripts/config --disable CONFIG_OCFS2_FS_USERSPACE_CLUSTER
+scripts/config --disable CONFIG_OCFS2_FS_STATS
+scripts/config --disable CONFIG_OCFS2_DEBUG_MASKLOG
 
 # 这里可以继续写更多选项
