@@ -132,7 +132,7 @@ jobs:
           files: artifacts/*
           overwrite_files: true
 
-      - name: 删除长久过期工作流
+      - name: 删除以往工作流
         if: always()
         uses: Mattraks/delete-workflow-runs@main
         with:
