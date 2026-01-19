@@ -4250,7 +4250,7 @@ scripts/config --disable CONFIG_AMD_PMF_DEBUG
 scripts/config --disable CONFIG_AMD_PMC
 scripts/config --disable CONFIG_AMD_MP2_STB
 scripts/config --disable CONFIG_AMD_HSMP
-scripts/config --disable CONFIG_AMD_3D_VCACHE
+scripts/config --enable CONFIG_AMD_3D_VCACHE
 scripts/config --disable CONFIG_AMD_WBRF
 scripts/config --disable CONFIG_ADV_SWBUTTON
 scripts/config --disable CONFIG_APPLE_GMUX
