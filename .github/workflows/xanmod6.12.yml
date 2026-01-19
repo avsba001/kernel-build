@@ -91,17 +91,17 @@ jobs:
       - name: 构建 kernel vmlinux
         run: |
           cd kernel
-          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld vmlinux modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
+          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld vmlinux modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error -ffunction-sections -fdata-sections -mllvm -enable-machine-scheduler"
 
       - name: 构建内核模块 kernel modules_prepare
         run: |
           cd kernel
-          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
+          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld modules_prepare KCFLAGS="-march=x86-64-v3 -O3 -Wno-error -ffunction-sections -fdata-sections -mllvm -enable-machine-scheduler"
 
       - name: 构建内核软件包 kernel deb packages
         run: |
           cd kernel
-          KDEB_COMPRESS=xz make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld bindeb-pkg LOCALVERSION=${KERNEL_LOCALVERSION} KCFLAGS="-march=x86-64-v3 -O3 -Wno-error"
+          KDEB_COMPRESS=xz make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld bindeb-pkg LOCALVERSION=${KERNEL_LOCALVERSION} KCFLAGS="-march=x86-64-v3 -O3 -Wno-error -ffunction-sections -fdata-sections -mllvm -enable-machine-scheduler"
 
       - name: 查看文件目录
         run: |
