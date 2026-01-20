@@ -78,7 +78,7 @@ jobs:
           cd kernel
           cp ../config.sh .
           chmod +x config.sh
-          cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
+          cp CONFIGS/xanmod/gcc/config_x86-64-v1 .config
           ./config.sh
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
@@ -94,7 +94,7 @@ jobs:
           make -j$(nproc) \
             LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
             vmlinux modules_prepare \
-            KCFLAGS="-march=x86-64-v1 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="-march=x86-64 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
 
       - name: 构建内核模块 kernel modules_prepare
         run: |
@@ -102,7 +102,7 @@ jobs:
           make -j$(nproc) \
             LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
             modules_prepare \
-            KCFLAGS="-march=x86-64-v1 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="-march=x86-64 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
 
       - name: 构建内核软件包 kernel deb packages
         run: |
@@ -112,7 +112,7 @@ jobs:
             LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
             bindeb-pkg \
             LOCALVERSION=${KERNEL_LOCALVERSION} \
-            KCFLAGS="-march=x86-64-v1 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="-march=x86-64 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
 
       - name: 查看文件目录
         run: |
