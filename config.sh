@@ -5551,7 +5551,7 @@ scripts/config --disable CONFIG_OCFS2_FS_USERSPACE_CLUSTER
 scripts/config --disable CONFIG_OCFS2_FS_STATS
 scripts/config --disable CONFIG_OCFS2_DEBUG_MASKLOG
 scripts/config --disable CONFIG_OCFS2_DEBUG_FS
-scripts/config --disable CONFIG_BTRFS_FS
+scripts/config --enable CONFIG_BTRFS_FS
 scripts/config --disable CONFIG_BTRFS_FS_RUN_SANITY_TESTS
 scripts/config --disable CONFIG_BTRFS_DEBUG
 scripts/config --disable CONFIG_BTRFS_ASSERT
