@@ -5290,7 +5290,7 @@ scripts/config --disable CONFIG_SERIAL_8250_SHARE_IRQ
 scripts/config --disable CONFIG_SERIAL_8250_RSA
 scripts/config --disable CONFIG_SERIAL_MAX310X
 scripts/config --disable CONFIG_SERIAL_DEV_CTRL_TTYPORT
-scripts/config --disable CONFIG_VIRTIO_CONSOLE
+scripts/config --enable CONFIG_VIRTIO_CONSOLE
 scripts/config --disable CONFIG_HW_RANDOM_TIMERIOMEM
 scripts/config --disable CONFIG_HW_RANDOM_BA431
 scripts/config --disable CONFIG_HW_RANDOM_VIA
