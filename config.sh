@@ -5046,7 +5046,7 @@ scripts/config --disable CONFIG_DPLL
 scripts/config --disable CONFIG_REISERFS_FS
 scripts/config --disable CONFIG_JFS_FS
 scripts/config --disable CONFIG_F2FS_FS
-scripts/config --disable CONFIG_ISO9660_FS
+scripts/config --enable CONFIG_ISO9660_FS
 scripts/config --disable CONFIG_UDF_FS
 scripts/config --disable CONFIG_BFS_FS
 scripts/config --disable CONFIG_EFS_FS
