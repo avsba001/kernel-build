@@ -108,8 +108,8 @@ scripts/config --disable CONFIG_X86_USER_SHADOW_STACK
 scripts/config --disable CONFIG_X86_INTEL_MEMORY_PROTECTION_KEYS
 scripts/config --disable CONFIG_X86_CET
 scripts/config --disable CONFIG_CC_HAS_IBT
-scripts/config --disable CONFIG_HZ_1000
-scripts/config --set-val CONFIG_HZ 250
+scripts/config --enable CONFIG_HZ_1000
+scripts/config --set-val CONFIG_HZ 1000
 scripts/config --disable CONFIG_SCHED_HRTICK
 scripts/config --disable CONFIG_HAVE_LIVEPATCH
 scripts/config --disable CONFIG_LIVEPATCH
