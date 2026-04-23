@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 set -e
 # CPU 与体系结构
-scripts/config --enable CONFIG_X86_64
 scripts/config --set-val CONFIG_X86_64_VERSION 3
-#scripts/config --disable CONFIG_GENERIC_CPU
-#scripts/config --enable CONFIG_MNATIVE 
+scripts/config --enable CONFIG_GENERIC_CPU
 
 # 链接优化
 scripts/config --disable CONFIG_LTO_CLANG_THIN
