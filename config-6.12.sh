@@ -6,6 +6,7 @@ scripts/config --set-val CONFIG_X86_64_VERSION 3
 scripts/config --disable CONFIG_USELIB
 scripts/config --disable CONFIG_NO_HZ_FULL
 scripts/config --disable CONFIG_NO_HZ_IDLE
+scripts/config --enable CONFIG_IRQ_MSI_IOMMU
 
 # 关闭老式和现代 task 记账
 scripts/config --disable CONFIG_BSD_PROCESS_ACCT
@@ -624,6 +625,8 @@ scripts/config --disable CONFIG_ARCNET_RIM_I
 scripts/config --disable CONFIG_ARCNET_COM20020
 scripts/config --disable CONFIG_ARCNET_COM20020_PCI
 scripts/config --disable CONFIG_ARCNET_COM20020_CS
+#ATM网络
+scripts/config --disable CONFIG_ATM_DRIVERS
 scripts/config --disable CONFIG_ATM_DUMMY
 scripts/config --disable CONFIG_ATM_TCP
 scripts/config --disable CONFIG_ATM_LANAI
@@ -634,6 +637,8 @@ scripts/config --disable CONFIG_ATM_IA
 scripts/config --disable CONFIG_ATM_FORE200E
 scripts/config --disable CONFIG_ATM_HE
 scripts/config --disable CONFIG_ATM_SOLOS
+
+
 scripts/config --disable CONFIG_CAIF_TTY
 scripts/config --disable CONFIG_CAIF_VIRTIO
 scripts/config --disable CONFIG_B53
