@@ -4,15 +4,9 @@ set -e
 scripts/config --enable CONFIG_GENERIC_CPU
 scripts/config --set-val CONFIG_X86_64_VERSION 3
 scripts/config --disable CONFIG_USELIB
-scripts/config --disable CONFIG_AUDIT
-scripts/config --disable CONFIG_AUDITSYSCALL
 scripts/config --disable CONFIG_NO_HZ_FULL
-scripts/config --enable CONFIG_NO_HZ_IDLE
-scripts/config --disable CONFIG_CONTEXT_TRACKING_USER
-scripts/config --disable CONFIG_BPF_LSM
-scripts/config --disable CONFIG_PREEMPT_DYNAMIC
-scripts/config --enable CONFIG_PREEMPT_VOLUNTARY
-scripts/config --disable CONFIG_SCHED_CORE
+scripts/config --disable CONFIG_NO_HZ_IDLE
+
 # 关闭老式和现代 task 记账
 scripts/config --disable CONFIG_BSD_PROCESS_ACCT
 scripts/config --disable CONFIG_BSD_PROCESS_ACCT_V3
@@ -29,6 +23,7 @@ scripts/config --disable CONFIG_IKHEADERS
 scripts/config --set-val CONFIG_LOG_BUF_SHIFT 17
 scripts/config --disable CONFIG_NUMA_BALANCING
 scripts/config --disable CONFIG_NUMA_BALANCING_DEFAULT_ENABLED
+
 scripts/config --enable CONFIG_CGROUPS
 scripts/config --enable CONFIG_MEMCG
 scripts/config --enable CONFIG_CGROUP_PIDS
@@ -212,6 +207,7 @@ scripts/config --enable CONFIG_BRIDGE
 scripts/config --enable CONFIG_BRIDGE_IGMP_SNOOPING
 scripts/config --enable CONFIG_BRIDGE_VLAN_FILTERING
 
+#蓝牙
 scripts/config --disable CONFIG_BT
 scripts/config --disable CONFIG_BT_BREDR
 scripts/config --disable CONFIG_BT_RFCOMM
@@ -250,6 +246,8 @@ scripts/config --disable CONFIG_BT_MTKUART
 scripts/config --disable CONFIG_BT_HCIRSI
 scripts/config --disable CONFIG_BT_VIRTIO
 scripts/config --disable CONFIG_BT_NXPUART
+
+
 scripts/config --disable CONFIG_AF_RXRPC
 scripts/config --disable CONFIG_AF_KCM
 scripts/config --disable CONFIG_RXKAD
