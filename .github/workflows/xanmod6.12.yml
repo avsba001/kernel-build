@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: 内核构建
+name: 6.12-内核构建
 
 # Controls when the workflow will run
 
@@ -131,7 +131,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: xanmod-cloud-6.12-${{ github.run_id }}
-          name: XanMod Cloud 内核 v3
+          name: XanMod Cloud 6.12-内核 v3
           files: artifacts/*
           overwrite_files: true
 
