@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 set -e
 # 批量修改
-# scripts/config --enable CONFIG_HAVE_KERNEL_GZIP
-# scripts/config --enable CONFIG_HAVE_KERNEL_BZIP2
-# scripts/config --enable CONFIG_HAVE_KERNEL_LZMA
-# scripts/config --enable CONFIG_HAVE_KERNEL_XZ
-# scripts/config --enable CONFIG_HAVE_KERNEL_LZO
-# scripts/config --enable CONFIG_HAVE_KERNEL_LZ4
-# scripts/config --enable CONFIG_HAVE_KERNEL_ZSTD
+scripts/config --enable CONFIG_HAVE_KERNEL_GZIP
+scripts/config --enable CONFIG_HAVE_KERNEL_BZIP2
+scripts/config --enable CONFIG_HAVE_KERNEL_LZMA
+scripts/config --enable CONFIG_HAVE_KERNEL_XZ
+scripts/config --enable CONFIG_HAVE_KERNEL_LZO
+scripts/config --enable CONFIG_HAVE_KERNEL_LZ4
+scripts/config --enable CONFIG_HAVE_KERNEL_ZSTD
 # scripts/config --disable CONFIG_KERNEL_GZIP
 # scripts/config --disable CONFIG_KERNEL_BZIP2
 # scripts/config --disable CONFIG_KERNEL_LZMA
 # scripts/config --disable CONFIG_KERNEL_XZ
 # scripts/config --disable CONFIG_KERNEL_LZO
 # scripts/config --disable CONFIG_KERNEL_LZ4
-# scripts/config --enable CONFIG_KERNEL_ZSTD
+scripts/config --enable CONFIG_KERNEL_ZSTD
 # scripts/config --set-val CONFIG_DEFAULT_INIT ""
 # scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "(none)"
-# scripts/config --enable CONFIG_SYSVIPC
-# scripts/config --enable CONFIG_SYSVIPC_SYSCTL
-# scripts/config --enable CONFIG_SYSVIPC_COMPAT
-# scripts/config --enable CONFIG_POSIX_MQUEUE
-# scripts/config --enable CONFIG_POSIX_MQUEUE_SYSCTL
-# scripts/config --enable CONFIG_WATCH_QUEUE
-# scripts/config --enable CONFIG_CROSS_MEMORY_ATTACH
+scripts/config --enable CONFIG_SYSVIPC
+scripts/config --enable CONFIG_SYSVIPC_SYSCTL
+scripts/config --enable CONFIG_SYSVIPC_COMPAT
+scripts/config --enable CONFIG_POSIX_MQUEUE
+scripts/config --enable CONFIG_POSIX_MQUEUE_SYSCTL
+scripts/config --enable CONFIG_WATCH_QUEUE
+scripts/config --enable CONFIG_CROSS_MEMORY_ATTACH
 scripts/config --disable CONFIG_USELIB
 # scripts/config --enable CONFIG_AUDIT
 # scripts/config --enable CONFIG_HAVE_ARCH_AUDITSYSCALL
@@ -34,6 +34,10 @@ scripts/config --disable CONFIG_USELIB
 # scripts/config --enable CONFIG_GENERIC_PENDING_IRQ
 # scripts/config --enable CONFIG_GENERIC_IRQ_MIGRATION
 # scripts/config --enable CONFIG_HARDIRQS_SW_RESEND
+
+#
+# IRQ subsystem（中断子系统）
+#
 # scripts/config --enable CONFIG_IRQ_DOMAIN
 # scripts/config --enable CONFIG_IRQ_DOMAIN_HIERARCHY
 # scripts/config --enable CONFIG_GENERIC_MSI_IRQ
@@ -6790,6 +6794,9 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --set-val CONFIG_ASYNC_XOR m
 # scripts/config --set-val CONFIG_ASYNC_PQ m
 # scripts/config --set-val CONFIG_ASYNC_RAID6_RECOV m
+#
+# Crypto Core（核心框架）
+#
 # scripts/config --enable CONFIG_CRYPTO
 # scripts/config --enable CONFIG_CRYPTO_ALGAPI
 # scripts/config --enable CONFIG_CRYPTO_ALGAPI2
@@ -6815,20 +6822,20 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --enable CONFIG_CRYPTO_MANAGER_DISABLE_TESTS
 # scripts/config --enable CONFIG_CRYPTO_NULL
 # scripts/config --enable CONFIG_CRYPTO_NULL2
-# scripts/config --set-val CONFIG_CRYPTO_PCRYPT m
+scripts/config --enable CONFIG_CRYPTO_PCRYPT
 # scripts/config --set-val CONFIG_CRYPTO_CRYPTD m
 # scripts/config --set-val CONFIG_CRYPTO_AUTHENC m
 # scripts/config --set-val CONFIG_CRYPTO_TEST m
-# scripts/config --set-val CONFIG_CRYPTO_SIMD m
-# scripts/config --set-val CONFIG_CRYPTO_ENGINE m
+scripts/config --enable CONFIG_CRYPTO_SIMD
+scripts/config --enable CONFIG_CRYPTO_ENGINE
 # scripts/config --enable CONFIG_CRYPTO_RSA
 # scripts/config --enable CONFIG_CRYPTO_DH
 # scripts/config --enable CONFIG_CRYPTO_DH_RFC7919_GROUPS
 # scripts/config --enable CONFIG_CRYPTO_ECC
 # scripts/config --enable CONFIG_CRYPTO_ECDH
-# scripts/config --set-val CONFIG_CRYPTO_ECDSA m
+scripts/config --enable CONFIG_CRYPTO_ECDSA
 # scripts/config --set-val CONFIG_CRYPTO_ECRDSA m
-# scripts/config --set-val CONFIG_CRYPTO_CURVE25519 m
+scripts/config --enable CONFIG_CRYPTO_CURVE25519
 # scripts/config --enable CONFIG_CRYPTO_AES
 # scripts/config --set-val CONFIG_CRYPTO_AES_TI m
 # scripts/config --set-val CONFIG_CRYPTO_ARIA m
@@ -6841,12 +6848,12 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --set-val CONFIG_CRYPTO_DES m
 # scripts/config --set-val CONFIG_CRYPTO_FCRYPT m
 # scripts/config --set-val CONFIG_CRYPTO_SERPENT m
-# scripts/config --set-val CONFIG_CRYPTO_SM4 m
+scripts/config --enable CONFIG_CRYPTO_SM4
 # scripts/config --set-val CONFIG_CRYPTO_SM4_GENERIC m
 # scripts/config --set-val CONFIG_CRYPTO_TWOFISH m
 # scripts/config --set-val CONFIG_CRYPTO_TWOFISH_COMMON m
 # scripts/config --set-val CONFIG_CRYPTO_ADIANTUM m
-# scripts/config --set-val CONFIG_CRYPTO_CHACHA20 m
+scripts/config --enable CONFIG_CRYPTO_CHACHA20
 # scripts/config --enable CONFIG_CRYPTO_CBC
 # scripts/config --enable CONFIG_CRYPTO_CTR
 # scripts/config --enable CONFIG_CRYPTO_CTS
@@ -6858,8 +6865,8 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --set-val CONFIG_CRYPTO_XCTR m
 # scripts/config --enable CONFIG_CRYPTO_XTS
 # scripts/config --set-val CONFIG_CRYPTO_NHPOLY1305 m
-# scripts/config --set-val CONFIG_CRYPTO_AEGIS128 m
-# scripts/config --set-val CONFIG_CRYPTO_CHACHA20POLY1305 m
+scripts/config --enable CONFIG_CRYPTO_AEGIS128
+scripts/config --enable CONFIG_CRYPTO_CHACHA20POLY1305
 # scripts/config --set-val CONFIG_CRYPTO_CCM m
 # scripts/config --enable CONFIG_CRYPTO_GCM
 # scripts/config --enable CONFIG_CRYPTO_GENIV
@@ -6873,8 +6880,8 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --set-val CONFIG_CRYPTO_MD4 m
 # scripts/config --enable CONFIG_CRYPTO_MD5
 # scripts/config --set-val CONFIG_CRYPTO_MICHAEL_MIC m
-# scripts/config --set-val CONFIG_CRYPTO_POLYVAL m
-# scripts/config --set-val CONFIG_CRYPTO_POLY1305 m
+scripts/config --enable CONFIG_CRYPTO_POLYVAL
+scripts/config --enable CONFIG_CRYPTO_POLY1305
 # scripts/config --set-val CONFIG_CRYPTO_RMD160 m
 # scripts/config --enable CONFIG_CRYPTO_SHA1
 # scripts/config --enable CONFIG_CRYPTO_SHA256
@@ -6991,6 +6998,10 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --set-val CONFIG_PKCS7_TEST_KEY m
 # scripts/config --enable CONFIG_SIGNED_PE_FILE_VERIFICATION
 # scripts/config --disable CONFIG_FIPS_SIGNATURE_SELFTEST
+
+#
+# Certificates for signature checking
+#
 # scripts/config --set-val CONFIG_MODULE_SIG_KEY "certs/signing_key.pem"
 # scripts/config --enable CONFIG_MODULE_SIG_KEY_TYPE_RSA
 # scripts/config --disable CONFIG_MODULE_SIG_KEY_TYPE_ECDSA
