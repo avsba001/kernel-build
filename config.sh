@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 set -e
 # 批量修改
+
+# ===== 通用内核基础配置 =====
 scripts/config --enable CONFIG_GENERIC_CPU
+
+# ===== CPU 架构与调度 =====
 scripts/config --set-val CONFIG_X86_64_VERSION 3
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_USELIB
+
+# ===== 安全审计与漏洞缓解 =====
 scripts/config --disable CONFIG_AUDIT
 scripts/config --disable CONFIG_AUDITSYSCALL
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_NO_HZ_FULL
 scripts/config --enable CONFIG_NO_HZ_IDLE
 scripts/config --disable CONFIG_CONTEXT_TRACKING_USER
@@ -21,7 +31,11 @@ scripts/config --disable CONFIG_TASK_DELAY_ACCT
 scripts/config --disable CONFIG_TASK_XACCT
 scripts/config --disable CONFIG_TASK_IO_ACCOUNTING
 scripts/config --disable CONFIG_PSI
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_CPU_ISOLATION
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_TASKS_RUDE_RCU
 scripts/config --disable CONFIG_TASKS_TRACE_RCU
 scripts/config --disable CONFIG_RCU_NOCB_CPU
@@ -29,6 +43,8 @@ scripts/config --disable CONFIG_IKHEADERS
 scripts/config --set-val CONFIG_LOG_BUF_SHIFT 17
 scripts/config --disable CONFIG_NUMA_BALANCING
 scripts/config --disable CONFIG_NUMA_BALANCING_DEFAULT_ENABLED
+
+# ===== cgroup 资源控制 =====
 scripts/config --enable CONFIG_CGROUPS
 scripts/config --enable CONFIG_MEMCG
 scripts/config --enable CONFIG_CGROUP_PIDS
@@ -37,9 +53,13 @@ scripts/config --enable CONFIG_CGROUP_DEVICE
 
 
 # 保留 lz4 与 zstd
+
+# ===== 压缩与解压支持 =====
 scripts/config --enable CONFIG_RD_LZ4
 scripts/config --enable CONFIG_RD_ZSTD
 # 精简调试 / 不必要 syscall
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_CACHESTAT_SYSCALL
 scripts/config --disable CONFIG_KALLSYMS_ALL
 scripts/config --disable CONFIG_KALLSYMS_ABSOLUTE_PERCPU
@@ -47,9 +67,13 @@ scripts/config --disable CONFIG_SYSCTL_EXCEPTION_TRACE
 scripts/config --disable CONFIG_EXPERT
 scripts/config --disable CONFIG_HAVE_UID16
 scripts/config --disable CONFIG_UID16
+
+# ===== 调试与观测能力 =====
 scripts/config --disable CONFIG_PERF_EVENTS
 scripts/config --disable CONFIG_PROFILING
 scripts/config --disable CONFIG_TRACEPOINTS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_CRASH_RESERVE
 scripts/config --disable CONFIG_VMCORE_INFO
 scripts/config --disable CONFIG_KEXEC_CORE
@@ -63,9 +87,15 @@ scripts/config --disable CONFIG_CRASH_DUMP
 scripts/config --disable CONFIG_CRASH_HOTPLUG
 scripts/config --disable CONFIG_LOCKDEP_SUPPORT
 scripts/config --disable CONFIG_STACKTRACE_SUPPORT
+
+# ===== 安全审计与漏洞缓解 =====
 scripts/config --disable CONFIG_AUDIT_ARCH
+
+# ===== CPU 架构与调度 =====
 scripts/config --set-val CONFIG_NR_CPUS 8
 scripts/config --set-val CONFIG_NR_CPUS_DEFAULT 8
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MAXSMP
 scripts/config --disable CONFIG_SCHED_CLUSTER
 scripts/config --disable CONFIG_SCHED_MC
@@ -73,6 +103,8 @@ scripts/config --disable CONFIG_SCHED_MC_PRIO
 scripts/config --disable CONFIG_JAILHOUSE_GUEST
 scripts/config --disable CONFIG_ACRN_GUEST
 scripts/config --disable CONFIG_INTEL_TDX_GUEST
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_CPU_SUP_HYGON
 scripts/config --disable CONFIG_CPU_SUP_CENTAUR
 scripts/config --disable CONFIG_CPU_SUP_ZHAOXIN
@@ -82,25 +114,45 @@ scripts/config --disable CONFIG_X86_MCE_INTEL
 scripts/config --disable CONFIG_X86_MCE_AMD
 scripts/config --disable CONFIG_X86_MCE_THRESHOLD
 scripts/config --disable CONFIG_X86_MCE_INJECT
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_IOSF_MBI_DEBUG
+
+# ===== 调试与观测能力 =====
 scripts/config --disable CONFIG_PERF_EVENTS_INTEL_UNCORE
 scripts/config --disable CONFIG_PERF_EVENTS_INTEL_RAPL
 scripts/config --disable CONFIG_PERF_EVENTS_INTEL_CSTATE
 scripts/config --disable CONFIG_PERF_EVENTS_AMD_UNCORE
 scripts/config --disable CONFIG_PERF_EVENTS_AMD_BRS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MTRR_SANITIZER
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_SGX
 scripts/config --disable CONFIG_X86_USER_SHADOW_STACK
 scripts/config --disable CONFIG_X86_INTEL_MEMORY_PROTECTION_KEYS
 scripts/config --disable CONFIG_X86_CET
+
+# ===== 编译器与链接优化 =====
 scripts/config --disable CONFIG_CC_HAS_IBT
+
+# ===== CPU 架构与调度 =====
 scripts/config --enable CONFIG_HZ_1000
 scripts/config --set-val CONFIG_HZ 1000
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_SCHED_HRTICK
 scripts/config --disable CONFIG_HAVE_LIVEPATCH
 scripts/config --disable CONFIG_LIVEPATCH
+
+# ===== 安全审计与漏洞缓解 =====
 scripts/config --disable CONFIG_MITIGATION_RETPOLINE
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_CPU_MITIGATIONS
+
+# ===== 安全审计与漏洞缓解 =====
 scripts/config --disable CONFIG_MITIGATION_PAGE_TABLE_ISOLATION
 scripts/config --disable CONFIG_MITIGATION_RETHUNK
 scripts/config --disable CONFIG_MITIGATION_UNRET_ENTRY
@@ -123,10 +175,14 @@ scripts/config --disable CONFIG_MITIGATION_SSB
 scripts/config --disable CONFIG_MITIGATION_ITS
 scripts/config --disable CONFIG_MITIGATION_TSA
 scripts/config --disable CONFIG_MITIGATION_VMSCAPE
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_SUSPEND
 scripts/config --disable CONFIG_HIBERNATE
 scripts/config --disable CONFIG_HIBERNATION_SNAPSHOT_DEV
 scripts/config --disable CONFIG_HIBERNATION_COMP_LZO
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_PM
 scripts/config --disable CONFIG_PM_DEBUG
 scripts/config --disable CONFIG_PM_ADVANCED_DEBUG
@@ -143,9 +199,15 @@ scripts/config --disable CONFIG_ACPI_HOTPLUG_IOAPIC
 scripts/config --disable CONFIG_ACPI_DEBUGGER
 scripts/config --disable CONFIG_ACPI_DEBUGGER_USER
 scripts/config --disable CONFIG_ACPI_EXTLOG
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_DPTF_POWER
 scripts/config --disable CONFIG_DPTF_PCH_FIVR
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_PMIC_OPREGION
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_BYTCRC_PMIC_OPREGION
 scripts/config --disable CONFIG_CHTCRC_PMIC_OPREGION
 scripts/config --disable CONFIG_XPOWER_PMIC_OPREGION
@@ -153,6 +215,8 @@ scripts/config --disable CONFIG_BXT_WC_PMIC_OPREGION
 scripts/config --disable CONFIG_CHT_WC_PMIC_OPREGION
 scripts/config --disable CONFIG_CHT_DC_TI_PMIC_OPREGION
 scripts/config --disable CONFIG_TPS68470_PMIC_OPREGION
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_CPU_FREQ
 scripts/config --disable CONFIG_CPU_FREQ_GOV_ATTR_SET
 scripts/config --disable CONFIG_CPU_FREQ_GOV_COMMON
@@ -164,6 +228,8 @@ scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
 scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
 scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
 scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_INTEL_PSTATE
 scripts/config --disable CONFIG_X86_AMD_PSTATE
 scripts/config --disable CONFIG_X86_ACPI_CPUFREQ
@@ -173,45 +239,75 @@ scripts/config --disable CONFIG_X86_SPEEDSTEP_CENTRINO
 scripts/config --disable CONFIG_X86_SPEEDSTEP_LIB
 scripts/config --disable CONFIG_X86_AMD_FREQ_SENSITIVITY
 scripts/config --disable CONFIG_X86_P4_CLOCKMOD
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_CPU_IDLE
 scripts/config --disable CONFIG_CPU_IDLE_GOV_LADDER
 scripts/config --disable CONFIG_CPU_IDLE_GOV_MENU
 scripts/config --disable CONFIG_CPU_IDLE_GOV_TEO
 scripts/config --disable CONFIG_CPU_IDLE_GOV_HALTPOLL
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_HALTPOLL_CPUIDLE
 scripts/config --disable CONFIG_INTEL_IDLE
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_PCI_MMCONFIG
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MMCONF_FAM10H
 scripts/config --disable CONFIG_ISA_BUS
 scripts/config --disable CONFIG_ISA_DMA_API
 scripts/config --disable CONFIG_AMD_NB
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_HOTPLUG_SMT
 scripts/config --disable CONFIG_HOTPLUG_CORE_SYNC
 scripts/config --disable CONFIG_HOTPLUG_CORE_SYNC_DEAD
 scripts/config --disable CONFIG_HOTPLUG_CORE_SYNC_FULL
 scripts/config --disable CONFIG_HOTPLUG_SPLIT_STARTUP
 scripts/config --disable CONFIG_HOTPLUG_PARALLEL
+
+# ===== 调试与观测能力 =====
 scripts/config --disable CONFIG_KPROBES
 scripts/config --disable CONFIG_KRETPROBES
 scripts/config --disable CONFIG_UPROBES
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_OPTPROBES
+
+# ===== 调试与观测能力 =====
 scripts/config --disable CONFIG_KPROBES_ON_FTRACE
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_KRETPROBE_ON_RETHOOK
 scripts/config --disable CONFIG_USER_RETURN_NOTIFIER
 scripts/config --disable CONFIG_HAVE_FUNCTION_ERROR_INJECTION
+
+# ===== 编译器与链接优化 =====
 scripts/config --disable CONFIG_LTO_NONE
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ARCH_SUPPORTS_CFI_CLANG
 scripts/config --disable CONFIG_HAVE_CFI_ICALL_NORMALIZE_INTEGERS_CLANG
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_MEM_ENCRYPT
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_AMD_MEM_ENCRYPT
+
+# ===== 编译器与链接优化 =====
 scripts/config --disable CONFIG_LTO_CLANG_THIN
 scripts/config --enable CONFIG_LTO_CLANG_FULL
 
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_IP_VS_NFCT
 scripts/config --enable CONFIG_BRIDGE
 scripts/config --enable CONFIG_BRIDGE_IGMP_SNOOPING
 scripts/config --enable CONFIG_BRIDGE_VLAN_FILTERING
 
+# ===== 蓝牙子系统 =====
 scripts/config --disable CONFIG_BT
 scripts/config --disable CONFIG_BT_BREDR
 scripts/config --disable CONFIG_BT_RFCOMM
@@ -250,12 +346,18 @@ scripts/config --disable CONFIG_BT_MTKUART
 scripts/config --disable CONFIG_BT_HCIRSI
 scripts/config --disable CONFIG_BT_VIRTIO
 scripts/config --disable CONFIG_BT_NXPUART
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_AF_RXRPC
 scripts/config --disable CONFIG_AF_KCM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_RXKAD
 scripts/config --disable CONFIG_RXPERF
 scripts/config --disable CONFIG_STREAM_PARSER
 scripts/config --disable CONFIG_MCTP
+
+# ===== 无线网络子系统 =====
 scripts/config --disable CONFIG_WIRELESS
 scripts/config --disable CONFIG_WIRELESS_EXT
 scripts/config --disable CONFIG_WEXT_CORE
@@ -263,10 +365,14 @@ scripts/config --disable CONFIG_WEXT_PROC
 scripts/config --disable CONFIG_WEXT_SPY
 scripts/config --disable CONFIG_WEXT_PRIV
 scripts/config --disable CONFIG_CFG80211
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_LIB80211
 scripts/config --disable CONFIG_LIB80211_CRYPT_WEP
 scripts/config --disable CONFIG_LIB80211_CRYPT_CCMP
 scripts/config --disable CONFIG_LIB80211_CRYPT_TKIP
+
+# ===== 无线网络子系统 =====
 scripts/config --disable CONFIG_MAC80211
 scripts/config --disable CONFIG_MAC80211_MESH
 scripts/config --disable CONFIG_MAC80211_LEDS
@@ -276,6 +382,8 @@ scripts/config --disable CONFIG_RFKILL
 scripts/config --disable CONFIG_RFKILL_LEDS
 scripts/config --disable CONFIG_RFKILL_INPUT
 scripts/config --disable CONFIG_RFKILL_GPIO
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_9P
 scripts/config --disable CONFIG_NET_9P_FD
 scripts/config --disable CONFIG_NET_9P_VIRTIO
@@ -284,6 +392,8 @@ scripts/config --disable CONFIG_NET_9P_RDMA
 scripts/config --disable CONFIG_CAIF
 scripts/config --disable CONFIG_CAIF_NETDEV
 scripts/config --disable CONFIG_CAIF_USB
+
+# ===== NFC 近场通信 =====
 scripts/config --disable CONFIG_NFC
 scripts/config --disable CONFIG_NFC_DIGITAL
 scripts/config --disable CONFIG_NFC_NCI
@@ -324,12 +434,20 @@ scripts/config --disable CONFIG_NFC_S3FWRN5
 scripts/config --disable CONFIG_NFC_S3FWRN5_I2C
 scripts/config --disable CONFIG_NFC_S3FWRN82_UART
 scripts/config --disable CONFIG_NFC_ST95HF
+
+# ===== 通用内核基础配置 =====
 scripts/config --enable CONFIG_HAVE_PCI
 scripts/config --enable CONFIG_GENERIC_PCI_IOMAP
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --enable CONFIG_PCI
 scripts/config --enable CONFIG_PCI_DOMAINS
 scripts/config --enable CONFIG_PCIEPORTBUS
+
+# ===== CPU 架构与调度 =====
 scripts/config --enable CONFIG_HOTPLUG_PCI_PCIE
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --enable CONFIG_PCIEAER
 scripts/config --enable CONFIG_PCIEAER_CXL
 scripts/config --enable CONFIG_PCIEASPM
@@ -341,12 +459,22 @@ scripts/config --enable CONFIG_PCIE_EDR
 scripts/config --enable CONFIG_PCI_MSI
 scripts/config --enable CONFIG_PCI_QUIRKS
 scripts/config --enable CONFIG_PCI_REALLOC_ENABLE_AUTO
+
+# ===== 通用内核基础配置 =====
 scripts/config --enable CONFIG_XEN_PCIDEV_FRONTEND
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --enable CONFIG_PCI_IOV
+
+# ===== 通用内核基础配置 =====
 scripts/config --enable CONFIG_VGA_ARB
 scripts/config --enable CONFIG_VGA_ARB_MAX_GPUS
+
+# ===== CPU 架构与调度 =====
 scripts/config --enable CONFIG_HOTPLUG_PCI
 scripts/config --enable CONFIG_HOTPLUG_PCI_ACPI
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --enable CONFIG_PCIE_DW
 scripts/config --enable CONFIG_PCIE_DW_HOST
 scripts/config --enable CONFIG_PCIE_DW_EP
@@ -372,16 +500,26 @@ scripts/config --disable CONFIG_CXL_REGION
 scripts/config --disable CONFIG_PCCARD
 scripts/config --disable CONFIG_PCMCIA
 scripts/config --disable CONFIG_PCMCIA_LOAD_CIS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_CARDBUS
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_YENTA
 scripts/config --disable CONFIG_YENTA_O2
 scripts/config --disable CONFIG_YENTA_RICOH
 scripts/config --disable CONFIG_YENTA_TI
 scripts/config --disable CONFIG_YENTA_ENE_TUNE
 scripts/config --disable CONFIG_YENTA_TOSHIBA
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_PD6729
 scripts/config --disable CONFIG_I82092
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_PCCARD_NONSTATIC
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_RAPIDIO
 scripts/config --disable CONFIG_RAPIDIO_TSI721
 scripts/config --disable CONFIG_RAPIDIO_DMA_ENGINE
@@ -391,6 +529,8 @@ scripts/config --disable CONFIG_RAPIDIO_MPORT_CDEV
 scripts/config --disable CONFIG_RAPIDIO_CPS_XX
 scripts/config --disable CONFIG_RAPIDIO_CPS_GEN2
 scripts/config --disable CONFIG_RAPIDIO_RXS_GEN3
+
+# ===== 固件与平台接口（EFI/UEFI） =====
 scripts/config --enable CONFIG_SYS_HYPERVISOR
 scripts/config --enable CONFIG_EFI_ESRT
 scripts/config --enable CONFIG_EFI_SOFT_RESERVE
@@ -399,28 +539,44 @@ scripts/config --enable CONFIG_EFI_BOOTLOADER_CONTROL
 scripts/config --enable CONFIG_EFI_CAPSULE_LOADER
 scripts/config --enable CONFIG_EFI_DEV_PATH_PARSER
 scripts/config --enable CONFIG_UEFI_CPER
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_APPLE_PROPERTIES
+
+# ===== 固件与平台接口（EFI/UEFI） =====
 scripts/config --disable CONFIG_EFI_EARLYCON
 scripts/config --disable CONFIG_EFI_CUSTOM_SSDT_OVERLAYS
 scripts/config --disable CONFIG_EFI_COCO_SECRET
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_UNACCEPTED_MEMORY
+
+# ===== 固件与平台接口（EFI/UEFI） =====
 scripts/config --disable CONFIG_EFI_EMBEDDED_FIRMWARE
+
+# ===== GNSS 定位子系统 =====
 scripts/config --disable CONFIG_GNSS
 scripts/config --disable CONFIG_GNSS_SERIAL
 scripts/config --disable CONFIG_GNSS_MTK_SERIAL
 scripts/config --disable CONFIG_GNSS_SIRF_SERIAL
 scripts/config --disable CONFIG_GNSS_UBX_SERIAL
 scripts/config --disable CONFIG_GNSS_USB
+
+# ===== 闪存与并口外设 =====
 scripts/config --disable CONFIG_MTD
 scripts/config --disable CONFIG_MTD_BLKDEVS
 scripts/config --disable CONFIG_MTD_BLOCK
 scripts/config --disable CONFIG_MTD_BLOCK_RO
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_FTL
 scripts/config --disable CONFIG_NFTL
 scripts/config --disable CONFIG_INFTL
 scripts/config --disable CONFIG_RFD_FTL
 scripts/config --disable CONFIG_SSFDC
 scripts/config --disable CONFIG_SM_FTL
+
+# ===== 闪存与并口外设 =====
 scripts/config --disable CONFIG_MTD_OOPS
 scripts/config --disable CONFIG_MTD_PSTORE
 scripts/config --disable CONFIG_MTD_SWAP
@@ -481,12 +637,20 @@ scripts/config --disable CONFIG_PARPORT_PC_FIFO
 scripts/config --disable CONFIG_PARPORT_PC_PCMCIA
 scripts/config --disable CONFIG_PARPORT_1284
 scripts/config --disable CONFIG_PARPORT_NOT_PC
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_PNP
+
+# ===== 块设备与存储协议 =====
 scripts/config --enable CONFIG_BLK_DEV_NULL_BLK
 scripts/config --enable CONFIG_BLK_DEV_LOOP
 scripts/config --enable CONFIG_BLK_DEV_RAM
+
+# ===== 通用内核基础配置 =====
 scripts/config --enable CONFIG_XEN_BLKDEV_FRONTEND
 scripts/config --enable CONFIG_VIRTIO_BLK
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_BLK_DEV_FD
 scripts/config --disable CONFIG_BLK_DEV_FD_RAWCMD
 scripts/config --disable CONFIG_BLK_DEV_DRBD
@@ -514,18 +678,28 @@ scripts/config --disable CONFIG_NVME_TARGET_FC
 scripts/config --disable CONFIG_NVME_TARGET_TCP
 scripts/config --disable CONFIG_NVME_TARGET_TCP_TLS
 scripts/config --disable CONFIG_NVME_TARGET_AUTH
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_LIS3LV02D
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_AD525X_DPOT
 scripts/config --disable CONFIG_AD525X_DPOT_I2C
 scripts/config --disable CONFIG_AD525X_DPOT_SPI
 scripts/config --disable CONFIG_APDS9802ALS
 scripts/config --disable CONFIG_ISL29003
 scripts/config --disable CONFIG_ISL29020
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_TSL2550
 scripts/config --disable CONFIG_SENSORS_BH1770
 scripts/config --disable CONFIG_SENSORS_APDS990X
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_HMC6352
 scripts/config --disable CONFIG_DS1682
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_LIS3_I2C
 scripts/config --disable CONFIG_INTEL_MEI
 scripts/config --disable CONFIG_INTEL_MEI_ME
@@ -543,6 +717,8 @@ scripts/config --disable CONFIG_EEPROM_93CX6
 scripts/config --disable CONFIG_EEPROM_93XX46
 scripts/config --disable CONFIG_EEPROM_IDT_89HPESX
 scripts/config --disable CONFIG_EEPROM_EE1004
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_CB710_CORE
 scripts/config --disable CONFIG_CB710_DEBUG_ASSUMPTIONS
 scripts/config --disable CONFIG_TI_ST
@@ -550,17 +726,27 @@ scripts/config --disable CONFIG_ALTERA_STAPL
 scripts/config --disable CONFIG_GENWQE
 scripts/config --disable CONFIG_BCM_VK
 scripts/config --disable CONFIG_BCM_VK_TTY
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_MISC_ALCOR_PCI
 scripts/config --disable CONFIG_MISC_RTSX
 scripts/config --disable CONFIG_MISC_RTSX_PCI
 scripts/config --disable CONFIG_MISC_RTSX_USB
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_UACCE
 scripts/config --disable CONFIG_GP_PCI1XXXX
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_SCSI_CXGB3_ISCSI
 scripts/config --disable CONFIG_SCSI_CXGB4_ISCSI
 scripts/config --disable CONFIG_SCSI_BNX2_ISCSI
 scripts/config --disable CONFIG_SCSI_BNX2X_FCOE
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_BE2ISCSI
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_BLK_DEV_3W_XXXX_RAID
 scripts/config --disable CONFIG_SCSI_HPSA
 scripts/config --disable CONFIG_SCSI_3W_9XXX
@@ -575,10 +761,14 @@ scripts/config --disable CONFIG_SCSI_MVUMI
 scripts/config --disable CONFIG_SCSI_ADVANSYS
 scripts/config --disable CONFIG_SCSI_ARCMSR
 scripts/config --disable CONFIG_SCSI_ESAS2R
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MEGARAID_MM
 scripts/config --disable CONFIG_MEGARAID_MAILBOX
 scripts/config --disable CONFIG_MEGARAID_LEGACY
 scripts/config --disable CONFIG_MEGARAID_SAS
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_SCSI_MPT3SAS
 scripts/config --disable CONFIG_SCSI_MPT2SAS
 scripts/config --disable CONFIG_SCSI_MPI3MR
@@ -590,17 +780,25 @@ scripts/config --disable CONFIG_SCSI_MYRB
 scripts/config --disable CONFIG_SCSI_MYRS
 # 如果 VPS 已通过 virtio-blk / virtio-scsi 提供磁盘，这可以保留
 scripts/config --disable CONFIG_SCSI_CHELSIO_FCOE
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_PCMCIA_AHA152X
 scripts/config --disable CONFIG_PCMCIA_FDOMAIN
 scripts/config --disable CONFIG_PCMCIA_QLOGIC
 scripts/config --disable CONFIG_PCMCIA_SYM53C500
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_SCSI_DH_RDAC
 scripts/config --disable CONFIG_SCSI_DH_HP_SW
 scripts/config --disable CONFIG_SCSI_DH_EMC
 scripts/config --disable CONFIG_SCSI_DH_ALUA
 # SATA 物理控制器驱动
 scripts/config --disable CONFIG_SATA_AHCI_PLATFORM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_AHCI_DWC
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_SATA_INIC162X
 scripts/config --disable CONFIG_SATA_ACARD_AHCI
 scripts/config --disable CONFIG_SATA_SIL24
@@ -648,11 +846,15 @@ scripts/config --disable CONFIG_PATA_TOSHIBA
 scripts/config --disable CONFIG_PATA_TRIFLEX
 scripts/config --disable CONFIG_PATA_VIA
 scripts/config --disable CONFIG_PATA_WINBOND
+
+# ===== FireWire 总线 =====
 scripts/config --disable CONFIG_FIREWIRE
 scripts/config --disable CONFIG_FIREWIRE_OHCI
 scripts/config --disable CONFIG_FIREWIRE_SBP2
 scripts/config --disable CONFIG_FIREWIRE_NET
 scripts/config --disable CONFIG_FIREWIRE_NOSY
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_ARCNET
 scripts/config --disable CONFIG_ARCNET_1201
 scripts/config --disable CONFIG_ARCNET_1051
@@ -712,40 +914,88 @@ scripts/config --disable CONFIG_NET_DSA_VITESSE_VSC73XX_SPI
 scripts/config --disable CONFIG_NET_DSA_VITESSE_VSC73XX_PLATFORM
 scripts/config --disable CONFIG_MDIO
 scripts/config --disable CONFIG_NET_VENDOR_3COM
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_PCMCIA_3C574
 scripts/config --disable CONFIG_PCMCIA_3C589
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_VORTEX
 scripts/config --disable CONFIG_TYPHOON
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_ADAPTEC
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ADAPTEC_STARFIRE
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_AGERE
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ET131X
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_ALACRITECH
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_SLICOSS
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_ALTEON
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ACENIC
 scripts/config --disable CONFIG_ALTERA_TSE
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_AMAZON
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ENA_ETHERNET
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_AMD
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_AMD8111_ETH
 scripts/config --disable CONFIG_PCNET32
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_PCMCIA_NMCLAN
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_AMD_XGBE
 scripts/config --disable CONFIG_PDS_CORE
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_AQUANTIA
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_AQTION
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_ARC
 scripts/config --disable CONFIG_NET_VENDOR_ASIX
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_SPI_AX88796C
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_ATHEROS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ATL2
 scripts/config --disable CONFIG_ATL1
 scripts/config --disable CONFIG_ATL1E
 scripts/config --disable CONFIG_ATL1C
 scripts/config --disable CONFIG_ALX
 scripts/config --disable CONFIG_CX_ECAT
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_BROADCOM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_B44
 scripts/config --disable CONFIG_B44_PCI_AUTOSELECT
 scripts/config --disable CONFIG_B44_PCICORE_AUTOSELECT
@@ -763,10 +1013,18 @@ scripts/config --disable CONFIG_BNXT_SRIOV
 scripts/config --disable CONFIG_BNXT_FLOWER_OFFLOAD
 scripts/config --disable CONFIG_BNXT_DCB
 scripts/config --disable CONFIG_BNXT_HWMON
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_CADENCE
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MACB
 scripts/config --disable CONFIG_MACB_PCI
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_CAVIUM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_THUNDER_NIC_PF
 scripts/config --disable CONFIG_THUNDER_NIC_VF
 scripts/config --disable CONFIG_THUNDER_NIC_BGX
@@ -775,7 +1033,11 @@ scripts/config --disable CONFIG_CAVIUM_PTP
 scripts/config --disable CONFIG_LIQUIDIO_CORE
 scripts/config --disable CONFIG_LIQUIDIO
 scripts/config --disable CONFIG_LIQUIDIO_VF
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_CHELSIO
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_CHELSIO_T1
 scripts/config --disable CONFIG_CHELSIO_T3
 scripts/config --disable CONFIG_CHELSIO_T4
@@ -783,39 +1045,85 @@ scripts/config --disable CONFIG_CHELSIO_T4VF
 scripts/config --disable CONFIG_CHELSIO_LIB
 scripts/config --disable CONFIG_CHELSIO_IPSEC_INLINE
 scripts/config --disable CONFIG_CHELSIO_TLS_DEVICE
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_CISCO
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ENIC
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_CORTINA
 scripts/config --disable CONFIG_NET_VENDOR_DAVICOM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_DM9051
 scripts/config --disable CONFIG_DNET
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_DEC
 scripts/config --disable CONFIG_NET_TULIP
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_DE2104X
 scripts/config --disable CONFIG_TULIP
 scripts/config --disable CONFIG_WINBOND_840
 scripts/config --disable CONFIG_DM9102
 scripts/config --disable CONFIG_ULI526X
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_PCMCIA_XIRCOM
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_DLINK
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_DL2K
 scripts/config --disable CONFIG_SUNDANCE
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_EMULEX
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_BE2NET
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_ENGLEDER
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_TSNEP
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_EZCHIP
 scripts/config --disable CONFIG_NET_VENDOR_FUJITSU
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_PCMCIA_FMVJ18X
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_FUNGIBLE
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_FUN_CORE
 scripts/config --disable CONFIG_FUN_ETH
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_GOOGLE
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_GVE
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_HUAWEI
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_HINIC
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_I825XX
 scripts/config --disable CONFIG_NET_VENDOR_INTEL
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_LIBETH
 scripts/config --disable CONFIG_LIBIE
 scripts/config --disable CONFIG_E100
@@ -833,17 +1141,29 @@ scripts/config --disable CONFIG_FM10K
 scripts/config --disable CONFIG_IGC
 scripts/config --disable CONFIG_IDPF
 scripts/config --disable CONFIG_JME
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_ADI
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ADIN1110
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_LITEX
 scripts/config --disable CONFIG_NET_VENDOR_MARVELL
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MVMDIO
 scripts/config --disable CONFIG_SKGE
 scripts/config --disable CONFIG_SKY2
 scripts/config --disable CONFIG_OCTEON_EP
 scripts/config --disable CONFIG_PRESTERA
 scripts/config --disable CONFIG_PRESTERA_PCI
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_MELLANOX
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MLX4_EN
 scripts/config --disable CONFIG_MLX4_CORE
 scripts/config --disable CONFIG_MLX5_CORE
@@ -854,6 +1174,8 @@ scripts/config --disable CONFIG_MLXSW_I2C
 scripts/config --disable CONFIG_MLXSW_SPECTRUM
 scripts/config --disable CONFIG_MLXSW_MINIMAL
 scripts/config --disable CONFIG_MLXFW
+
+# ===== 网络协议与网卡驱动 =====
 scripts/config --disable CONFIG_NET_VENDOR_META
 scripts/config --disable CONFIG_NET_VENDOR_MICREL
 scripts/config --disable CONFIG_NET_VENDOR_MICROCHIP
@@ -895,6 +1217,8 @@ scripts/config --disable CONFIG_NET_VENDOR_WIZNET
 scripts/config --disable CONFIG_NET_VENDOR_XILINX
 scripts/config --disable CONFIG_NET_VENDOR_XIRCOM
 # PHY 驱动
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_AIR_EN8811H_PHY
 scripts/config --disable CONFIG_AMD_PHY
 scripts/config --disable CONFIG_ADIN_PHY
@@ -1884,6 +2208,8 @@ scripts/config --disable CONFIG_CHARGER_SURFACE
 scripts/config --disable CONFIG_BATTERY_UG3105
 scripts/config --disable CONFIG_FUEL_GAUGE_MM8013
 scripts/config --disable CONFIG_HWMON_VID
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_ABITUGURU
 scripts/config --disable CONFIG_SENSORS_ABITUGURU3
 scripts/config --disable CONFIG_SENSORS_SMPRO
@@ -1921,7 +2247,11 @@ scripts/config --disable CONFIG_SENSORS_DRIVETEMP
 scripts/config --disable CONFIG_SENSORS_DS620
 scripts/config --disable CONFIG_SENSORS_DS1621
 scripts/config --disable CONFIG_SENSORS_DELL_SMM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_I8K
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_DA9052_ADC
 scripts/config --disable CONFIG_SENSORS_DA9055
 scripts/config --disable CONFIG_SENSORS_I5K_AMB
@@ -1970,7 +2300,11 @@ scripts/config --disable CONFIG_SENSORS_MAX197
 scripts/config --disable CONFIG_SENSORS_MAX31722
 scripts/config --disable CONFIG_SENSORS_MAX31730
 scripts/config --disable CONFIG_SENSORS_MAX31760
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MAX31827
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_MAX6620
 scripts/config --disable CONFIG_SENSORS_MAX6621
 scripts/config --disable CONFIG_SENSORS_MAX6639
@@ -2138,6 +2472,8 @@ scripts/config --disable CONFIG_SENSORS_ATK0110
 scripts/config --disable CONFIG_SENSORS_ASUS_WMI
 scripts/config --disable CONFIG_SENSORS_ASUS_EC
 scripts/config --disable CONFIG_SENSORS_HP_WMI
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_THERMAL_STATISTICS
 scripts/config --disable CONFIG_THERMAL_DEFAULT_GOV_STEP_WISE
 scripts/config --disable CONFIG_THERMAL_GOV_FAIR_SHARE
@@ -2148,11 +2484,19 @@ scripts/config --disable CONFIG_DEVFREQ_THERMAL
 scripts/config --disable CONFIG_THERMAL_EMULATION
 scripts/config --disable CONFIG_INTEL_POWERCLAMP
 scripts/config --disable CONFIG_INTEL_TCC
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_PKG_TEMP_THERMAL
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_INTEL_SOC_DTS_IOSF_CORE
 scripts/config --disable CONFIG_INTEL_SOC_DTS_THERMAL
 scripts/config --disable CONFIG_INT340X_THERMAL
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_ACPI_THERMAL_REL
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_INT3406_THERMAL
 scripts/config --disable CONFIG_PROC_THERMAL_MMIO_RAPL
 scripts/config --disable CONFIG_INTEL_BXT_PMIC_THERMAL
@@ -2220,13 +2564,21 @@ scripts/config --disable CONFIG_W83877F_WDT
 scripts/config --disable CONFIG_W83977F_WDT
 scripts/config --disable CONFIG_MACHZ_WDT
 scripts/config --disable CONFIG_SBC_EPX_C3_WATCHDOG
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_INTEL_MEI_WDT
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_NI903X_WDT
 scripts/config --disable CONFIG_NIC7018_WDT
 scripts/config --disable CONFIG_SIEMENS_SIMATIC_IPC_WDT
 scripts/config --disable CONFIG_MEN_A21_WDT
 scripts/config --disable CONFIG_XEN_WDT
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_PCIPCWATCHDOG
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_WDTPCI
 scripts/config --disable CONFIG_USBPCWATCHDOG
 scripts/config --disable CONFIG_SSB
@@ -3403,6 +3755,8 @@ scripts/config --disable CONFIG_MMC_HSQ
 scripts/config --disable CONFIG_MMC_TOSHIBA_PCI
 scripts/config --disable CONFIG_MMC_MTK
 scripts/config --disable CONFIG_MMC_SDHCI_XENON
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_SCSI_UFSHCD
 scripts/config --disable CONFIG_SCSI_UFS_BSG
 scripts/config --disable CONFIG_SCSI_UFS_CRYPTO
@@ -3411,6 +3765,8 @@ scripts/config --disable CONFIG_SCSI_UFSHCD_PCI
 scripts/config --disable CONFIG_SCSI_UFS_DWC_TC_PCI
 scripts/config --disable CONFIG_SCSI_UFSHCD_PLATFORM
 scripts/config --disable CONFIG_SCSI_UFS_CDNS_PLATFORM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MEMSTICK
 scripts/config --disable CONFIG_MEMSTICK_DEBUG
 scripts/config --disable CONFIG_MEMSTICK_UNSAFE_RESUME
@@ -3766,7 +4122,11 @@ scripts/config --disable CONFIG_VBOXGUEST
 scripts/config --disable CONFIG_NITRO_ENCLAVES
 scripts/config --disable CONFIG_ACRN_HSM
 scripts/config --disable CONFIG_TSM_REPORTS
+
+# ===== 固件与平台接口（EFI/UEFI） =====
 scripts/config --disable CONFIG_EFI_SECRET
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_SEV_GUEST
 scripts/config --disable CONFIG_TDX_GUEST_DRIVER
 scripts/config --disable CONFIG_VIRTIO_DEBUG
@@ -4108,8 +4468,14 @@ scripts/config --disable CONFIG_SURFACE_PLATFORM_PROFILE
 scripts/config --disable CONFIG_SURFACE_PRO3_BUTTON
 scripts/config --disable CONFIG_SURFACE_AGGREGATOR
 scripts/config --disable CONFIG_SURFACE_AGGREGATOR_BUS
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_PLATFORM_DEVICES
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_ACPI_WMI
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_WMI_BMOF
 scripts/config --disable CONFIG_HUAWEI_WMI
 scripts/config --disable CONFIG_UV_SYSFS
@@ -4139,7 +4505,11 @@ scripts/config --disable CONFIG_ASUS_TF103C_DOCK
 scripts/config --disable CONFIG_MERAKI_MX100
 scripts/config --disable CONFIG_EEEPC_LAPTOP
 scripts/config --disable CONFIG_EEEPC_WMI
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_PLATFORM_DRIVERS_DELL
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ALIENWARE_WMI
 scripts/config --disable CONFIG_DCDBAS
 scripts/config --disable CONFIG_DELL_LAPTOP
@@ -4162,15 +4532,27 @@ scripts/config --disable CONFIG_AMILO_RFKILL
 scripts/config --disable CONFIG_FUJITSU_LAPTOP
 scripts/config --disable CONFIG_FUJITSU_TABLET
 scripts/config --disable CONFIG_GPD_POCKET_FAN
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_PLATFORM_DRIVERS_HP
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_HP_ACCEL
 scripts/config --disable CONFIG_HP_WMI
 scripts/config --disable CONFIG_HP_BIOSCFG
+
+# ===== 无线网络子系统 =====
 scripts/config --disable CONFIG_WIRELESS_HOTKEY
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_IBM_RTL
 scripts/config --disable CONFIG_IDEAPAD_LAPTOP
 scripts/config --disable CONFIG_LENOVO_YMC
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_HDAPS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_THINKPAD_ACPI
 scripts/config --disable CONFIG_THINKPAD_ACPI_ALSA_SUPPORT
 scripts/config --disable CONFIG_THINKPAD_ACPI_DEBUGFACILITIES
@@ -4216,7 +4598,11 @@ scripts/config --disable CONFIG_INTEL_TPMI
 scripts/config --disable CONFIG_INTEL_PLR_TPMI
 scripts/config --disable CONFIG_INTEL_TURBO_MAX_3
 scripts/config --disable CONFIG_INTEL_VSEC
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_ACPI_QUICKSTART
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MEEGOPAD_ANX7428
 scripts/config --disable CONFIG_MSI_EC
 scripts/config --disable CONFIG_MSI_LAPTOP
@@ -4226,11 +4612,19 @@ scripts/config --disable CONFIG_PCENGINES_APU2
 scripts/config --disable CONFIG_BARCO_P50_GPIO
 scripts/config --disable CONFIG_SAMSUNG_LAPTOP
 scripts/config --disable CONFIG_SAMSUNG_Q10
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_ACPI_TOSHIBA
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_TOSHIBA_BT_RFKILL
 scripts/config --disable CONFIG_TOSHIBA_HAPS
 scripts/config --disable CONFIG_TOSHIBA_WMI
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_ACPI_CMPC
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_COMPAL_LAPTOP
 scripts/config --disable CONFIG_LG_LAPTOP
 scripts/config --disable CONFIG_PANASONIC_LAPTOP
@@ -4243,7 +4637,11 @@ scripts/config --disable CONFIG_MLX_PLATFORM
 scripts/config --disable CONFIG_TOUCHSCREEN_DMI
 scripts/config --disable CONFIG_INSPUR_PLATFORM_PROFILE
 scripts/config --disable CONFIG_LENOVO_WMI_CAMERA
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_ANDROID_TABLETS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_FW_ATTR_CLASS
 scripts/config --disable CONFIG_INTEL_IPS
 scripts/config --disable CONFIG_INTEL_SCU_IPC
@@ -4323,13 +4721,21 @@ scripts/config --disable CONFIG_QCOM_QMI_HELPERS
 scripts/config --disable CONFIG_QCOM_PBS
 scripts/config --disable CONFIG_SOC_TI
 scripts/config --disable CONFIG_XILINX_VCU
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_PM_DEVFREQ
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
 scripts/config --disable CONFIG_DEVFREQ_GOV_PERFORMANCE
 scripts/config --disable CONFIG_DEVFREQ_GOV_POWERSAVE
 scripts/config --disable CONFIG_DEVFREQ_GOV_USERSPACE
 scripts/config --disable CONFIG_DEVFREQ_GOV_PASSIVE
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_PM_DEVFREQ_EVENT
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_EXTCON
 scripts/config --disable CONFIG_EXTCON_ADC_JACK
 scripts/config --disable CONFIG_EXTCON_AXP288
@@ -4462,7 +4868,11 @@ scripts/config --disable CONFIG_BME680_SPI
 scripts/config --disable CONFIG_CCS811
 scripts/config --disable CONFIG_ENS160
 scripts/config --disable CONFIG_IAQCORE
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_PMS7003
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_SCD30_CORE
 scripts/config --disable CONFIG_SCD30_I2C
 scripts/config --disable CONFIG_SCD30_SERIAL
@@ -4588,7 +4998,11 @@ scripts/config --disable CONFIG_IIO_ST_LSM6DSX_I3C
 scripts/config --disable CONFIG_IIO_ST_LSM9DS0
 scripts/config --disable CONFIG_IIO_ST_LSM9DS0_I2C
 scripts/config --disable CONFIG_IIO_ST_LSM9DS0_SPI
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_ACPI_ALS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ADJD_S311
 scripts/config --disable CONFIG_ADUX1020
 scripts/config --disable CONFIG_AL3010
@@ -4608,7 +5022,11 @@ scripts/config --disable CONFIG_IIO_CROS_EC_LIGHT_PROX
 scripts/config --disable CONFIG_GP2AP002
 scripts/config --disable CONFIG_GP2AP020A00F
 scripts/config --disable CONFIG_IQS621_ALS
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_ISL29018
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ISL29028
 scripts/config --disable CONFIG_ISL29125
 scripts/config --disable CONFIG_ISL76682
@@ -4618,7 +5036,11 @@ scripts/config --disable CONFIG_JSA1212
 scripts/config --disable CONFIG_ROHM_BU27008
 scripts/config --disable CONFIG_ROHM_BU27034
 scripts/config --disable CONFIG_RPR0521
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_LM3533
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_LTR390
 scripts/config --disable CONFIG_LTR501
 scripts/config --disable CONFIG_LTRF216A
@@ -4637,7 +5059,11 @@ scripts/config --disable CONFIG_ST_UVIS25_I2C
 scripts/config --disable CONFIG_ST_UVIS25_SPI
 scripts/config --disable CONFIG_TCS3414
 scripts/config --disable CONFIG_TCS3472
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_TSL2563
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_TSL2583
 scripts/config --disable CONFIG_TSL2591
 scripts/config --disable CONFIG_TSL2772
@@ -4663,12 +5089,16 @@ scripts/config --disable CONFIG_MMC35240
 scripts/config --disable CONFIG_IIO_ST_MAGN_3AXIS
 scripts/config --disable CONFIG_IIO_ST_MAGN_I2C_3AXIS
 scripts/config --disable CONFIG_IIO_ST_MAGN_SPI_3AXIS
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_HMC5843
 scripts/config --disable CONFIG_SENSORS_HMC5843_I2C
 scripts/config --disable CONFIG_SENSORS_HMC5843_SPI
 scripts/config --disable CONFIG_SENSORS_RM3100
 scripts/config --disable CONFIG_SENSORS_RM3100_I2C
 scripts/config --disable CONFIG_SENSORS_RM3100_SPI
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_TI_TMAG5273
 scripts/config --disable CONFIG_YAMAHA_YAS530
 scripts/config --disable CONFIG_IIO_MUX
@@ -4821,7 +5251,11 @@ scripts/config --disable CONFIG_MCB
 scripts/config --disable CONFIG_MCB_PCI
 scripts/config --disable CONFIG_MCB_LPC
 scripts/config --disable CONFIG_DWC_PCIE_PMU
+
+# ===== PCI/PCIe 与热插拔总线 =====
 scripts/config --disable CONFIG_CXL_PMU
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_RAS_CEC
 scripts/config --disable CONFIG_RAS_CEC_DEBUG
 scripts/config --disable CONFIG_AMD_ATL
@@ -4834,7 +5268,11 @@ scripts/config --disable CONFIG_ANDROID_BINDER_IPC
 scripts/config --disable CONFIG_ANDROID_BINDERFS
 scripts/config --disable CONFIG_ANDROID_BINDER_DEVICES
 scripts/config --disable CONFIG_ANDROID_BINDER_IPC_SELFTEST
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_BLK_DEV_PMEM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ND_CLAIM
 scripts/config --disable CONFIG_ND_BTT
 scripts/config --disable CONFIG_BTT
@@ -4850,12 +5288,16 @@ scripts/config --disable CONFIG_DEV_DAX_HMEM
 scripts/config --disable CONFIG_DEV_DAX_CXL
 scripts/config --disable CONFIG_DEV_DAX_HMEM_DEVICES
 scripts/config --disable CONFIG_DEV_DAX_KMEM
+
+# ===== 块设备与存储协议 =====
 scripts/config --disable CONFIG_NVMEM
 scripts/config --disable CONFIG_NVMEM_SYSFS
 scripts/config --disable CONFIG_NVMEM_LAYOUTS
 scripts/config --disable CONFIG_NVMEM_RAVE_SP_EEPROM
 scripts/config --disable CONFIG_NVMEM_RMEM
 scripts/config --disable CONFIG_NVMEM_SPMI_SDAM
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_STM
 scripts/config --disable CONFIG_STM_PROTO_BASIC
 scripts/config --disable CONFIG_STM_PROTO_SYS_T
@@ -4901,7 +5343,11 @@ scripts/config --disable CONFIG_MULTIPLEXER
 scripts/config --disable CONFIG_MUX_ADG792A
 scripts/config --disable CONFIG_MUX_ADGS1408
 scripts/config --disable CONFIG_MUX_GPIO
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_PM_OPP
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_SIOX
 scripts/config --disable CONFIG_SIOX_BUS_GPIO
 scripts/config --disable CONFIG_SLIMBUS
@@ -4986,13 +5432,21 @@ scripts/config --disable CONFIG_CRYPTO_DEV_AMLOGIC_GXL_DEBUG
 scripts/config --disable CONFIG_LIST_HARDENED
 scripts/config --disable CONFIG_BUG_ON_DATA_CORRUPTION
 scripts/config --disable CONFIG_RANDSTRUCT_FULL
+
+# ===== 编译器与链接优化 =====
 scripts/config --disable CONFIG_CC_HAS_AUTO_VAR_INIT_PATTERN
 scripts/config --disable CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO_BARE
 scripts/config --disable CONFIG_CC_HAS_AUTO_VAR_INIT_ZERO
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_INIT_STACK_NONE
 scripts/config --disable CONFIG_INIT_STACK_ALL_PATTERN
 scripts/config --disable CONFIG_INIT_ON_FREE_DEFAULT_ON
+
+# ===== 编译器与链接优化 =====
 scripts/config --disable CONFIG_CC_HAS_ZERO_CALL_USED_REGS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_ZERO_CALL_USED_REGS
 scripts/config --disable CONFIG_KEYS
 scripts/config --disable CONFIG_KEYS_REQUEST_CACHE
@@ -5060,8 +5514,12 @@ scripts/config --disable CONFIG_REHOOK
 scripts/config --disable CONFIG_HAVE_FUNCTION_GRAPH_TRACER
 scripts/config --disable CONFIG_HAVE_FUNCTION_GRAPH_RETVAL
 scripts/config --disable CONFIG_BUILDTIME_MCOUNT_SORT
+
+# ===== 调试与观测能力 =====
 scripts/config --disable CONFIG_TRACER_MAX_TRACE
 scripts/config --disable CONFIG_TRACE_CLOCK
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_RING_BUFFER
 scripts/config --disable CONFIG_EVENT_TRACING
 scripts/config --disable CONFIG_CONTEXT_SWITCH_TRACER
@@ -5069,10 +5527,18 @@ scripts/config --disable CONFIG_TRACING
 scripts/config --disable CONFIG_GENERIC_TRACER
 scripts/config --disable CONFIG_HID
 scripts/config --disable CONFIG_HID_GENERIC
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_PMIC_ADP5520
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MFD_AAT2870_CORE
+
+# ===== 电源管理与 ACPI =====
 scripts/config --disable CONFIG_PMIC_DA903X
 scripts/config --disable CONFIG_PMIC_DA9052
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MFD_DA9052_SPI
 scripts/config --disable CONFIG_MFD_DA9052_I2C
 scripts/config --disable CONFIG_MFD_DA9055
@@ -5115,14 +5581,22 @@ scripts/config --disable CONFIG_MFD_SM501
 scripts/config --disable CONFIG_MFD_SM501_GPIO
 scripts/config --disable CONFIG_MFD_SKY81452
 scripts/config --disable CONFIG_MFD_SYSCON
+
+# ===== 调试与观测能力 =====
 scripts/config --disable CONFIG_DEBUG_KERNEL
 scripts/config --disable CONFIG_DEBUG_MISC
 scripts/config --disable CONFIG_DEBUG_INFO
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_HUGE_PAGE
 scripts/config --disable CONFIG_HUGETLBFS
 scripts/config --disable CONFIG_HUGETLB_PAGE
 scripts/config --disable CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
+
+# ===== 调试与观测能力 =====
 scripts/config --disable CONFIG_DEBUG_FS
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_MEMORY_NOTIFIER_ERROR_INJECT
 scripts/config --disable CONFIG_ARCH_HAS_DEBUG_WX
 scripts/config --disable CONFIG_SCHED_DEBUG
@@ -5211,6 +5685,8 @@ scripts/config --disable CONFIG_POWER_RESET
 scripts/config --disable CONFIG_POWER_SEQUENCING
 scripts/config --disable CONFIG_POWER_SUPPLY
 scripts/config --disable CONFIG_BATTERY_MAX1720X
+
+# ===== 传感器/EEPROM/杂项设备 =====
 scripts/config --disable CONFIG_SENSORS_ASUS_ROG_RYUJIN
 scripts/config --disable CONFIG_SENSORS_CHIPCAP2
 scripts/config --disable CONFIG_SENSORS_LENOVO_EC
@@ -5227,10 +5703,16 @@ scripts/config --disable CONFIG_SENSORS_SHT3x
 scripts/config --disable CONFIG_SENSORS_SHT4x
 scripts/config --disable CONFIG_SENSORS_STEAMDECK
 scripts/config --disable CONFIG_SENSORS_SPD5118
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_THERMAL_NETLINK
 scripts/config --disable CONFIG_THERMAL_CORE_TESTING
 scripts/config --disable CONFIG_THERMAL_GOV_STEP_WISE
+
+# ===== CPU 架构与调度 =====
 scripts/config --disable CONFIG_X86_THERMAL_VECTOR
+
+# ===== 通用内核基础配置 =====
 scripts/config --disable CONFIG_SSB_POSSIBLE
 scripts/config --disable CONFIG_BCMA_POSSIBLE
 scripts/config --disable CONFIG_MFD_CORE
@@ -5258,6 +5740,8 @@ scripts/config --disable CONFIG_RTC_MC146818_LIB
 scripts/config --enable CONFIG_VIRTIO
 scripts/config --enable CONFIG_OVERLAY_FS
 scripts/config --enable CONFIG_VIRTIO_FS
+
+# ===== cgroup 资源控制 =====
 scripts/config --enable CONFIG_CGROUP_BPF
 
 
