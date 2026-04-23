@@ -76,10 +76,10 @@ jobs:
       - name: 从仓库更新 config 配置
         run:  |
           cd kernel
-          cp ../config.sh .
-          chmod +x config.sh
+          cp ../config-6.12.sh .
+          chmod +x config-6.12.sh
           cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
-          ./config.sh
+          ./config-6.12.sh
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
           
