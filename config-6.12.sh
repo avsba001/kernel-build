@@ -352,8 +352,8 @@ scripts/config --set-val CONFIG_X86_64_VERSION 3
 # scripts/config --enable CONFIG_X86_DEBUGCTLMSR
 # scripts/config --enable CONFIG_IA32_FEAT_CTL
 # scripts/config --enable CONFIG_X86_VMX_FEATURE_NAMES
-# scripts/config --enable CONFIG_CPU_SUP_INTEL
-# scripts/config --enable CONFIG_CPU_SUP_AMD
+scripts/config -disable CONFIG_CPU_SUP_INTEL
+scripts/config -disable CONFIG_CPU_SUP_AMD
 # scripts/config --enable CONFIG_CPU_SUP_HYGON
 # scripts/config --enable CONFIG_CPU_SUP_CENTAUR
 # scripts/config --enable CONFIG_CPU_SUP_ZHAOXIN
@@ -1724,10 +1724,10 @@ scripts/config --disable CONFIG_BT
 # scripts/config --enable CONFIG_MAC80211_MESSAGE_TRACING
 # scripts/config --disable CONFIG_MAC80211_DEBUG_MENU
 # scripts/config --set-val CONFIG_MAC80211_STA_HASH_MAX_SIZE 0
-# scripts/config --enable CONFIG_RFKILL
-# scripts/config --enable CONFIG_RFKILL_LEDS
-# scripts/config --enable CONFIG_RFKILL_INPUT
-# scripts/config --set-val CONFIG_RFKILL_GPIO m
+scripts/config --disable CONFIG_RFKILL
+scripts/config --disable CONFIG_RFKILL_LEDS
+scripts/config --disable CONFIG_RFKILL_INPUT
+scripts/config --disable CONFIG_RFKILL_GPIO
 # scripts/config --set-val CONFIG_NET_9P m
 # scripts/config --set-val CONFIG_NET_9P_FD m
 # scripts/config --set-val CONFIG_NET_9P_VIRTIO m
