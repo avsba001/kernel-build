@@ -78,7 +78,7 @@ jobs:
           cd kernel
           cp ../config-6.18.sh .
           chmod +x config-6.18.sh
-          cp CONFIGS/xanmod/gcc/config .config
+          cp CONFIGS/x86_64/config .config
           ./config-6.18.sh
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
