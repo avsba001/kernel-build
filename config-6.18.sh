@@ -171,11 +171,11 @@ scripts/config --disable CONFIG_CHECKPOINT_RESTORE
 # scripts/config --enable CONFIG_RELAY
 # scripts/config --enable CONFIG_BLK_DEV_INITRD
 # scripts/config --set-val CONFIG_INITRAMFS_SOURCE ""
-scripts/config --disable CONFIG_RD_GZIP
-scripts/config --disable CONFIG_RD_BZIP2
-scripts/config --disable CONFIG_RD_LZMA
-scripts/config --disable CONFIG_RD_XZ
-scripts/config --disable CONFIG_RD_LZO
+scripts/config --enable CONFIG_RD_GZIP
+scripts/config --enable CONFIG_RD_BZIP2
+scripts/config --enable CONFIG_RD_LZMA
+scripts/config --enable CONFIG_RD_XZ
+scripts/config --enable CONFIG_RD_LZO
 scripts/config --enable CONFIG_RD_LZ4
 scripts/config --enable CONFIG_RD_ZSTD
 # scripts/config --enable CONFIG_BOOT_CONFIG
@@ -2138,7 +2138,7 @@ scripts/config --disable CONFIG_BT
 # scripts/config --set-val CONFIG_ATA_OVER_ETH m
 # scripts/config --enable CONFIG_XEN_BLKDEV_FRONTEND
 # scripts/config --set-val CONFIG_XEN_BLKDEV_BACKEND m
-# scripts/config --set-val CONFIG_VIRTIO_BLK m
+scripts/config --enable CONFIG_VIRTIO_BLK
 # scripts/config --set-val CONFIG_BLK_DEV_RBD m
 # scripts/config --set-val CONFIG_BLK_DEV_UBLK m
 # scripts/config --disable CONFIG_BLKDEV_UBLK_LEGACY_OPCODES
@@ -2240,7 +2240,7 @@ scripts/config --disable CONFIG_BT
 # scripts/config --enable CONFIG_SCSI_DMA
 # scripts/config --enable CONFIG_SCSI_NETLINK
 # scripts/config --enable CONFIG_SCSI_PROC_FS
-# scripts/config --enable CONFIG_BLK_DEV_SD
+scripts/config --enable CONFIG_BLK_DEV_SD
 # scripts/config --set-val CONFIG_CHR_DEV_ST m
 # scripts/config --enable CONFIG_BLK_DEV_SR
 # scripts/config --enable CONFIG_CHR_DEV_SG
@@ -2364,7 +2364,7 @@ scripts/config --disable CONFIG_BT
 # scripts/config --set-val CONFIG_SCSI_DH_HP_SW m
 # scripts/config --set-val CONFIG_SCSI_DH_EMC m
 # scripts/config --set-val CONFIG_SCSI_DH_ALUA m
-# scripts/config --enable CONFIG_ATA
+scripts/config --enable CONFIG_ATA
 # scripts/config --enable CONFIG_SATA_HOST
 # scripts/config --enable CONFIG_PATA_TIMINGS
 # scripts/config --enable CONFIG_ATA_VERBOSE_ERROR
@@ -2576,7 +2576,7 @@ scripts/config --disable CONFIG_PATA_WINBOND
 # scripts/config --set-val CONFIG_TAP m
 # scripts/config --disable CONFIG_TUN_VNET_CROSS_LE
 # scripts/config --set-val CONFIG_VETH m
-# scripts/config --set-val CONFIG_VIRTIO_NET m
+scripts/config --enable CONFIG_VIRTIO_NET
 # scripts/config --set-val CONFIG_NLMON m
 # scripts/config --enable CONFIG_NETKIT
 # scripts/config --set-val CONFIG_NET_VRF m
@@ -5155,13 +5155,13 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --set-val CONFIG_NITRO_ENCLAVES m
 # scripts/config --set-val CONFIG_EFI_SECRET m
 # scripts/config --enable CONFIG_VIRTIO_ANCHOR
-# scripts/config --enable CONFIG_VIRTIO
-# scripts/config --enable CONFIG_VIRTIO_PCI_LIB
-# scripts/config --enable CONFIG_VIRTIO_PCI_LIB_LEGACY
+scripts/config --enable CONFIG_VIRTIO
+scripts/config --enable CONFIG_VIRTIO_PCI_LIB
+scripts/config --enable CONFIG_VIRTIO_PCI_LIB_LEGACY
 # scripts/config --enable CONFIG_VIRTIO_MENU
-# scripts/config --enable CONFIG_VIRTIO_PCI
-# scripts/config --enable CONFIG_VIRTIO_PCI_ADMIN_LEGACY
-# scripts/config --enable CONFIG_VIRTIO_PCI_LEGACY
+scripts/config --enable CONFIG_VIRTIO_PCI
+scripts/config --enable CONFIG_VIRTIO_PCI_ADMIN_LEGACY
+scripts/config --enable CONFIG_VIRTIO_PCI_LEGACY
 # scripts/config --set-val CONFIG_VIRTIO_VDPA m
 # scripts/config --set-val CONFIG_VIRTIO_PMEM m
 # scripts/config --enable CONFIG_VIRTIO_BALLOON
@@ -6296,7 +6296,7 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --enable CONFIG_JFS_SECURITY
 # scripts/config --disable CONFIG_JFS_DEBUG
 # scripts/config --enable CONFIG_JFS_STATISTICS
-# scripts/config --set-val CONFIG_XFS_FS m
+scripts/config --enable CONFIG_XFS_FS
 # scripts/config --enable CONFIG_XFS_SUPPORT_V4
 # scripts/config --enable CONFIG_XFS_SUPPORT_ASCII_CI
 # scripts/config --enable CONFIG_XFS_QUOTA
@@ -6313,7 +6313,7 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --enable CONFIG_OCFS2_FS_STATS
 # scripts/config --enable CONFIG_OCFS2_DEBUG_MASKLOG
 # scripts/config --disable CONFIG_OCFS2_DEBUG_FS
-# scripts/config --set-val CONFIG_BTRFS_FS m
+scripts/config --enable CONFIG_BTRFS_FS
 # scripts/config --enable CONFIG_BTRFS_FS_POSIX_ACL
 # scripts/config --disable CONFIG_BTRFS_FS_RUN_SANITY_TESTS
 # scripts/config --disable CONFIG_BTRFS_DEBUG
