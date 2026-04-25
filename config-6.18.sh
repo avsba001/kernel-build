@@ -352,8 +352,8 @@ scripts/config --set-val CONFIG_X86_64_VERSION 3
 # scripts/config --enable CONFIG_X86_DEBUGCTLMSR
 # scripts/config --enable CONFIG_IA32_FEAT_CTL
 # scripts/config --enable CONFIG_X86_VMX_FEATURE_NAMES
-scripts/config -disable CONFIG_CPU_SUP_INTEL
-scripts/config -disable CONFIG_CPU_SUP_AMD
+scripts/config --disable CONFIG_CPU_SUP_INTEL
+scripts/config --disable CONFIG_CPU_SUP_AMD
 # scripts/config --enable CONFIG_CPU_SUP_HYGON
 # scripts/config --enable CONFIG_CPU_SUP_CENTAUR
 # scripts/config --enable CONFIG_CPU_SUP_ZHAOXIN
