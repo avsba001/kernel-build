@@ -43,29 +43,29 @@ jobs:
       # ----------------------
       # LLVM
       # ----------------------
-      - name: 安装 LLVM/Clang
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget lsb-release gnupg ccache
+			- name: 安装 LLVM/Clang
+			  run: |
+			    sudo apt-get update
+			    sudo apt-get install -y wget lsb-release gnupg ccache
 
-          wget https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh 21 all
+			    wget https://apt.llvm.org/llvm.sh
+			    chmod +x llvm.sh
+			    sudo ./llvm.sh 21 all
 
-          # 统一 LLVM PATH（唯一来源）
-          echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
-          echo "PATH=/usr/lib/ccache:$PATH" >> $GITHUB_ENV
+			    # 关键：立即暴露工具链（解决 olddefconfig / build 阶段缺工具问题）
+			    sudo ln -sf /usr/lib/llvm-21/bin/ld.lld /usr/bin/ld.lld
+			    sudo ln -sf /usr/lib/llvm-21/bin/llvm-ar /usr/bin/llvm-ar
+			    sudo ln -sf /usr/lib/llvm-21/bin/llvm-nm /usr/bin/llvm-nm
+			    sudo ln -sf /usr/lib/llvm-21/bin/llvm-strip /usr/bin/llvm-strip
 
-          # 关键修复：确保 kernel tools/bpf 不缺工具
-          sudo ln -sf /usr/lib/llvm-21/bin/llvm-ar /usr/bin/llvm-ar
-          sudo ln -sf /usr/lib/llvm-21/bin/llvm-nm /usr/bin/llvm-nm
-          sudo ln -sf /usr/lib/llvm-21/bin/llvm-strip /usr/bin/llvm-strip
+			    # 验证（必须在当前 step 内完成）
+			    ld.lld --version
+			    llvm-ar --version
+			    clang --version
 
-          # 验证（避免 silent fail）
-          llvm-ar --version
-          llvm-nm --version
-          ld.lld --version
-    
+			    # PATH 仅用于后续 step
+			    echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
+			    echo "PATH=/usr/lib/ccache:$PATH" >> $GITHUB_ENV
       # ----------------------
       # ccache cache（核心加速）
       # ----------------------
