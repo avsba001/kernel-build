@@ -47,15 +47,23 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget lsb-release gnupg ccache
+
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 21 all
+
+          # 统一 LLVM PATH（唯一来源）
           echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
           echo "PATH=/usr/lib/ccache:$PATH" >> $GITHUB_ENV
-      - name: Fix ld.lld path (critical)
-        run: |
-          sudo ln -sf /usr/lib/llvm-21/bin/ld.lld /usr/bin/ld.lld
-          which ld.lld || true
+
+          # 关键修复：确保 kernel tools/bpf 不缺工具
+          sudo ln -sf /usr/lib/llvm-21/bin/llvm-ar /usr/bin/llvm-ar
+          sudo ln -sf /usr/lib/llvm-21/bin/llvm-nm /usr/bin/llvm-nm
+          sudo ln -sf /usr/lib/llvm-21/bin/llvm-strip /usr/bin/llvm-strip
+
+          # 验证（避免 silent fail）
+          llvm-ar --version
+          llvm-nm --version
           ld.lld --version
     
       # ----------------------
