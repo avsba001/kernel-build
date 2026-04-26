@@ -2138,7 +2138,7 @@ scripts/config --disable CONFIG_RFKILL_GPIO
 # scripts/config --set-val CONFIG_ATA_OVER_ETH m
 # scripts/config --enable CONFIG_XEN_BLKDEV_FRONTEND
 # scripts/config --set-val CONFIG_XEN_BLKDEV_BACKEND m
-# scripts/config --set-val CONFIG_VIRTIO_BLK m
+scripts/config --enable CONFIG_VIRTIO_BLK
 # scripts/config --set-val CONFIG_BLK_DEV_RBD m
 # scripts/config --set-val CONFIG_BLK_DEV_UBLK m
 # scripts/config --disable CONFIG_BLKDEV_UBLK_LEGACY_OPCODES
@@ -2148,7 +2148,7 @@ scripts/config --disable CONFIG_RFKILL_GPIO
 # scripts/config --set-val CONFIG_NVME_KEYRING m
 # scripts/config --set-val CONFIG_NVME_AUTH m
 # scripts/config --set-val CONFIG_NVME_CORE m
-# scripts/config --set-val CONFIG_BLK_DEV_NVME m
+scripts/config --enable CONFIG_BLK_DEV_NVME
 # scripts/config --enable CONFIG_NVME_MULTIPATH
 # scripts/config --disable CONFIG_NVME_VERBOSE_ERRORS
 # scripts/config --enable CONFIG_NVME_HWMON
@@ -2352,7 +2352,7 @@ scripts/config --disable CONFIG_RFKILL_GPIO
 # scripts/config --set-val CONFIG_SCSI_PMCRAID m
 # scripts/config --set-val CONFIG_SCSI_PM8001 m
 # scripts/config --set-val CONFIG_SCSI_BFA_FC m
-# scripts/config --set-val CONFIG_SCSI_VIRTIO m
+scripts/config --enable CONFIG_SCSI_VIRTIO
 # scripts/config --set-val CONFIG_SCSI_CHELSIO_FCOE m
 # scripts/config --enable CONFIG_SCSI_LOWLEVEL_PCMCIA
 # scripts/config --set-val CONFIG_PCMCIA_AHA152X m
@@ -2576,7 +2576,7 @@ scripts/config --disable CONFIG_PATA_WINBOND
 # scripts/config --set-val CONFIG_TAP m
 # scripts/config --disable CONFIG_TUN_VNET_CROSS_LE
 # scripts/config --set-val CONFIG_VETH m
-# scripts/config --set-val CONFIG_VIRTIO_NET m
+scripts/config --enable CONFIG_VIRTIO_NET
 # scripts/config --set-val CONFIG_NLMON m
 # scripts/config --enable CONFIG_NETKIT
 # scripts/config --set-val CONFIG_NET_VRF m
@@ -6296,7 +6296,7 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --enable CONFIG_JFS_SECURITY
 # scripts/config --disable CONFIG_JFS_DEBUG
 # scripts/config --enable CONFIG_JFS_STATISTICS
-# scripts/config --set-val CONFIG_XFS_FS m
+scripts/config --enable CONFIG_XFS_FS
 # scripts/config --enable CONFIG_XFS_SUPPORT_V4
 # scripts/config --enable CONFIG_XFS_SUPPORT_ASCII_CI
 # scripts/config --enable CONFIG_XFS_QUOTA
@@ -6313,7 +6313,7 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --enable CONFIG_OCFS2_FS_STATS
 # scripts/config --enable CONFIG_OCFS2_DEBUG_MASKLOG
 # scripts/config --disable CONFIG_OCFS2_DEBUG_FS
-# scripts/config --set-val CONFIG_BTRFS_FS m
+scripts/config --enable CONFIG_BTRFS_FS
 # scripts/config --enable CONFIG_BTRFS_FS_POSIX_ACL
 # scripts/config --disable CONFIG_BTRFS_FS_RUN_SANITY_TESTS
 # scripts/config --disable CONFIG_BTRFS_DEBUG
@@ -6372,10 +6372,10 @@ scripts/config --disable CONFIG_SOUND
 # scripts/config --set-val CONFIG_AUTOFS_FS m
 # scripts/config --enable CONFIG_FUSE_FS
 # scripts/config --set-val CONFIG_CUSE m
-# scripts/config --set-val CONFIG_VIRTIO_FS m
+scripts/config --enable CONFIG_VIRTIO_FS
 # scripts/config --enable CONFIG_FUSE_DAX
 # scripts/config --enable CONFIG_FUSE_PASSTHROUGH
-# scripts/config --set-val CONFIG_OVERLAY_FS m
+scripts/config --enable CONFIG_OVERLAY_FS
 # scripts/config --disable CONFIG_OVERLAY_FS_REDIRECT_DIR
 # scripts/config --enable CONFIG_OVERLAY_FS_REDIRECT_ALWAYS_FOLLOW
 # scripts/config --disable CONFIG_OVERLAY_FS_INDEX
