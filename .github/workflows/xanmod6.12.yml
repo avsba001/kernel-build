@@ -52,7 +52,12 @@ jobs:
           sudo ./llvm.sh 21 all
           echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
           echo "PATH=/usr/lib/ccache:$PATH" >> $GITHUB_ENV
-
+      - name: Fix ld.lld path (critical)
+        run: |
+          sudo ln -sf /usr/lib/llvm-21/bin/ld.lld /usr/bin/ld.lld
+          which ld.lld || true
+          ld.lld --version
+    
       # ----------------------
       # ccache cache（核心加速）
       # ----------------------
