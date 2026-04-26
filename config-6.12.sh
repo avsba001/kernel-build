@@ -8627,7 +8627,7 @@ scripts/config --enable CONFIG_PAHOLE_HAS_LANG_EXCLUDE
 scripts/config --enable CONFIG_DEBUG_INFO_BTF_MODULES
 scripts/config --disable CONFIG_MODULE_ALLOW_BTF_MISMATCH
 scripts/config --enable CONFIG_GDB_SCRIPTS
-scripts/config --set-val CONFIG_FRAME_WARN 1024
+scripts/config --set-val CONFIG_FRAME_WARN 4096
 scripts/config --disable CONFIG_STRIP_ASM_SYMS
 scripts/config --disable CONFIG_HEADERS_INSTALL
 scripts/config --enable CONFIG_SECTION_MISMATCH_WARN_ONLY
