@@ -14,15 +14,9 @@ jobs:
       CXX: clang++
 
     steps:
-      # ----------------------
-      # checkout
-      # ----------------------
       - name: Checkout
         uses: actions/checkout@v6
 
-      # ----------------------
-      # 清理空间
-      # ----------------------
       - name: 最大化可用空间
         run: |
           sudo rm -rf /usr/share/dotnet
@@ -31,44 +25,34 @@ jobs:
           sudo rm -rf /opt/hostedtoolcache/CodeQL
           df -h
 
-      # ----------------------
-      # 基础信息
-      # ----------------------
       - name: 系统信息
         run: |
           nproc
           cat /proc/cpuinfo | head
           sudo timedatectl set-timezone Asia/Shanghai
 
-      # ----------------------
-      # LLVM
-      # ----------------------
-			- name: 安装 LLVM/Clang
-			  run: |
-			    sudo apt-get update
-			    sudo apt-get install -y wget lsb-release gnupg ccache
+      - name: 安装 LLVM/Clang
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget lsb-release gnupg ccache
 
-			    wget https://apt.llvm.org/llvm.sh
-			    chmod +x llvm.sh
-			    sudo ./llvm.sh 21 all
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 21 all
 
-			    # 关键：立即暴露工具链（解决 olddefconfig / build 阶段缺工具问题）
-			    sudo ln -sf /usr/lib/llvm-21/bin/ld.lld /usr/bin/ld.lld
-			    sudo ln -sf /usr/lib/llvm-21/bin/llvm-ar /usr/bin/llvm-ar
-			    sudo ln -sf /usr/lib/llvm-21/bin/llvm-nm /usr/bin/llvm-nm
-			    sudo ln -sf /usr/lib/llvm-21/bin/llvm-strip /usr/bin/llvm-strip
+          # 关键：立即暴露工具链
+          sudo ln -sf /usr/lib/llvm-21/bin/ld.lld /usr/bin/ld.lld
+          sudo ln -sf /usr/lib/llvm-21/bin/llvm-ar /usr/bin/llvm-ar
+          sudo ln -sf /usr/lib/llvm-21/bin/llvm-nm /usr/bin/llvm-nm
+          sudo ln -sf /usr/lib/llvm-21/bin/llvm-strip /usr/bin/llvm-strip
 
-			    # 验证（必须在当前 step 内完成）
-			    ld.lld --version
-			    llvm-ar --version
-			    clang --version
+          ld.lld --version
+          llvm-ar --version
+          clang --version
 
-			    # PATH 仅用于后续 step
-			    echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
-			    echo "PATH=/usr/lib/ccache:$PATH" >> $GITHUB_ENV
-      # ----------------------
-      # ccache cache（核心加速）
-      # ----------------------
+          echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
+          echo "PATH=/usr/lib/ccache:$PATH" >> $GITHUB_ENV
+
       - name: Cache ccache
         uses: actions/cache@v4
         with:
@@ -84,9 +68,6 @@ jobs:
           echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
           echo "CCACHE_COMPRESS=1" >> $GITHUB_ENV
 
-      # ----------------------
-      # 依赖安装
-      # ----------------------
       - name: 安装依赖
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -100,16 +81,10 @@ jobs:
             dwarves pahole fakeroot git pkg-config perl \
             rsync xz-utils zstd binutils cpio
 
-      # ----------------------
-      # 下载 kernel
-      # ----------------------
       - name: 下载 XanMod 内核
         run: |
           git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
 
-      # ----------------------
-      # config
-      # ----------------------
       - name: 配置内核
         run: |
           cd kernel
@@ -117,29 +92,20 @@ jobs:
           chmod +x config-6.12.sh
           cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
           ./config-6.12.sh
-
           make LLVM=1 LLVM_IAS=1 olddefconfig
 
-      # ----------------------
-      # build kernel
-      # ----------------------
       - name: 编译内核
         run: |
           cd kernel
-
           make -j$(nproc) \
             LLVM=1 LLVM_IAS=1 \
             CC=clang \
             LD=ld.lld \
             KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
 
-      # ----------------------
-      # deb package
-      # ----------------------
       - name: 构建 deb 包
         run: |
           cd kernel
-
           KDEB_COMPRESS=xz make -j$(nproc) \
             LLVM=1 LLVM_IAS=1 \
             CC=clang \
@@ -148,9 +114,6 @@ jobs:
             LOCALVERSION=${KERNEL_LOCALVERSION} \
             KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
 
-      # ----------------------
-      # artifacts
-      # ----------------------
       - name: 收集产物
         run: |
           mkdir -p artifacts
@@ -158,9 +121,6 @@ jobs:
           mv linux-headers-*.deb artifacts/ || true
           cp kernel/.config artifacts/config-${{ github.run_id }}
 
-      # ----------------------
-      # release
-      # ----------------------
       - name: 发布
         uses: softprops/action-gh-release@master
         env:
@@ -171,9 +131,6 @@ jobs:
           files: artifacts/*
           overwrite_files: true
 
-      # ----------------------
-      # cleanup
-      # ----------------------
       - name: 删除旧 workflow
         if: always()
         uses: Mattraks/delete-workflow-runs@main
