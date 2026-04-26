@@ -25,9 +25,12 @@ scripts/config --enable CONFIG_POSIX_MQUEUE_SYSCTL
 scripts/config --enable CONFIG_WATCH_QUEUE
 scripts/config --enable CONFIG_CROSS_MEMORY_ATTACH
 scripts/config --disable CONFIG_USELIB
-scripts/config --enable CONFIG_AUDIT
-scripts/config --enable CONFIG_HAVE_ARCH_AUDITSYSCALL
-scripts/config --enable CONFIG_AUDITSYSCALL
+
+#内核审计（auditd）记录系统调用、权限变化，有相关问题优先恢复
+
+scripts/config --disable CONFIG_AUDIT
+scripts/config --disable CONFIG_HAVE_ARCH_AUDITSYSCALL
+scripts/config --disable CONFIG_AUDITSYSCALL
 
 #
 # IRQ subsystem
@@ -41,14 +44,17 @@ scripts/config --enable CONFIG_HARDIRQS_SW_RESEND
 scripts/config --enable CONFIG_IRQ_DOMAIN
 scripts/config --enable CONFIG_IRQ_DOMAIN_HIERARCHY
 scripts/config --enable CONFIG_GENERIC_MSI_IRQ
-scripts/config --enable CONFIG_IRQ_MSI_IOMMU
+scripts/config --disable CONFIG_IRQ_MSI_IOMMU
 scripts/config --enable CONFIG_GENERIC_IRQ_MATRIX_ALLOCATOR
 scripts/config --enable CONFIG_GENERIC_IRQ_RESERVATION_MODE
-scripts/config --enable CONFIG_IRQ_FORCED_THREADING
+scripts/config --disable CONFIG_IRQ_FORCED_THREADING
 scripts/config --enable CONFIG_SPARSE_IRQ
 scripts/config --disable CONFIG_GENERIC_IRQ_DEBUGFS
 # end of IRQ subsystem
 
+#
+#（已优化）
+#
 scripts/config --enable CONFIG_CLOCKSOURCE_WATCHDOG
 scripts/config --enable CONFIG_ARCH_CLOCKSOURCE_INIT
 scripts/config --enable CONFIG_GENERIC_TIME_VSYSCALL
@@ -59,8 +65,8 @@ scripts/config --enable CONFIG_GENERIC_CLOCKEVENTS_MIN_ADJUST
 scripts/config --enable CONFIG_GENERIC_CMOS_UPDATE
 scripts/config --enable CONFIG_HAVE_POSIX_CPU_TIMERS_TASK_WORK
 scripts/config --enable CONFIG_POSIX_CPU_TIMERS_TASK_WORK
-scripts/config --enable CONFIG_CONTEXT_TRACKING
-scripts/config --enable CONFIG_CONTEXT_TRACKING_IDLE
+scripts/config --disable CONFIG_CONTEXT_TRACKING
+scripts/config --disable CONFIG_CONTEXT_TRACKING_IDLE
 
 #
 # Timers subsystem （已优化）
@@ -75,13 +81,13 @@ scripts/config --enable CONFIG_HIGH_RES_TIMERS
 scripts/config --set-val CONFIG_CLOCKSOURCE_WATCHDOG_MAX_SKEW_US 500
 # end of Timers subsystem
 
-scripts/config --enable CONFIG_BPF
-scripts/config --enable CONFIG_HAVE_EBPF_JIT
-scripts/config --enable CONFIG_ARCH_WANT_DEFAULT_BPF_JIT
 
 #
 # BPF subsystem
 #
+scripts/config --enable CONFIG_BPF
+scripts/config --enable CONFIG_HAVE_EBPF_JIT
+scripts/config --enable CONFIG_ARCH_WANT_DEFAULT_BPF_JIT
 scripts/config --enable CONFIG_BPF_SYSCALL
 scripts/config --enable CONFIG_BPF_JIT
 scripts/config --enable CONFIG_BPF_JIT_ALWAYS_ON
@@ -102,7 +108,7 @@ scripts/config --disable CONFIG_SCHED_CORE
 scripts/config --enable CONFIG_SCHED_CLASS_EXT
 
 #
-# CPU/Task time and stats accounting
+# CPU/Task time and stats accounting （待定）
 #
 scripts/config --enable CONFIG_TICK_CPU_ACCOUNTING
 scripts/config --disable CONFIG_VIRT_CPU_ACCOUNTING_GEN
