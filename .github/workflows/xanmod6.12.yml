@@ -1,4 +1,8 @@
+# This is a basic workflow to help you get started with Actions
+
 name: 6.12-内核构建
+
+# Controls when the workflow will run
 
 on:
   workflow_dispatch:
@@ -17,7 +21,15 @@ jobs:
 
       - name: 最大化可用空间
         run: |
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          echo "-- Dotnet"
+          sudo rm -rf /usr/share/dotnet
+          echo "-- Android"
+          sudo rm -rf /usr/local/lib/android
+          echo "-- Haskell"
+          sudo rm -rf /opt/ghc
+          echo "-- CodeQL"
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+
           df -h
 
       - name: 显示系统信息 & 设置时区
@@ -27,62 +39,42 @@ jobs:
           cat /proc/meminfo
           sudo timedatectl set-timezone Asia/Shanghai
 
-      # 缓存 APT 包
-      - name: Cache APT packages
-        uses: actions/cache@v3
-        with:
-         path: kernel/.git
-         key: kernel-src-6.12-${{ github.run_id }}
-         restore-keys: kernel-src-6.12-
-
-      # 安装 LLVM/Clang 缓存
-      - name: Cache LLVM/Clang
-        uses: actions/cache@v3
-        id: llvm-cache
-        with:
-          path: /usr/lib/llvm-21
-          key: llvm-21-${{ runner.os }}
-          restore-keys: llvm-21-
-
-      # 安装 LLVM/Clang（仅缓存未命中时）
       - name: 安装 LLVM/Clang
-        if: steps.llvm-cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y wget lsb-release gnupg
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 21 all
+          echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
 
-      - name: 配置 LLVM PATH
-        run: echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
-
-      # 安装内核依赖
       - name: 安装依赖 dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
         run: |
+          sudo -E apt-mark hold grub-efi-amd64-signed firefox snapd mysql* || true
+          sudo apt-get autoremove -y --purge
+          sudo apt-get clean
+          sudo -E apt-get -y update
           sudo apt-get update
-          sudo apt-get install -y build-essential bc bison flex \
+          sudo apt-get install -y \
+            build-essential bc bison flex \
             libssl-dev libelf-dev libncurses-dev \
             libdw-dev debhelper debhelper-compat dpkg-dev devscripts \
             linux-libc-dev linux-firmware curl wget \
             dwarves pahole fakeroot git pkg-config perl \
             rsync xz-utils zstd binutils cpio initramfs-tools
-
-      # 缓存内核源码
-      - name: Cache kernel source
-        uses: actions/cache@v3
-        id: kernel-cache
-        with:
-          path: kernel
-          key: kernel-src-6.12-${{ github.run_id }}
-          restore-keys: kernel-src-6.12-
+          sudo -E systemctl daemon-reload || true
+          sudo apt-get autoremove -y --purge
+          sudo apt-get clean
 
       - name: 下载 XanMod 内核
-        if: steps.kernel-cache.outputs.cache-hit != 'true'
-        run: git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
+        run: |
+          git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
+
 
       - name: 从仓库更新 config 配置
-        run: |
+        run:  |
           cd kernel
           cp ../config-6.12.sh .
           chmod +x config-6.12.sh
@@ -90,6 +82,7 @@ jobs:
           ./config-6.12.sh
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
+          
       - name: 导出最终内核配置 .config
         run: |
           mkdir -p artifacts
@@ -98,14 +91,16 @@ jobs:
       - name: 构建 kernel vmlinux
         run: |
           cd kernel
-          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+          make -j$(nproc) \
+            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
             vmlinux modules_prepare \
             KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
 
       - name: 构建内核模块 kernel modules_prepare
         run: |
           cd kernel
-          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+          make -j$(nproc) \
+            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
             modules_prepare \
             KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
 
@@ -113,8 +108,10 @@ jobs:
         run: |
           cd kernel
           KDEB_COMPRESS=xz \
-          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
-            bindeb-pkg LOCALVERSION=${KERNEL_LOCALVERSION} \
+          make -j$(nproc) \
+            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+            bindeb-pkg \
+            LOCALVERSION=${KERNEL_LOCALVERSION} \
             KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
 
       - name: 查看文件目录
