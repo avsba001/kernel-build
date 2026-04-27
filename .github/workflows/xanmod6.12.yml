@@ -10,8 +10,6 @@ jobs:
     env:
       DEB_BUILD_OPTIONS: nocheck
       KERNEL_LOCALVERSION: -cloud
-      CC: clang
-      CXX: clang++
 
     steps:
       - name: Checkout
@@ -19,107 +17,107 @@ jobs:
 
       - name: 最大化可用空间
         run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
           df -h
 
-      - name: 系统信息
+      - name: 显示系统信息 & 设置时区
         run: |
-          nproc
-          cat /proc/cpuinfo | head
+          echo -e "Total CPU cores\t: $(nproc)"
+          cat /proc/cpuinfo
+          cat /proc/meminfo
           sudo timedatectl set-timezone Asia/Shanghai
 
+      # 缓存 APT 包
+      - name: Cache APT packages
+        uses: actions/cache@v3
+        with:
+          path: /var/cache/apt
+          key: ${{ runner.os }}-apt-${{ hashFiles('**/apt-packages.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
+
       - name: 安装 LLVM/Clang
+        uses: actions/cache@v3
+        with:
+          path: /usr/lib/llvm-21
+          key: llvm-21-${{ runner.os }}
+          restore-keys: llvm-21-
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget lsb-release gnupg ccache
-
+          sudo apt-get install -y wget lsb-release gnupg
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 21 all
-
-          # 关键：立即暴露工具链
-          sudo ln -sf /usr/lib/llvm-21/bin/ld.lld /usr/bin/ld.lld
-          sudo ln -sf /usr/lib/llvm-21/bin/llvm-ar /usr/bin/llvm-ar
-          sudo ln -sf /usr/lib/llvm-21/bin/llvm-nm /usr/bin/llvm-nm
-          sudo ln -sf /usr/lib/llvm-21/bin/llvm-strip /usr/bin/llvm-strip
-
-          ld.lld --version
-          llvm-ar --version
-          clang --version
-
           echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
-          echo "PATH=/usr/lib/ccache:$PATH" >> $GITHUB_ENV
 
-      - name: Cache ccache
-        uses: actions/cache@v4
-        with:
-          path: ~/.ccache
-          key: ccache-xanmod-6.12-${{ github.ref_name }}
-          restore-keys: |
-            ccache-xanmod-6.12-
-
-      - name: 初始化 ccache
-        run: |
-          ccache -M 20G
-          ccache -s
-          echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
-          echo "CCACHE_COMPRESS=1" >> $GITHUB_ENV
-
-      - name: 安装依赖
-        env:
-          DEBIAN_FRONTEND: noninteractive
+      - name: 安装依赖 dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            build-essential bc bison flex \
+          sudo apt-get install -y build-essential bc bison flex \
             libssl-dev libelf-dev libncurses-dev \
-            libdw-dev debhelper dpkg-dev devscripts \
+            libdw-dev debhelper debhelper-compat dpkg-dev devscripts \
             linux-libc-dev linux-firmware curl wget \
             dwarves pahole fakeroot git pkg-config perl \
-            rsync xz-utils zstd binutils cpio
+            rsync xz-utils zstd binutils cpio initramfs-tools
+
+      # 缓存内核源码
+      - name: Cache kernel source
+        uses: actions/cache@v3
+        with:
+          path: kernel
+          key: kernel-src-6.12-${{ github.run_id }}
+          restore-keys: kernel-src-6.12-
 
       - name: 下载 XanMod 内核
-        run: |
-          git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
 
-      - name: 配置内核
-        run: |
+      - name: 从仓库更新 config 配置
+        run:  |
           cd kernel
           cp ../config-6.12.sh .
           chmod +x config-6.12.sh
           cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
           ./config-6.12.sh
-          make LLVM=1 LLVM_IAS=1 olddefconfig
+          make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
-      - name: 编译内核
-        run: |
-          cd kernel
-          make -j$(nproc) \
-            LLVM=1 LLVM_IAS=1 \
-            CC=clang \
-            LD=ld.lld \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
-
-      - name: 构建 deb 包
-        run: |
-          cd kernel
-          KDEB_COMPRESS=xz make -j$(nproc) \
-            LLVM=1 LLVM_IAS=1 \
-            CC=clang \
-            LD=ld.lld \
-            bindeb-pkg \
-            LOCALVERSION=${KERNEL_LOCALVERSION} \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
-
-      - name: 收集产物
+      - name: 导出最终内核配置 .config
         run: |
           mkdir -p artifacts
-          mv linux-image-*.deb artifacts/ || true
-          mv linux-headers-*.deb artifacts/ || true
-          cp kernel/.config artifacts/config-${{ github.run_id }}
+          cp kernel/.config artifacts/config-6.12-clang-${{ github.run_id }}
+
+      - name: 构建 kernel vmlinux
+        run: |
+          cd kernel
+          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+            vmlinux modules_prepare \
+            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+
+      - name: 构建内核模块 kernel modules_prepare
+        run: |
+          cd kernel
+          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+            modules_prepare \
+            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+
+      - name: 构建内核软件包 kernel deb packages
+        run: |
+          cd kernel
+          KDEB_COMPRESS=xz \
+          make -j$(nproc) LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+            bindeb-pkg LOCALVERSION=${KERNEL_LOCALVERSION} \
+            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+
+      - name: 查看文件目录
+        run: |
+          cd kernel
+          ls -al
+          
+      - name: 归档文件 kernel artifacts
+        run: |
+          mkdir -p artifacts
+          mv linux-image-*.deb artifacts/
+          mv linux-headers-*.deb artifacts/
 
       - name: 发布
         uses: softprops/action-gh-release@master
@@ -127,18 +125,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: xanmod-cloud-6.12-${{ github.run_id }}
-          name: XanMod Cloud 6.12 optimized stable
+          name: XanMod Cloud 6.12-内核 v3
           files: artifacts/*
           overwrite_files: true
 
-      - name: 删除旧 workflow
+      - name: 删除以往工作流
         if: always()
         uses: Mattraks/delete-workflow-runs@main
         with:
           retain_days: 30
           keep_minimum_runs: 5
 
-      - name: 删除旧 release
+      - name: 删除旧的发布文件
         if: always()
         uses: dev-drprasad/delete-older-releases@master
         with:
