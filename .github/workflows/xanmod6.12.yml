@@ -6,7 +6,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     env:
       DEB_BUILD_OPTIONS: nocheck
       KERNEL_LOCALVERSION: -cloud
@@ -36,6 +35,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-apt-
 
+      # 安装 LLVM/Clang
       - name: 安装 LLVM/Clang
         uses: actions/cache@v3
         with:
@@ -73,7 +73,7 @@ jobs:
         run: git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
 
       - name: 从仓库更新 config 配置
-        run:  |
+        run: |
           cd kernel
           cp ../config-6.12.sh .
           chmod +x config-6.12.sh
