@@ -209,7 +209,7 @@ scripts/config --enable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED
 scripts/config --enable CONFIG_RELAY
 scripts/config --enable CONFIG_BLK_DEV_INITRD
 scripts/config --set-val CONFIG_INITRAMFS_SOURCE ""
-scripts/config --disable CONFIG_RD_GZIP
+scripts/config --enable CONFIG_RD_GZIP
 scripts/config --disable CONFIG_RD_BZIP2
 scripts/config --disable CONFIG_RD_LZMA
 scripts/config --disable CONFIG_RD_XZ
