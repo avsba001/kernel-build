@@ -142,7 +142,7 @@ scripts/config --set-val CONFIG_RCU_FANOUT_LEAF 16
 scripts/config --enable CONFIG_RCU_BOOST
 scripts/config --set-val CONFIG_RCU_BOOST_DELAY 0
 scripts/config --enable CONFIG_RCU_EXP_KTHREAD
-scripts/config --disable CONFIG_RCU_NOCB_CPU
+scripts/config --enable CONFIG_RCU_NOCB_CPU
 scripts/config --disable CONFIG_TASKS_TRACE_RCU_READ_MB
 scripts/config --disable CONFIG_RCU_DOUBLE_CHECK_CB_TIME
 # end of RCU Subsystem
@@ -227,7 +227,7 @@ scripts/config --set-val CONFIG_LD_ORPHAN_WARN_LEVEL "warn"
 scripts/config --enable CONFIG_SYSCTL
 scripts/config --enable CONFIG_HAVE_UID16
 scripts/config --enable CONFIG_SYSCTL_EXCEPTION_TRACE
-scripts/config --enable CONFIG_HAVE_PCSPKR_PLATFORM
+scripts/config --disable CONFIG_HAVE_PCSPKR_PLATFORM
 scripts/config --disable CONFIG_EXPERT
 scripts/config --enable CONFIG_UID16
 scripts/config --enable CONFIG_MULTIUSER
@@ -295,17 +295,17 @@ scripts/config --set-val CONFIG_ARCH_MMAP_RND_COMPAT_BITS_MAX 16
 scripts/config --enable CONFIG_GENERIC_ISA_DMA
 scripts/config --enable CONFIG_GENERIC_BUG
 scripts/config --enable CONFIG_GENERIC_BUG_RELATIVE_POINTERS
-scripts/config --enable CONFIG_ARCH_MAY_HAVE_PC_FDC
+scripts/config --disable CONFIG_ARCH_MAY_HAVE_PC_FDC
 scripts/config --enable CONFIG_GENERIC_CALIBRATE_DELAY
 scripts/config --enable CONFIG_ARCH_HAS_CPU_RELAX
 scripts/config --enable CONFIG_ARCH_HIBERNATION_POSSIBLE
 scripts/config --enable CONFIG_ARCH_SUSPEND_POSSIBLE
-scripts/config --enable CONFIG_AUDIT_ARCH
+scripts/config --disable CONFIG_AUDIT_ARCH
 scripts/config --enable CONFIG_HAVE_INTEL_TXT
 scripts/config --enable CONFIG_X86_64_SMP
 scripts/config --enable CONFIG_ARCH_SUPPORTS_UPROBES
 scripts/config --enable CONFIG_FIX_EARLYCON_MEM
-scripts/config --set-val CONFIG_PGTABLE_LEVELS 5
+scripts/config --set-val CONFIG_PGTABLE_LEVELS 4
 scripts/config --enable CONFIG_CC_HAS_SANE_STACKPROTECTOR
 
 #
@@ -327,24 +327,24 @@ scripts/config --enable CONFIG_IOSF_MBI
 scripts/config --disable CONFIG_IOSF_MBI_DEBUG
 scripts/config --enable CONFIG_SCHED_OMIT_FRAME_POINTER
 scripts/config --enable CONFIG_HYPERVISOR_GUEST
-scripts/config --enable CONFIG_PARAVIRT
-scripts/config --enable CONFIG_PARAVIRT_XXL
+scripts/config --disable CONFIG_PARAVIRT
+scripts/config --disable CONFIG_PARAVIRT_XXL
 scripts/config --disable CONFIG_PARAVIRT_DEBUG
 scripts/config --enable CONFIG_PARAVIRT_SPINLOCKS
 scripts/config --enable CONFIG_X86_HV_CALLBACK_VECTOR
-scripts/config --enable CONFIG_XEN
-scripts/config --enable CONFIG_XEN_PV
-scripts/config --enable CONFIG_XEN_512GB
-scripts/config --enable CONFIG_XEN_PV_SMP
-scripts/config --enable CONFIG_XEN_PV_DOM0
-scripts/config --enable CONFIG_XEN_PVHVM
-scripts/config --enable CONFIG_XEN_PVHVM_SMP
-scripts/config --enable CONFIG_XEN_PVHVM_GUEST
-scripts/config --enable CONFIG_XEN_SAVE_RESTORE
+scripts/config --disable CONFIG_XEN
+scripts/config --disable CONFIG_XEN_PV
+scripts/config --disable CONFIG_XEN_512GB
+scripts/config --disable CONFIG_XEN_PV_SMP
+scripts/config --disable CONFIG_XEN_PV_DOM0
+scripts/config --disable CONFIG_XEN_PVHVM
+scripts/config --disable CONFIG_XEN_PVHVM_SMP
+scripts/config --disable CONFIG_XEN_PVHVM_GUEST
+scripts/config --disable CONFIG_XEN_SAVE_RESTORE
 scripts/config --disable CONFIG_XEN_DEBUG_FS
-scripts/config --enable CONFIG_XEN_PVH
-scripts/config --enable CONFIG_XEN_DOM0
-scripts/config --enable CONFIG_XEN_PV_MSR_SAFE
+scripts/config --disable CONFIG_XEN_PVH
+scripts/config --disable CONFIG_XEN_DOM0
+scripts/config --disable CONFIG_XEN_PV_MSR_SAFE
 scripts/config --enable CONFIG_KVM_GUEST
 scripts/config --enable CONFIG_ARCH_CPUIDLE_HALTPOLL
 scripts/config --enable CONFIG_PVH
@@ -421,10 +421,10 @@ scripts/config --disable CONFIG_MAXSMP
 scripts/config --set-val CONFIG_NR_CPUS_RANGE_BEGIN 2
 scripts/config --set-val CONFIG_NR_CPUS_RANGE_END 512
 scripts/config --set-val CONFIG_NR_CPUS_DEFAULT 64
-scripts/config --set-val CONFIG_NR_CPUS 8
+scripts/config --set-val CONFIG_NR_CPUS 16
 scripts/config --disable CONFIG_SCHED_CLUSTER
 scripts/config --enable CONFIG_SCHED_SMT
-scripts/config --disable CONFIG_SCHED_MC
+scripts/config --enable CONFIG_SCHED_MC
 scripts/config --enable CONFIG_X86_LOCAL_APIC
 scripts/config --enable CONFIG_ACPI_MADT_WAKEUP
 scripts/config --enable CONFIG_X86_IO_APIC
@@ -442,10 +442,10 @@ scripts/config --disable CONFIG_PERF_EVENTS_AMD_UNCORE
 scripts/config --disable CONFIG_PERF_EVENTS_AMD_BRS
 # end of Performance monitoring
 
-scripts/config --enable CONFIG_X86_16BIT
+scripts/config --disable CONFIG_X86_16BIT
 scripts/config --enable CONFIG_X86_ESPFIX64
 scripts/config --enable CONFIG_X86_VSYSCALL_EMULATION
-scripts/config --enable CONFIG_X86_IOPL_IOPERM
+scripts/config --disable CONFIG_X86_IOPL_IOPERM
 scripts/config --enable CONFIG_MICROCODE
 scripts/config --disable CONFIG_MICROCODE_LATE_LOADING
 scripts/config --module CONFIG_X86_MSR
@@ -471,7 +471,7 @@ scripts/config --enable CONFIG_MTRR
 scripts/config --disable CONFIG_MTRR_SANITIZER
 scripts/config --enable CONFIG_X86_PAT
 scripts/config --enable CONFIG_X86_UMIP
-scripts/config --enable CONFIG_CC_HAS_IBT
+scripts/config --disable CONFIG_CC_HAS_IBT
 scripts/config --disable CONFIG_X86_KERNEL_IBT
 scripts/config --disable CONFIG_X86_INTEL_MEMORY_PROTECTION_KEYS
 scripts/config --set-val CONFIG_ARCH_PKEY_BITS 4
@@ -515,17 +515,17 @@ scripts/config --disable CONFIG_COMPAT_VDSO
 scripts/config --enable CONFIG_LEGACY_VSYSCALL_XONLY
 scripts/config --disable CONFIG_LEGACY_VSYSCALL_NONE
 scripts/config --disable CONFIG_CMDLINE_BOOL
-scripts/config --enable CONFIG_MODIFY_LDT_SYSCALL
+scripts/config --disable CONFIG_MODIFY_LDT_SYSCALL
 scripts/config --disable CONFIG_STRICT_SIGALTSTACK_SIZE
 scripts/config --enable CONFIG_HAVE_LIVEPATCH
 # end of Processor type and features
-
+#（已优化）
 scripts/config --enable CONFIG_CC_HAS_NAMED_AS_FIXED_SANITIZERS
-scripts/config --enable CONFIG_CC_HAS_SLS
-scripts/config --enable CONFIG_CC_HAS_RETURN_THUNK
-scripts/config --enable CONFIG_CC_HAS_ENTRY_PADDING
-scripts/config --set-val CONFIG_FUNCTION_PADDING_CFI 11
-scripts/config --set-val CONFIG_FUNCTION_PADDING_BYTES 16
+scripts/config --disable CONFIG_CC_HAS_SLS
+scripts/config --disable CONFIG_CC_HAS_RETURN_THUNK
+scripts/config --disable CONFIG_CC_HAS_ENTRY_PADDING
+scripts/config --set-val CONFIG_FUNCTION_PADDING_CFI 0
+scripts/config --set-val CONFIG_FUNCTION_PADDING_BYTES 0
 scripts/config --disable CONFIG_CPU_MITIGATIONS
 scripts/config --enable CONFIG_ARCH_HAS_ADD_PAGES
 
