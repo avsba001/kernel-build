@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     env:
       DEB_BUILD_OPTIONS: nocheck
       KERNEL_LOCALVERSION: -cloud
@@ -31,25 +32,32 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /var/cache/apt
-          key: ${{ runner.os }}-apt-${{ hashFiles('**/apt-packages.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
+          key: ${{ runner.os }}-apt
+          restore-keys: ${{ runner.os }}-apt
 
-      # 安装 LLVM/Clang
-      - name: 安装 LLVM/Clang
+      # 安装 LLVM/Clang 缓存
+      - name: Cache LLVM/Clang
         uses: actions/cache@v3
+        id: llvm-cache
         with:
           path: /usr/lib/llvm-21
           key: llvm-21-${{ runner.os }}
           restore-keys: llvm-21-
+
+      # 安装 LLVM/Clang（仅缓存未命中时）
+      - name: 安装 LLVM/Clang
+        if: steps.llvm-cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y wget lsb-release gnupg
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 21 all
-          echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
 
+      - name: 配置 LLVM PATH
+        run: echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
+
+      # 安装内核依赖
       - name: 安装依赖 dependencies
         run: |
           sudo apt-get update
@@ -63,13 +71,14 @@ jobs:
       # 缓存内核源码
       - name: Cache kernel source
         uses: actions/cache@v3
+        id: kernel-cache
         with:
           path: kernel
           key: kernel-src-6.12-${{ github.run_id }}
           restore-keys: kernel-src-6.12-
 
       - name: 下载 XanMod 内核
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.kernel-cache.outputs.cache-hit != 'true'
         run: git clone --depth=1 --branch 6.12 https://gitlab.com/xanmod/linux.git kernel
 
       - name: 从仓库更新 config 配置
