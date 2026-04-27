@@ -9,12 +9,12 @@ scripts/config --enable CONFIG_HAVE_KERNEL_LZO
 scripts/config --enable CONFIG_HAVE_KERNEL_LZ4
 scripts/config --enable CONFIG_HAVE_KERNEL_ZSTD
 scripts/config --enable CONFIG_KERNEL_GZIP
-scripts/config --enable CONFIG_KERNEL_BZIP2
-scripts/config --enable CONFIG_KERNEL_LZMA
-scripts/config --enable CONFIG_KERNEL_XZ
-scripts/config --enable CONFIG_KERNEL_LZO
-scripts/config --enable CONFIG_KERNEL_LZ4
-scripts/config --enable CONFIG_KERNEL_ZSTD
+scripts/config --disable CONFIG_KERNEL_BZIP2
+scripts/config --disable CONFIG_KERNEL_LZMA
+scripts/config --disable CONFIG_KERNEL_XZ
+scripts/config --disable CONFIG_KERNEL_LZO
+scripts/config --disable CONFIG_KERNEL_LZ4
+scripts/config --disable CONFIG_KERNEL_ZSTD
 scripts/config --set-val CONFIG_DEFAULT_INIT ""
 scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "(none)"
 scripts/config --enable CONFIG_SYSVIPC
