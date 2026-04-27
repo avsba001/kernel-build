@@ -31,9 +31,9 @@ jobs:
       - name: Cache APT packages
         uses: actions/cache@v3
         with:
-          path: /var/cache/apt
-          key: ${{ runner.os }}-apt
-          restore-keys: ${{ runner.os }}-apt
+         path: kernel/.git
+         key: kernel-src-6.12-${{ github.run_id }}
+         restore-keys: kernel-src-6.12-
 
       # 安装 LLVM/Clang 缓存
       - name: Cache LLVM/Clang
