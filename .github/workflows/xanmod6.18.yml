@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
+        
       - name: 最大化可用空间
         run: |
           echo "-- Dotnet"
@@ -31,6 +31,13 @@ jobs:
           sudo rm -rf /opt/hostedtoolcache/CodeQL
 
           df -h
+          
+#      - name: 最大化可用空间
+#        # NOTE: 增加19G可用空间，编译时间增加3分钟
+#        uses: justinthelaw/maximize-github-runner-space@main
+#        with:
+#          skip-components: java,browsers,docker-engine
+#          swapfile-size: 2G
 
       - name: 显示系统信息 & 设置时区
         run: |
@@ -76,10 +83,10 @@ jobs:
       - name: 从仓库更新 config 配置
         run:  |
           cd kernel
-          cp ../config-6.18.sh .
-          chmod +x config-6.18.sh
-          cp CONFIGS/x86_64/config .config
-          ./config-6.18.sh
+          cp ../config-6.x.sh .
+          chmod +x config-6.x.sh
+          cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
+          ./config-6.x.sh
           make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
 
           
@@ -94,7 +101,8 @@ jobs:
           make -j$(nproc) \
             LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
             vmlinux modules_prepare \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error" \
+            LDFLAGS="-Wl,--gc-sections -Wl,-O1"
 
       - name: 构建内核模块 kernel modules_prepare
         run: |
@@ -102,7 +110,8 @@ jobs:
           make -j$(nproc) \
             LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
             modules_prepare \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error" \
+            LDFLAGS="-Wl,--gc-sections -Wl,-O1"
 
       - name: 构建内核软件包 kernel deb packages
         run: |
@@ -112,7 +121,8 @@ jobs:
             LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
             bindeb-pkg \
             LOCALVERSION=${KERNEL_LOCALVERSION} \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error"
+            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error" \
+            LDFLAGS="-Wl,--gc-sections -Wl,-O1"
 
       - name: 查看文件目录
         run: |
