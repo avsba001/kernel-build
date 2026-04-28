@@ -3644,7 +3644,7 @@ scripts/config --enable CONFIG_XEN_NETDEV_FRONTEND
 scripts/config --module CONFIG_XEN_NETDEV_BACKEND
 scripts/config --module CONFIG_VMXNET3
 scripts/config --module CONFIG_FUJITSU_ES
-scripts/config --module CONFIG_USB4_NET
+scripts/config --disable CONFIG_USB4_NET
 scripts/config --module CONFIG_HYPERV_NET
 scripts/config --module CONFIG_NETDEVSIM
 scripts/config --enable CONFIG_NET_FAILOVER
@@ -3715,7 +3715,7 @@ scripts/config --disable CONFIG_MOUSE_VSXXXAA
 scripts/config --disable CONFIG_MOUSE_GPIO
 scripts/config --disable CONFIG_MOUSE_SYNAPTICS_I2C
 scripts/config --disable CONFIG_MOUSE_SYNAPTICS_USB
-scripts/config --enable CONFIG_INPUT_JOYSTICK
+scripts/config --disable CONFIG_INPUT_JOYSTICK
 scripts/config --disable CONFIG_JOYSTICK_ANALOG
 scripts/config --disable CONFIG_JOYSTICK_A3D
 scripts/config --disable CONFIG_JOYSTICK_ADC
@@ -3756,7 +3756,7 @@ scripts/config --disable CONFIG_TABLET_USB_HANWANG
 scripts/config --disable CONFIG_TABLET_USB_KBTAB
 scripts/config --disable CONFIG_TABLET_USB_PEGASUS
 scripts/config --disable CONFIG_TABLET_SERIAL_WACOM4
-scripts/config --enable CONFIG_INPUT_TOUCHSCREEN
+scripts/config --disable CONFIG_INPUT_TOUCHSCREEN
 scripts/config --disable CONFIG_TOUCHSCREEN_88PM860X
 scripts/config --disable CONFIG_TOUCHSCREEN_ADS7846
 scripts/config --disable CONFIG_TOUCHSCREEN_AD7877
@@ -3791,24 +3791,24 @@ scripts/config --disable CONFIG_TOUCHSCREEN_ILITEK
 scripts/config --disable CONFIG_TOUCHSCREEN_S6SY761
 scripts/config --disable CONFIG_TOUCHSCREEN_GUNZE
 scripts/config --disable CONFIG_TOUCHSCREEN_EKTF2127
-scripts/config --enable CONFIG_TOUCHSCREEN_ELAN
+scripts/config --disable CONFIG_TOUCHSCREEN_ELAN
 scripts/config --disable CONFIG_TOUCHSCREEN_ELO
-scripts/config --module CONFIG_TOUCHSCREEN_WACOM_W8001
-scripts/config --module CONFIG_TOUCHSCREEN_WACOM_I2C
-scripts/config --module CONFIG_TOUCHSCREEN_MAX11801
-scripts/config --module CONFIG_TOUCHSCREEN_MMS114
-scripts/config --module CONFIG_TOUCHSCREEN_MELFAS_MIP4
-scripts/config --module CONFIG_TOUCHSCREEN_MSG2638
-scripts/config --module CONFIG_TOUCHSCREEN_MTOUCH
-scripts/config --module CONFIG_TOUCHSCREEN_NOVATEK_NVT_TS
-scripts/config --module CONFIG_TOUCHSCREEN_IMAGIS
-scripts/config --module CONFIG_TOUCHSCREEN_INEXIO
-scripts/config --module CONFIG_TOUCHSCREEN_PENMOUNT
-scripts/config --module CONFIG_TOUCHSCREEN_EDT_FT5X06
-scripts/config --module CONFIG_TOUCHSCREEN_TOUCHRIGHT
-scripts/config --module CONFIG_TOUCHSCREEN_TOUCHWIN
-scripts/config --module CONFIG_TOUCHSCREEN_PIXCIR
-scripts/config --module CONFIG_TOUCHSCREEN_WDT87XX_I2C
+scripts/config --disable CONFIG_TOUCHSCREEN_WACOM_W8001
+scripts/config --disable CONFIG_TOUCHSCREEN_WACOM_I2C
+scripts/config --disable CONFIG_TOUCHSCREEN_MAX11801
+scripts/config --disable CONFIG_TOUCHSCREEN_MMS114
+scripts/config --disable CONFIG_TOUCHSCREEN_MELFAS_MIP4
+scripts/config --disable CONFIG_TOUCHSCREEN_MSG2638
+scripts/config --disable CONFIG_TOUCHSCREEN_MTOUCH
+scripts/config --disable CONFIG_TOUCHSCREEN_NOVATEK_NVT_TS
+scripts/config --disable CONFIG_TOUCHSCREEN_IMAGIS
+scripts/config --disable CONFIG_TOUCHSCREEN_INEXIO
+scripts/config --disable CONFIG_TOUCHSCREEN_PENMOUNT
+scripts/config --disable CONFIG_TOUCHSCREEN_EDT_FT5X06
+scripts/config --disable CONFIG_TOUCHSCREEN_TOUCHRIGHT
+scripts/config --disable CONFIG_TOUCHSCREEN_TOUCHWIN
+scripts/config --disable CONFIG_TOUCHSCREEN_PIXCIR
+scripts/config --disable CONFIG_TOUCHSCREEN_WDT87XX_I2C
 scripts/config --disable CONFIG_TOUCHSCREEN_USB_COMPOSITE
 scripts/config --disable CONFIG_TOUCHSCREEN_TOUCHIT213
 scripts/config --disable CONFIG_TOUCHSCREEN_TSC_SERIO
@@ -5162,9 +5162,9 @@ scripts/config --enable CONFIG_HID_BPF
 #
 # USB HID support
 #
-scripts/config --module CONFIG_USB_HID
-scripts/config --enable CONFIG_HID_PID
-scripts/config --enable CONFIG_USB_HIDDEV
+scripts/config --disable CONFIG_USB_HID
+scripts/config --disable CONFIG_HID_PID
+scripts/config --disable CONFIG_USB_HIDDEV
 # end of USB HID support
 
 scripts/config --module CONFIG_I2C_HID
@@ -5642,8 +5642,8 @@ scripts/config --disable CONFIG_MEMSTICK_DEBUG
 # MemoryStick drivers
 #
 scripts/config --disable CONFIG_MEMSTICK_UNSAFE_RESUME
-scripts/config --module CONFIG_MSPRO_BLOCK
-scripts/config --module CONFIG_MS_BLOCK
+scripts/config --disable CONFIG_MSPRO_BLOCK
+scripts/config --disable CONFIG_MS_BLOCK
 
 #
 # MemoryStick Host Controller Drivers
@@ -5756,7 +5756,7 @@ scripts/config --module CONFIG_LEDS_TRIGGER_INPUT_EVENTS
 # Simple LED drivers
 #
 scripts/config --module CONFIG_LEDS_SIEMENS_SIMATIC_IPC
-scripts/config --enable CONFIG_ACCESSIBILITY
+scripts/config --disable CONFIG_ACCESSIBILITY
 scripts/config --disable CONFIG_A11Y_BRAILLE_CONSOLE
 
 #
@@ -5855,118 +5855,118 @@ scripts/config --disable CONFIG_RTC_DRV_TEST
 #
 # I2C RTC drivers
 #
-scripts/config --module CONFIG_RTC_DRV_88PM860X
-scripts/config --module CONFIG_RTC_DRV_88PM80X
-scripts/config --module CONFIG_RTC_DRV_ABB5ZES3
-scripts/config --module CONFIG_RTC_DRV_ABEOZ9
-scripts/config --module CONFIG_RTC_DRV_ABX80X
-scripts/config --module CONFIG_RTC_DRV_DS1307
-scripts/config --enable CONFIG_RTC_DRV_DS1307_CENTURY
-scripts/config --module CONFIG_RTC_DRV_DS1374
-scripts/config --module CONFIG_RTC_DRV_DS1672
-scripts/config --module CONFIG_RTC_DRV_LP8788
-scripts/config --module CONFIG_RTC_DRV_MAX6900
-scripts/config --module CONFIG_RTC_DRV_MAX8907
-scripts/config --module CONFIG_RTC_DRV_MAX8925
-scripts/config --module CONFIG_RTC_DRV_MAX8998
-scripts/config --module CONFIG_RTC_DRV_MAX8997
-scripts/config --module CONFIG_RTC_DRV_MAX31335
-scripts/config --module CONFIG_RTC_DRV_RS5C372
-scripts/config --module CONFIG_RTC_DRV_ISL1208
-scripts/config --module CONFIG_RTC_DRV_ISL12022
-scripts/config --module CONFIG_RTC_DRV_X1205
-scripts/config --module CONFIG_RTC_DRV_PCF8523
-scripts/config --module CONFIG_RTC_DRV_PCF85063
-scripts/config --module CONFIG_RTC_DRV_PCF85363
-scripts/config --module CONFIG_RTC_DRV_PCF8563
-scripts/config --module CONFIG_RTC_DRV_PCF8583
-scripts/config --module CONFIG_RTC_DRV_M41T80
-scripts/config --enable CONFIG_RTC_DRV_M41T80_WDT
-scripts/config --module CONFIG_RTC_DRV_BQ32K
-scripts/config --module CONFIG_RTC_DRV_PALMAS
-scripts/config --module CONFIG_RTC_DRV_RC5T583
-scripts/config --module CONFIG_RTC_DRV_S35390A
-scripts/config --module CONFIG_RTC_DRV_FM3130
-scripts/config --module CONFIG_RTC_DRV_RX8010
-scripts/config --module CONFIG_RTC_DRV_RX8111
-scripts/config --module CONFIG_RTC_DRV_RX8581
-scripts/config --module CONFIG_RTC_DRV_RX8025
-scripts/config --module CONFIG_RTC_DRV_EM3027
-scripts/config --module CONFIG_RTC_DRV_RV3028
-scripts/config --module CONFIG_RTC_DRV_RV3032
-scripts/config --module CONFIG_RTC_DRV_RV8803
-scripts/config --module CONFIG_RTC_DRV_SD2405AL
-scripts/config --module CONFIG_RTC_DRV_SD3078
+scripts/config --disable CONFIG_RTC_DRV_88PM860X
+scripts/config --disable CONFIG_RTC_DRV_88PM80X
+scripts/config --disable CONFIG_RTC_DRV_ABB5ZES3
+scripts/config --disable CONFIG_RTC_DRV_ABEOZ9
+scripts/config --disable CONFIG_RTC_DRV_ABX80X
+scripts/config --disable CONFIG_RTC_DRV_DS1307
+scripts/config --disable CONFIG_RTC_DRV_DS1307_CENTURY
+scripts/config --disable CONFIG_RTC_DRV_DS1374
+scripts/config --disable CONFIG_RTC_DRV_DS1672
+scripts/config --disable CONFIG_RTC_DRV_LP8788
+scripts/config --disable CONFIG_RTC_DRV_MAX6900
+scripts/config --disable CONFIG_RTC_DRV_MAX8907
+scripts/config --disable CONFIG_RTC_DRV_MAX8925
+scripts/config --disable CONFIG_RTC_DRV_MAX8998
+scripts/config --disable CONFIG_RTC_DRV_MAX8997
+scripts/config --disable CONFIG_RTC_DRV_MAX31335
+scripts/config --disable CONFIG_RTC_DRV_RS5C372
+scripts/config --disable CONFIG_RTC_DRV_ISL1208
+scripts/config --disable CONFIG_RTC_DRV_ISL12022
+scripts/config --disable CONFIG_RTC_DRV_X1205
+scripts/config --disable CONFIG_RTC_DRV_PCF8523
+scripts/config --disable CONFIG_RTC_DRV_PCF85063
+scripts/config --disable CONFIG_RTC_DRV_PCF85363
+scripts/config --disable CONFIG_RTC_DRV_PCF8563
+scripts/config --disable CONFIG_RTC_DRV_PCF8583
+scripts/config --disable CONFIG_RTC_DRV_M41T80
+scripts/config --disable CONFIG_RTC_DRV_M41T80_WDT
+scripts/config --disable CONFIG_RTC_DRV_BQ32K
+scripts/config --disable CONFIG_RTC_DRV_PALMAS
+scripts/config --disable CONFIG_RTC_DRV_RC5T583
+scripts/config --disable CONFIG_RTC_DRV_S35390A
+scripts/config --disable CONFIG_RTC_DRV_FM3130
+scripts/config --disable CONFIG_RTC_DRV_RX8010
+scripts/config --disable CONFIG_RTC_DRV_RX8111
+scripts/config --disable CONFIG_RTC_DRV_RX8581
+scripts/config --disable CONFIG_RTC_DRV_RX8025
+scripts/config --disable CONFIG_RTC_DRV_EM3027
+scripts/config --disable CONFIG_RTC_DRV_RV3028
+scripts/config --disable CONFIG_RTC_DRV_RV3032
+scripts/config --disable CONFIG_RTC_DRV_RV8803
+scripts/config --disable CONFIG_RTC_DRV_SD2405AL
+scripts/config --disable CONFIG_RTC_DRV_SD3078
 
 #
 # SPI RTC drivers
 #
-scripts/config --module CONFIG_RTC_DRV_M41T93
-scripts/config --module CONFIG_RTC_DRV_M41T94
-scripts/config --module CONFIG_RTC_DRV_DS1302
-scripts/config --module CONFIG_RTC_DRV_DS1305
-scripts/config --module CONFIG_RTC_DRV_DS1343
-scripts/config --module CONFIG_RTC_DRV_DS1347
-scripts/config --module CONFIG_RTC_DRV_DS1390
-scripts/config --module CONFIG_RTC_DRV_MAX6916
-scripts/config --module CONFIG_RTC_DRV_R9701
-scripts/config --module CONFIG_RTC_DRV_RX4581
-scripts/config --module CONFIG_RTC_DRV_RS5C348
-scripts/config --module CONFIG_RTC_DRV_MAX6902
-scripts/config --module CONFIG_RTC_DRV_PCF2123
-scripts/config --module CONFIG_RTC_DRV_MCP795
-scripts/config --enable CONFIG_RTC_I2C_AND_SPI
+scripts/config --disable CONFIG_RTC_DRV_M41T93
+scripts/config --disable CONFIG_RTC_DRV_M41T94
+scripts/config --disable CONFIG_RTC_DRV_DS1302
+scripts/config --disable CONFIG_RTC_DRV_DS1305
+scripts/config --disable CONFIG_RTC_DRV_DS1343
+scripts/config --disable CONFIG_RTC_DRV_DS1347
+scripts/config --disable CONFIG_RTC_DRV_DS1390
+scripts/config --disable CONFIG_RTC_DRV_MAX6916
+scripts/config --disable CONFIG_RTC_DRV_R9701
+scripts/config --disable CONFIG_RTC_DRV_RX4581
+scripts/config --disable CONFIG_RTC_DRV_RS5C348
+scripts/config --disable CONFIG_RTC_DRV_MAX6902
+scripts/config --disable CONFIG_RTC_DRV_PCF2123
+scripts/config --disable CONFIG_RTC_DRV_MCP795
+scripts/config --disable CONFIG_RTC_I2C_AND_SPI
 
 #
 # SPI and I2C RTC drivers
 #
-scripts/config --module CONFIG_RTC_DRV_DS3232
-scripts/config --enable CONFIG_RTC_DRV_DS3232_HWMON
-scripts/config --module CONFIG_RTC_DRV_PCF2127
-scripts/config --module CONFIG_RTC_DRV_RV3029C2
-scripts/config --enable CONFIG_RTC_DRV_RV3029_HWMON
-scripts/config --module CONFIG_RTC_DRV_RX6110
+scripts/config --disable CONFIG_RTC_DRV_DS3232
+scripts/config --disable CONFIG_RTC_DRV_DS3232_HWMON
+scripts/config --disable CONFIG_RTC_DRV_PCF2127
+scripts/config --disable CONFIG_RTC_DRV_RV3029C2
+scripts/config --disable CONFIG_RTC_DRV_RV3029_HWMON
+scripts/config --disable CONFIG_RTC_DRV_RX6110
 
 #
 # Platform RTC drivers
 #
-scripts/config --enable CONFIG_RTC_DRV_CMOS
-scripts/config --module CONFIG_RTC_DRV_DS1286
-scripts/config --module CONFIG_RTC_DRV_DS1511
-scripts/config --module CONFIG_RTC_DRV_DS1553
-scripts/config --module CONFIG_RTC_DRV_DS1685_FAMILY
-scripts/config --enable CONFIG_RTC_DRV_DS1685
+scripts/config --disable CONFIG_RTC_DRV_CMOS
+scripts/config --disable CONFIG_RTC_DRV_DS1286
+scripts/config --disable CONFIG_RTC_DRV_DS1511
+scripts/config --disable CONFIG_RTC_DRV_DS1553
+scripts/config --disable CONFIG_RTC_DRV_DS1685_FAMILY
+scripts/config --disable CONFIG_RTC_DRV_DS1685
 scripts/config --disable CONFIG_RTC_DRV_DS1689
 scripts/config --disable CONFIG_RTC_DRV_DS17285
 scripts/config --disable CONFIG_RTC_DRV_DS17485
 scripts/config --disable CONFIG_RTC_DRV_DS17885
-scripts/config --module CONFIG_RTC_DRV_DS1742
-scripts/config --module CONFIG_RTC_DRV_DS2404
-scripts/config --module CONFIG_RTC_DRV_DA9052
-scripts/config --module CONFIG_RTC_DRV_DA9055
-scripts/config --module CONFIG_RTC_DRV_DA9063
-scripts/config --module CONFIG_RTC_DRV_STK17TA8
-scripts/config --module CONFIG_RTC_DRV_M48T86
-scripts/config --module CONFIG_RTC_DRV_M48T35
-scripts/config --module CONFIG_RTC_DRV_M48T59
-scripts/config --module CONFIG_RTC_DRV_MSM6242
-scripts/config --module CONFIG_RTC_DRV_RP5C01
-scripts/config --module CONFIG_RTC_DRV_PCF50633
-scripts/config --module CONFIG_RTC_DRV_CROS_EC
+scripts/config --disable CONFIG_RTC_DRV_DS1742
+scripts/config --disable CONFIG_RTC_DRV_DS2404
+scripts/config --disable CONFIG_RTC_DRV_DA9052
+scripts/config --disable CONFIG_RTC_DRV_DA9055
+scripts/config --disable CONFIG_RTC_DRV_DA9063
+scripts/config --disable CONFIG_RTC_DRV_STK17TA8
+scripts/config --disable CONFIG_RTC_DRV_M48T86
+scripts/config --disable CONFIG_RTC_DRV_M48T35
+scripts/config --disable CONFIG_RTC_DRV_M48T59
+scripts/config --disable CONFIG_RTC_DRV_MSM6242
+scripts/config --disable CONFIG_RTC_DRV_RP5C01
+scripts/config --disable CONFIG_RTC_DRV_PCF50633
+scripts/config --disable CONFIG_RTC_DRV_CROS_EC
 
 #
 # on-CPU RTC drivers
 #
-scripts/config --module CONFIG_RTC_DRV_FTRTC010
-scripts/config --module CONFIG_RTC_DRV_PCAP
-scripts/config --module CONFIG_RTC_DRV_MT6397
+scripts/config --disable CONFIG_RTC_DRV_FTRTC010
+scripts/config --disable CONFIG_RTC_DRV_PCAP
+scripts/config --disable CONFIG_RTC_DRV_MT6397
 
 #
 # HID Sensor RTC drivers
 #
-scripts/config --module CONFIG_RTC_DRV_HID_SENSOR_TIME
-scripts/config --module CONFIG_RTC_DRV_GOLDFISH
-scripts/config --module CONFIG_RTC_DRV_WILCO_EC
+scripts/config --disable CONFIG_RTC_DRV_HID_SENSOR_TIME
+scripts/config --disable CONFIG_RTC_DRV_GOLDFISH
+scripts/config --disable CONFIG_RTC_DRV_WILCO_EC
 scripts/config --enable CONFIG_DMADEVICES
 scripts/config --disable CONFIG_DMADEVICES_DEBUG
 
@@ -6117,37 +6117,37 @@ scripts/config --module CONFIG_HYPERV_BALLOON
 #
 # Xen driver support
 #
-scripts/config --enable CONFIG_XEN_BALLOON
-scripts/config --enable CONFIG_XEN_BALLOON_MEMORY_HOTPLUG
+scripts/config --disable CONFIG_XEN_BALLOON
+scripts/config --disable CONFIG_XEN_BALLOON_MEMORY_HOTPLUG
 scripts/config --set-val CONFIG_XEN_MEMORY_HOTPLUG_LIMIT 512
-scripts/config --enable CONFIG_XEN_SCRUB_PAGES_DEFAULT
-scripts/config --module CONFIG_XEN_DEV_EVTCHN
-scripts/config --enable CONFIG_XEN_BACKEND
-scripts/config --module CONFIG_XENFS
-scripts/config --enable CONFIG_XEN_COMPAT_XENFS
-scripts/config --enable CONFIG_XEN_SYS_HYPERVISOR
-scripts/config --enable CONFIG_XEN_XENBUS_FRONTEND
-scripts/config --module CONFIG_XEN_GNTDEV
-scripts/config --enable CONFIG_XEN_GNTDEV_DMABUF
-scripts/config --module CONFIG_XEN_GRANT_DEV_ALLOC
-scripts/config --enable CONFIG_XEN_GRANT_DMA_ALLOC
-scripts/config --enable CONFIG_SWIOTLB_XEN
-scripts/config --enable CONFIG_XEN_PCI_STUB
-scripts/config --module CONFIG_XEN_PCIDEV_BACKEND
-scripts/config --module CONFIG_XEN_PVCALLS_FRONTEND
+scripts/config --disable CONFIG_XEN_SCRUB_PAGES_DEFAULT
+scripts/config --disable CONFIG_XEN_DEV_EVTCHN
+scripts/config --disable CONFIG_XEN_BACKEND
+scripts/config --disable CONFIG_XENFS
+scripts/config --disable CONFIG_XEN_COMPAT_XENFS
+scripts/config --disable CONFIG_XEN_SYS_HYPERVISOR
+scripts/config --disable CONFIG_XEN_XENBUS_FRONTEND
+scripts/config --disable CONFIG_XEN_GNTDEV
+scripts/config --disable CONFIG_XEN_GNTDEV_DMABUF
+scripts/config --disable CONFIG_XEN_GRANT_DEV_ALLOC
+scripts/config --disable CONFIG_XEN_GRANT_DMA_ALLOC
+scripts/config --disable CONFIG_SWIOTLB_XEN
+scripts/config --disable CONFIG_XEN_PCI_STUB
+scripts/config --disable CONFIG_XEN_PCIDEV_BACKEND
+scripts/config --disable CONFIG_XEN_PVCALLS_FRONTEND
 scripts/config --disable CONFIG_XEN_PVCALLS_BACKEND
-scripts/config --module CONFIG_XEN_SCSI_BACKEND
-scripts/config --module CONFIG_XEN_PRIVCMD
-scripts/config --enable CONFIG_XEN_PRIVCMD_EVENTFD
-scripts/config --enable CONFIG_XEN_HAVE_PVMMU
-scripts/config --enable CONFIG_XEN_EFI
-scripts/config --enable CONFIG_XEN_AUTO_XLATE
-scripts/config --enable CONFIG_XEN_ACPI
-scripts/config --enable CONFIG_XEN_SYMS
-scripts/config --enable CONFIG_XEN_HAVE_VPMU
-scripts/config --enable CONFIG_XEN_UNPOPULATED_ALLOC
-scripts/config --enable CONFIG_XEN_GRANT_DMA_OPS
-scripts/config --enable CONFIG_XEN_VIRTIO
+scripts/config --disable CONFIG_XEN_SCSI_BACKEND
+scripts/config --disable CONFIG_XEN_PRIVCMD
+scripts/config --disable CONFIG_XEN_PRIVCMD_EVENTFD
+scripts/config --disable CONFIG_XEN_HAVE_PVMMU
+scripts/config --disable CONFIG_XEN_EFI
+scripts/config --disable CONFIG_XEN_AUTO_XLATE
+scripts/config --disable CONFIG_XEN_ACPI
+scripts/config --disable CONFIG_XEN_SYMS
+scripts/config --disable CONFIG_XEN_HAVE_VPMU
+scripts/config --disable CONFIG_XEN_UNPOPULATED_ALLOC
+scripts/config --disable CONFIG_XEN_GRANT_DMA_OPS
+scripts/config --disable CONFIG_XEN_VIRTIO
 scripts/config --disable CONFIG_XEN_VIRTIO_FORCE_GRANT
 # end of Xen driver support
 
