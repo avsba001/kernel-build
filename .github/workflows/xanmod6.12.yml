@@ -21,7 +21,7 @@ jobs:
 
       - name: 最大化可用空间
         # NOTE: Use a specific tag or commit shasum for immutability
-        uses: justinthelaw/maximize-github-runner-space@latest
+        uses: justinthelaw/maximize-github-runner-space@master
         with:
           skip-components: java,browsers,docker-engine
           swapfile-size: 2G
