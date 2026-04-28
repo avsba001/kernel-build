@@ -1973,7 +1973,7 @@ scripts/config --disable CONFIG_NFC_NCI
 scripts/config --disable CONFIG_NFC_NCI_SPI
 scripts/config --disable CONFIG_NFC_NCI_UART
 scripts/config --disable CONFIG_NFC_HCI
-scripts/config --disablee CONFIG_NFC_SHDLC
+scripts/config --disable CONFIG_NFC_SHDLC
 
 #
 # Near Field Communication (NFC) devices
