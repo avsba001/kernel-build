@@ -18,13 +18,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
+        
       - name: 最大化可用空间
-        # NOTE: Use a specific tag or commit shasum for immutability
-        uses: justinthelaw/maximize-github-runner-space@main
-        with:
-          skip-components: java,browsers,docker-engine
-          swapfile-size: 2G
+        run: |
+          echo "-- Dotnet"
+          sudo rm -rf /usr/share/dotnet
+          echo "-- Android"
+          sudo rm -rf /usr/local/lib/android
+          echo "-- Haskell"
+          sudo rm -rf /opt/ghc
+          echo "-- CodeQL"
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+
+          df -h
+          
+#      - name: 最大化可用空间
+#        # NOTE: 增加19G可用空间，编译时间增加3分钟
+#        uses: justinthelaw/maximize-github-runner-space@main
+#        with:
+#          skip-components: java,browsers,docker-engine
+#          swapfile-size: 2G
 
       - name: 显示系统信息 & 设置时区
         run: |
