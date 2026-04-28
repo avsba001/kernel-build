@@ -1025,12 +1025,12 @@ scripts/config --set-val CONFIG_ZSMALLOC_CHAIN_SIZE 8
 #
 scripts/config --enable CONFIG_SLUB
 scripts/config --enable CONFIG_SLAB_MERGE_DEFAULT
-scripts/config --enable CONFIG_SLAB_FREELIST_RANDOM
-scripts/config --enable CONFIG_SLAB_FREELIST_HARDENED
+scripts/config --disable CONFIG_SLAB_FREELIST_RANDOM
+scripts/config --disable CONFIG_SLAB_FREELIST_HARDENED
 scripts/config --enable CONFIG_SLAB_BUCKETS
 scripts/config --disable CONFIG_SLUB_STATS
 scripts/config --enable CONFIG_SLUB_CPU_PARTIAL
-scripts/config --enable CONFIG_RANDOM_KMALLOC_CACHES
+scripts/config --disable CONFIG_RANDOM_KMALLOC_CACHES
 # end of Slab allocator options
 
 scripts/config --enable CONFIG_SHUFFLE_PAGE_ALLOCATOR
@@ -2144,37 +2144,37 @@ scripts/config --enable CONFIG_PCMCIA_LOAD_CIS
 scripts/config --enable CONFIG_CARDBUS
 
 #
-# PC-card bridges
+# PC-card bridges (已优化)
 #
-scripts/config --module CONFIG_YENTA
-scripts/config --enable CONFIG_YENTA_O2
-scripts/config --enable CONFIG_YENTA_RICOH
-scripts/config --enable CONFIG_YENTA_TI
-scripts/config --enable CONFIG_YENTA_ENE_TUNE
-scripts/config --enable CONFIG_YENTA_TOSHIBA
-scripts/config --module CONFIG_PD6729
-scripts/config --module CONFIG_I82092
-scripts/config --enable CONFIG_PCCARD_NONSTATIC
-scripts/config --enable CONFIG_RAPIDIO
-scripts/config --module CONFIG_RAPIDIO_TSI721
-scripts/config --set-val CONFIG_RAPIDIO_DISC_TIMEOUT 30
+scripts/config --disable CONFIG_YENTA
+scripts/config --disable CONFIG_YENTA_O2
+scripts/config --disable CONFIG_YENTA_RICOH
+scripts/config --disable CONFIG_YENTA_TI
+scripts/config --disable CONFIG_YENTA_ENE_TUNE
+scripts/config --disable CONFIG_YENTA_TOSHIBA
+scripts/config --disable CONFIG_PD6729
+scripts/config --disable CONFIG_I82092
+scripts/config --disable CONFIG_PCCARD_NONSTATIC
+scripts/config --disable CONFIG_RAPIDIO
+scripts/config --disable CONFIG_RAPIDIO_TSI721
+#scripts/config --set-val CONFIG_RAPIDIO_DISC_TIMEOUT 30
 scripts/config --disable CONFIG_RAPIDIO_ENABLE_RX_TX_PORTS
-scripts/config --enable CONFIG_RAPIDIO_DMA_ENGINE
+scripts/config --disable CONFIG_RAPIDIO_DMA_ENGINE
 scripts/config --disable CONFIG_RAPIDIO_DEBUG
-scripts/config --module CONFIG_RAPIDIO_ENUM_BASIC
-scripts/config --module CONFIG_RAPIDIO_CHMAN
-scripts/config --module CONFIG_RAPIDIO_MPORT_CDEV
+scripts/config --disable CONFIG_RAPIDIO_ENUM_BASIC
+scripts/config --disable CONFIG_RAPIDIO_CHMAN
+scripts/config --disable CONFIG_RAPIDIO_MPORT_CDEV
 
 #
-# RapidIO Switch drivers
+# RapidIO Switch drivers （已优化）
 #
-scripts/config --module CONFIG_RAPIDIO_CPS_XX
-scripts/config --module CONFIG_RAPIDIO_CPS_GEN2
-scripts/config --module CONFIG_RAPIDIO_RXS_GEN3
+scripts/config --disable CONFIG_RAPIDIO_CPS_XX
+scripts/config --disable CONFIG_RAPIDIO_CPS_GEN2
+scripts/config --disable CONFIG_RAPIDIO_RXS_GEN3
 # end of RapidIO Switch drivers
 
 #
-# Generic Driver Options
+# Generic Driver Options 
 #
 scripts/config --enable CONFIG_AUXILIARY_BUS
 scripts/config --enable CONFIG_UEVENT_HELPER
@@ -2301,15 +2301,15 @@ scripts/config --enable CONFIG_UEFI_CPER_X86
 # Tegra firmware driver
 #
 # end of Tegra firmware driver
-# end of Firmware Drivers
+# end of Firmware Drivers（已优化）
 
-scripts/config --module CONFIG_GNSS
-scripts/config --module CONFIG_GNSS_SERIAL
-scripts/config --module CONFIG_GNSS_MTK_SERIAL
-scripts/config --module CONFIG_GNSS_SIRF_SERIAL
-scripts/config --module CONFIG_GNSS_UBX_SERIAL
-scripts/config --module CONFIG_GNSS_USB
-scripts/config --module CONFIG_MTD
+scripts/config --disable CONFIG_GNSS
+scripts/config --disable CONFIG_GNSS_SERIAL
+scripts/config --disable CONFIG_GNSS_MTK_SERIAL
+scripts/config --disable CONFIG_GNSS_SIRF_SERIAL
+scripts/config --disable CONFIG_GNSS_UBX_SERIAL
+scripts/config --disable CONFIG_GNSS_USB
+scripts/config --disable CONFIG_MTD
 scripts/config --disable CONFIG_MTD_TESTS
 
 #
