@@ -6882,134 +6882,101 @@ scripts/config --module CONFIG_XILINX_XADC
 
 #
 # Analog to digital and digital to analog converters
-#
-scripts/config --module CONFIG_AD74115
-scripts/config --module CONFIG_AD74413R
-# end of Analog to digital and digital to analog converters
+scripts/config --disable CONFIG_AD74115
+scripts/config --disable CONFIG_AD74413R
+scripts/config --disable CONFIG_IIO_RESCALE
 
-#
-# Analog Front Ends
-#
-scripts/config --module CONFIG_IIO_RESCALE
-# end of Analog Front Ends
-
-#
 # Amplifiers
-#
-scripts/config --module CONFIG_AD8366
-scripts/config --module CONFIG_ADA4250
-scripts/config --module CONFIG_HMC425
-# end of Amplifiers
+scripts/config --disable CONFIG_AD8366
+scripts/config --disable CONFIG_ADA4250
+scripts/config --disable CONFIG_HMC425
 
-#
 # Capacitance to digital converters
-#
-scripts/config --module CONFIG_AD7150
-scripts/config --module CONFIG_AD7746
-# end of Capacitance to digital converters
+scripts/config --disable CONFIG_AD7150
+scripts/config --disable CONFIG_AD7746
 
-#
 # Chemical Sensors
-#
-scripts/config --module CONFIG_AOSONG_AGS02MA
-scripts/config --module CONFIG_ATLAS_PH_SENSOR
-scripts/config --module CONFIG_ATLAS_EZO_SENSOR
-scripts/config --module CONFIG_BME680
-scripts/config --module CONFIG_BME680_I2C
-scripts/config --module CONFIG_BME680_SPI
-scripts/config --module CONFIG_CCS811
-scripts/config --module CONFIG_ENS160
-scripts/config --module CONFIG_ENS160_I2C
-scripts/config --module CONFIG_ENS160_SPI
-scripts/config --module CONFIG_IAQCORE
-scripts/config --module CONFIG_PMS7003
-scripts/config --module CONFIG_SCD30_CORE
-scripts/config --module CONFIG_SCD30_I2C
-scripts/config --module CONFIG_SCD30_SERIAL
-scripts/config --module CONFIG_SCD4X
-scripts/config --module CONFIG_SENSIRION_SGP30
-scripts/config --module CONFIG_SENSIRION_SGP40
-scripts/config --module CONFIG_SPS30
-scripts/config --module CONFIG_SPS30_I2C
-scripts/config --module CONFIG_SPS30_SERIAL
-scripts/config --module CONFIG_SENSEAIR_SUNRISE_CO2
-scripts/config --module CONFIG_VZ89X
-# end of Chemical Sensors
+scripts/config --disable CONFIG_AOSONG_AGS02MA
+scripts/config --disable CONFIG_ATLAS_PH_SENSOR
+scripts/config --disable CONFIG_ATLAS_EZO_SENSOR
+scripts/config --disable CONFIG_BME680
+scripts/config --disable CONFIG_BME680_I2C
+scripts/config --disable CONFIG_BME680_SPI
+scripts/config --disable CONFIG_CCS811
+scripts/config --disable CONFIG_ENS160
+scripts/config --disable CONFIG_ENS160_I2C
+scripts/config --disable CONFIG_ENS160_SPI
+scripts/config --disable CONFIG_IAQCORE
+scripts/config --disable CONFIG_PMS7003
+scripts/config --disable CONFIG_SCD30_CORE
+scripts/config --disable CONFIG_SCD30_I2C
+scripts/config --disable CONFIG_SCD30_SERIAL
+scripts/config --disable CONFIG_SCD4X
+scripts/config --disable CONFIG_SENSIRION_SGP30
+scripts/config --disable CONFIG_SENSIRION_SGP40
+scripts/config --disable CONFIG_SPS30
+scripts/config --disable CONFIG_SPS30_I2C
+scripts/config --disable CONFIG_SPS30_SERIAL
+scripts/config --disable CONFIG_SENSEAIR_SUNRISE_CO2
+scripts/config --disable CONFIG_VZ89X
 
-#
 # Hid Sensor IIO Common
-#
-scripts/config --module CONFIG_HID_SENSOR_IIO_COMMON
-scripts/config --module CONFIG_HID_SENSOR_IIO_TRIGGER
-# end of Hid Sensor IIO Common
+scripts/config --disable CONFIG_HID_SENSOR_IIO_COMMON
+scripts/config --disable CONFIG_HID_SENSOR_IIO_TRIGGER
+scripts/config --disable CONFIG_IIO_INV_SENSORS_TIMESTAMP
+scripts/config --disable CONFIG_IIO_MS_SENSORS_I2C
+scripts/config --disable CONFIG_IIO_SSP_SENSORS_COMMONS
+scripts/config --disable CONFIG_IIO_SSP_SENSORHUB
+scripts/config --disable CONFIG_IIO_ST_SENSORS_I2C
+scripts/config --disable CONFIG_IIO_ST_SENSORS_SPI
+scripts/config --disable CONFIG_IIO_ST_SENSORS_CORE
 
-scripts/config --module CONFIG_IIO_INV_SENSORS_TIMESTAMP
-scripts/config --module CONFIG_IIO_MS_SENSORS_I2C
-
-#
-# IIO SCMI Sensors
-#
-# end of IIO SCMI Sensors
-
-#
-# SSP Sensor Common
-#
-scripts/config --module CONFIG_IIO_SSP_SENSORS_COMMONS
-scripts/config --module CONFIG_IIO_SSP_SENSORHUB
-# end of SSP Sensor Common
-
-scripts/config --module CONFIG_IIO_ST_SENSORS_I2C
-scripts/config --module CONFIG_IIO_ST_SENSORS_SPI
-scripts/config --module CONFIG_IIO_ST_SENSORS_CORE
-
-#
 # Digital to analog converters
-#
-scripts/config --module CONFIG_AD3552R
-scripts/config --module CONFIG_AD5064
-scripts/config --module CONFIG_AD5360
-scripts/config --module CONFIG_AD5380
-scripts/config --module CONFIG_AD5421
-scripts/config --module CONFIG_AD5446
-scripts/config --module CONFIG_AD5449
-scripts/config --module CONFIG_AD5592R_BASE
-scripts/config --module CONFIG_AD5592R
-scripts/config --module CONFIG_AD5593R
-scripts/config --module CONFIG_AD5504
-scripts/config --module CONFIG_AD5624R_SPI
-scripts/config --module CONFIG_AD9739A
-scripts/config --module CONFIG_LTC2688
-scripts/config --module CONFIG_AD5686
-scripts/config --module CONFIG_AD5686_SPI
-scripts/config --module CONFIG_AD5696_I2C
-scripts/config --module CONFIG_AD5755
-scripts/config --module CONFIG_AD5758
-scripts/config --module CONFIG_AD5761
-scripts/config --module CONFIG_AD5764
-scripts/config --module CONFIG_AD5766
-scripts/config --module CONFIG_AD5770R
-scripts/config --module CONFIG_AD5791
-scripts/config --module CONFIG_AD7293
-scripts/config --module CONFIG_AD7303
-scripts/config --module CONFIG_AD8801
-scripts/config --module CONFIG_DPOT_DAC
-scripts/config --module CONFIG_DS4424
-scripts/config --module CONFIG_LTC1660
-scripts/config --module CONFIG_LTC2632
-scripts/config --module CONFIG_LTC2664
-scripts/config --module CONFIG_M62332
-scripts/config --module CONFIG_MAX517
-scripts/config --module CONFIG_MAX5522
-scripts/config --module CONFIG_MAX5821
-scripts/config --module CONFIG_MCP4725
-scripts/config --module CONFIG_MCP4728
-scripts/config --module CONFIG_MCP4821
-scripts/config --module CONFIG_MCP4922
-scripts/config --module CONFIG_TI_DAC082S085
-scripts/config --module CONFIG_TI_DAC5571
-scripts/config --module CONFIG_TI_DAC7311
-scripts/config --module CONFIG_TI_DAC7612
-scripts/config --module CONFIG_VF610_DAC
+scripts/config --disable CONFIG_AD3552R
+scripts/config --disable CONFIG_AD5064
+scripts/config --disable CONFIG_AD5360
+scripts/config --disable CONFIG_AD5380
+scripts/config --disable CONFIG_AD5421
+scripts/config --disable CONFIG_AD5446
+scripts/config --disable CONFIG_AD5449
+scripts/config --disable CONFIG_AD5592R_BASE
+scripts/config --disable CONFIG_AD5592R
+scripts/config --disable CONFIG_AD5593R
+scripts/config --disable CONFIG_AD5504
+scripts/config --disable CONFIG_AD5624R_SPI
+scripts/config --disable CONFIG_AD9739A
+scripts/config --disable CONFIG_LTC2688
+scripts/config --disable CONFIG_AD5686
+scripts/config --disable CONFIG_AD5686_SPI
+scripts/config --disable CONFIG_AD5696_I2C
+scripts/config --disable CONFIG_AD5755
+scripts/config --disable CONFIG_AD5758
+scripts/config --disable CONFIG_AD5761
+scripts/config --disable CONFIG_AD5764
+scripts/config --disable CONFIG_AD5766
+scripts/config --disable CONFIG_AD5770R
+scripts/config --disable CONFIG_AD5791
+scripts/config --disable CONFIG_AD7293
+scripts/config --disable CONFIG_AD7303
+scripts/config --disable CONFIG_AD8801
+scripts/config --disable CONFIG_DPOT_DAC
+scripts/config --disable CONFIG_DS4424
+scripts/config --disable CONFIG_LTC1660
+scripts/config --disable CONFIG_LTC2632
+scripts/config --disable CONFIG_LTC2664
+scripts/config --disable CONFIG_M62332
+scripts/config --disable CONFIG_MAX517
+scripts/config --disable CONFIG_MAX5522
+scripts/config --disable CONFIG_MAX5821
+scripts/config --disable CONFIG_MCP4725
+scripts/config --disable CONFIG_MCP4728
+scripts/config --disable CONFIG_MCP4821
+scripts/config --disable CONFIG_MCP4922
+scripts/config --disable CONFIG_TI_DAC082S085
+scripts/config --disable CONFIG_TI_DAC5571
+scripts/config --disable CONFIG_TI_DAC7311
+scripts/config --disable CONFIG_TI_DAC7612
+scripts/config --disable CONFIG_VF610_DAC
 # end of Digital to analog converters
 
 #
@@ -7033,45 +7000,45 @@ scripts/config --module CONFIG_ADMV8818
 #
 # Clock Generator/Distribution
 #
-scripts/config --module CONFIG_AD9523
+scripts/config --disable CONFIG_AD9523
 # end of Clock Generator/Distribution
 
 #
 # Phase-Locked Loop (PLL) frequency synthesizers
 #
-scripts/config --module CONFIG_ADF4350
-scripts/config --module CONFIG_ADF4371
-scripts/config --module CONFIG_ADF4377
-scripts/config --module CONFIG_ADMFM2000
-scripts/config --module CONFIG_ADMV1013
-scripts/config --module CONFIG_ADMV1014
-scripts/config --module CONFIG_ADMV4420
-scripts/config --module CONFIG_ADRF6780
+scripts/config --disable CONFIG_ADF4350
+scripts/config --disable CONFIG_ADF4371
+scripts/config --disable CONFIG_ADF4377
+scripts/config --disable CONFIG_ADMFM2000
+scripts/config --disable CONFIG_ADMV1013
+scripts/config --disable CONFIG_ADMV1014
+scripts/config --disable CONFIG_ADMV4420
+scripts/config --disable CONFIG_ADRF6780
 # end of Phase-Locked Loop (PLL) frequency synthesizers
 # end of Frequency Synthesizers DDS/PLL
 
 #
 # Digital gyroscope sensors
 #
-scripts/config --module CONFIG_ADIS16080
-scripts/config --module CONFIG_ADIS16130
-scripts/config --module CONFIG_ADIS16136
-scripts/config --module CONFIG_ADIS16260
-scripts/config --module CONFIG_ADXRS290
-scripts/config --module CONFIG_ADXRS450
-scripts/config --module CONFIG_BMG160
-scripts/config --module CONFIG_BMG160_I2C
-scripts/config --module CONFIG_BMG160_SPI
-scripts/config --module CONFIG_FXAS21002C
-scripts/config --module CONFIG_FXAS21002C_I2C
-scripts/config --module CONFIG_FXAS21002C_SPI
-scripts/config --module CONFIG_HID_SENSOR_GYRO_3D
-scripts/config --module CONFIG_MPU3050
-scripts/config --module CONFIG_MPU3050_I2C
-scripts/config --module CONFIG_IIO_ST_GYRO_3AXIS
-scripts/config --module CONFIG_IIO_ST_GYRO_I2C_3AXIS
-scripts/config --module CONFIG_IIO_ST_GYRO_SPI_3AXIS
-scripts/config --module CONFIG_ITG3200
+scripts/config --disable CONFIG_ADIS16080
+scripts/config --disable CONFIG_ADIS16130
+scripts/config --disable CONFIG_ADIS16136
+scripts/config --disable CONFIG_ADIS16260
+scripts/config --disable CONFIG_ADXRS290
+scripts/config --disable CONFIG_ADXRS450
+scripts/config --disable CONFIG_BMG160
+scripts/config --disable CONFIG_BMG160_I2C
+scripts/config --disable CONFIG_BMG160_SPI
+scripts/config --disable CONFIG_FXAS21002C
+scripts/config --disable CONFIG_FXAS21002C_I2C
+scripts/config --disable CONFIG_FXAS21002C_SPI
+scripts/config --disable CONFIG_HID_SENSOR_GYRO_3D
+scripts/config --disable CONFIG_MPU3050
+scripts/config --disable CONFIG_MPU3050_I2C
+scripts/config --disable CONFIG_IIO_ST_GYRO_3AXIS
+scripts/config --disable CONFIG_IIO_ST_GYRO_I2C_3AXIS
+scripts/config --disable CONFIG_IIO_ST_GYRO_SPI_3AXIS
+scripts/config --disable CONFIG_ITG3200
 # end of Digital gyroscope sensors
 
 #
@@ -7081,306 +7048,290 @@ scripts/config --module CONFIG_ITG3200
 #
 # Heart Rate Monitors
 #
-scripts/config --module CONFIG_AFE4403
-scripts/config --module CONFIG_AFE4404
-scripts/config --module CONFIG_MAX30100
-scripts/config --module CONFIG_MAX30102
+scripts/config --disable CONFIG_AFE4403
+scripts/config --disable CONFIG_AFE4404
+scripts/config --disable CONFIG_MAX30100
+scripts/config --disable CONFIG_MAX30102
 # end of Heart Rate Monitors
 # end of Health Sensors
 
 #
 # Humidity sensors
 #
-scripts/config --module CONFIG_AM2315
-scripts/config --module CONFIG_DHT11
-scripts/config --module CONFIG_ENS210
-scripts/config --module CONFIG_HDC100X
-scripts/config --module CONFIG_HDC2010
-scripts/config --module CONFIG_HDC3020
-scripts/config --module CONFIG_HID_SENSOR_HUMIDITY
-scripts/config --module CONFIG_HTS221
-scripts/config --module CONFIG_HTS221_I2C
-scripts/config --module CONFIG_HTS221_SPI
-scripts/config --module CONFIG_HTU21
-scripts/config --module CONFIG_SI7005
-scripts/config --module CONFIG_SI7020
+scripts/config --disable CONFIG_AM2315
+scripts/config --disable CONFIG_DHT11
+scripts/config --disable CONFIG_ENS210
+scripts/config --disable CONFIG_HDC100X
+scripts/config --disable CONFIG_HDC2010
+scripts/config --disable CONFIG_HDC3020
+scripts/config --disable CONFIG_HID_SENSOR_HUMIDITY
+scripts/config --disable CONFIG_HTS221
+scripts/config --disable CONFIG_HTS221_I2C
+scripts/config --disable CONFIG_HTS221_SPI
+scripts/config --disable CONFIG_HTU21
+scripts/config --disable CONFIG_SI7005
+scripts/config --disable CONFIG_SI7020
 # end of Humidity sensors
 
 #
 # Inertial measurement units
 #
-scripts/config --module CONFIG_ADIS16400
-scripts/config --module CONFIG_ADIS16460
-scripts/config --module CONFIG_ADIS16475
-scripts/config --module CONFIG_ADIS16480
-scripts/config --module CONFIG_BMI160
-scripts/config --module CONFIG_BMI160_I2C
-scripts/config --module CONFIG_BMI160_SPI
-scripts/config --module CONFIG_BMI323
-scripts/config --module CONFIG_BMI323_I2C
-scripts/config --module CONFIG_BMI323_SPI
-scripts/config --module CONFIG_BOSCH_BNO055
-scripts/config --module CONFIG_BOSCH_BNO055_SERIAL
-scripts/config --module CONFIG_BOSCH_BNO055_I2C
-scripts/config --module CONFIG_FXOS8700
-scripts/config --module CONFIG_FXOS8700_I2C
-scripts/config --module CONFIG_FXOS8700_SPI
-scripts/config --module CONFIG_KMX61
-scripts/config --module CONFIG_INV_ICM42600
-scripts/config --module CONFIG_INV_ICM42600_I2C
-scripts/config --module CONFIG_INV_ICM42600_SPI
-scripts/config --module CONFIG_INV_MPU6050_IIO
-scripts/config --module CONFIG_INV_MPU6050_I2C
-scripts/config --module CONFIG_INV_MPU6050_SPI
-scripts/config --module CONFIG_IIO_ST_LSM6DSX
-scripts/config --module CONFIG_IIO_ST_LSM6DSX_I2C
-scripts/config --module CONFIG_IIO_ST_LSM6DSX_SPI
-scripts/config --module CONFIG_IIO_ST_LSM9DS0
-scripts/config --module CONFIG_IIO_ST_LSM9DS0_I2C
-scripts/config --module CONFIG_IIO_ST_LSM9DS0_SPI
-# end of Inertial measurement units
-
-scripts/config --module CONFIG_IIO_ADIS_LIB
-scripts/config --enable CONFIG_IIO_ADIS_LIB_BUFFER
+scripts/config --disable CONFIG_ADIS16400
+scripts/config --disable CONFIG_ADIS16460
+scripts/config --disable CONFIG_ADIS16475
+scripts/config --disable CONFIG_ADIS16480
+scripts/config --disable CONFIG_BMI160
+scripts/config --disable CONFIG_BMI160_I2C
+scripts/config --disable CONFIG_BMI160_SPI
+scripts/config --disable CONFIG_BMI323
+scripts/config --disable CONFIG_BMI323_I2C
+scripts/config --disable CONFIG_BMI323_SPI
+scripts/config --disable CONFIG_BOSCH_BNO055
+scripts/config --disable CONFIG_BOSCH_BNO055_SERIAL
+scripts/config --disable CONFIG_BOSCH_BNO055_I2C
+scripts/config --disable CONFIG_FXOS8700
+scripts/config --disable CONFIG_FXOS8700_I2C
+scripts/config --disable CONFIG_FXOS8700_SPI
+scripts/config --disable CONFIG_KMX61
+scripts/config --disable CONFIG_INV_ICM42600
+scripts/config --disable CONFIG_INV_ICM42600_I2C
+scripts/config --disable CONFIG_INV_ICM42600_SPI
+scripts/config --disable CONFIG_INV_MPU6050_IIO
+scripts/config --disable CONFIG_INV_MPU6050_I2C
+scripts/config --disable CONFIG_INV_MPU6050_SPI
+scripts/config --disable CONFIG_IIO_ST_LSM6DSX
+scripts/config --disable CONFIG_IIO_ST_LSM6DSX_I2C
+scripts/config --disable CONFIG_IIO_ST_LSM6DSX_SPI
+scripts/config --disable CONFIG_IIO_ST_LSM9DS0
+scripts/config --disable CONFIG_IIO_ST_LSM9DS0_I2C
+scripts/config --disable CONFIG_IIO_ST_LSM9DS0_SPI
+scripts/config --disable CONFIG_IIO_ADIS_LIB
+scripts/config --disable CONFIG_IIO_ADIS_LIB_BUFFER
 
 #
 # Light sensors
 #
-scripts/config --module CONFIG_ACPI_ALS
-scripts/config --module CONFIG_ADJD_S311
-scripts/config --module CONFIG_ADUX1020
-scripts/config --module CONFIG_AL3010
-scripts/config --module CONFIG_AL3320A
-scripts/config --module CONFIG_APDS9300
-scripts/config --module CONFIG_APDS9306
-scripts/config --module CONFIG_APDS9960
-scripts/config --module CONFIG_AS73211
-scripts/config --module CONFIG_BH1745
-scripts/config --module CONFIG_BH1750
-scripts/config --module CONFIG_BH1780
-scripts/config --module CONFIG_CM32181
-scripts/config --module CONFIG_CM3232
-scripts/config --module CONFIG_CM3323
-scripts/config --module CONFIG_CM3605
-scripts/config --module CONFIG_CM36651
-scripts/config --module CONFIG_GP2AP002
-scripts/config --module CONFIG_GP2AP020A00F
-scripts/config --module CONFIG_IQS621_ALS
-scripts/config --module CONFIG_SENSORS_ISL29018
-scripts/config --module CONFIG_SENSORS_ISL29028
-scripts/config --module CONFIG_ISL29125
-scripts/config --module CONFIG_ISL76682
-scripts/config --module CONFIG_HID_SENSOR_ALS
-scripts/config --module CONFIG_HID_SENSOR_PROX
-scripts/config --module CONFIG_JSA1212
-scripts/config --module CONFIG_ROHM_BU27008
-scripts/config --module CONFIG_ROHM_BU27034
-scripts/config --module CONFIG_RPR0521
-scripts/config --module CONFIG_LTR390
-scripts/config --module CONFIG_LTR501
-scripts/config --module CONFIG_LTRF216A
-scripts/config --module CONFIG_LV0104CS
-scripts/config --module CONFIG_MAX44000
-scripts/config --module CONFIG_MAX44009
-scripts/config --module CONFIG_NOA1305
-scripts/config --module CONFIG_OPT3001
-scripts/config --module CONFIG_OPT4001
-scripts/config --module CONFIG_PA12203001
-scripts/config --module CONFIG_SI1133
-scripts/config --module CONFIG_SI1145
-scripts/config --module CONFIG_STK3310
-scripts/config --module CONFIG_ST_UVIS25
-scripts/config --module CONFIG_ST_UVIS25_I2C
-scripts/config --module CONFIG_ST_UVIS25_SPI
-scripts/config --module CONFIG_TCS3414
-scripts/config --module CONFIG_TCS3472
-scripts/config --module CONFIG_SENSORS_TSL2563
-scripts/config --module CONFIG_TSL2583
-scripts/config --module CONFIG_TSL2591
-scripts/config --module CONFIG_TSL2772
-scripts/config --module CONFIG_TSL4531
-scripts/config --module CONFIG_US5182D
-scripts/config --module CONFIG_VCNL4000
-scripts/config --module CONFIG_VCNL4035
-scripts/config --module CONFIG_VEML6030
-scripts/config --module CONFIG_VEML6040
-scripts/config --module CONFIG_VEML6070
-scripts/config --module CONFIG_VEML6075
-scripts/config --module CONFIG_VL6180
-scripts/config --module CONFIG_ZOPT2201
+scripts/config --disable CONFIG_ACPI_ALS
+scripts/config --disable CONFIG_ADJD_S311
+scripts/config --disable CONFIG_ADUX1020
+scripts/config --disable CONFIG_AL3010
+scripts/config --disable CONFIG_AL3320A
+scripts/config --disable CONFIG_APDS9300
+scripts/config --disable CONFIG_APDS9306
+scripts/config --disable CONFIG_APDS9960
+scripts/config --disable CONFIG_AS73211
+scripts/config --disable CONFIG_BH1745
+scripts/config --disable CONFIG_BH1750
+scripts/config --disable CONFIG_BH1780
+scripts/config --disable CONFIG_CM32181
+scripts/config --disable CONFIG_CM3232
+scripts/config --disable CONFIG_CM3323
+scripts/config --disable CONFIG_CM3605
+scripts/config --disable CONFIG_CM36651
+scripts/config --disable CONFIG_GP2AP002
+scripts/config --disable CONFIG_GP2AP020A00F
+scripts/config --disable CONFIG_IQS621_ALS
+scripts/config --disable CONFIG_SENSORS_ISL29018
+scripts/config --disable CONFIG_SENSORS_ISL29028
+scripts/config --disable CONFIG_ISL29125
+scripts/config --disable CONFIG_ISL76682
+scripts/config --disable CONFIG_HID_SENSOR_ALS
+scripts/config --disable CONFIG_HID_SENSOR_PROX
+scripts/config --disable CONFIG_JSA1212
+scripts/config --disable CONFIG_ROHM_BU27008
+scripts/config --disable CONFIG_ROHM_BU27034
+scripts/config --disable CONFIG_RPR0521
+scripts/config --disable CONFIG_LTR390
+scripts/config --disable CONFIG_LTR501
+scripts/config --disable CONFIG_LTRF216A
+scripts/config --disable CONFIG_LV0104CS
+scripts/config --disable CONFIG_MAX44000
+scripts/config --disable CONFIG_MAX44009
+scripts/config --disable CONFIG_NOA1305
+scripts/config --disable CONFIG_OPT3001
+scripts/config --disable CONFIG_OPT4001
+scripts/config --disable CONFIG_PA12203001
+scripts/config --disable CONFIG_SI1133
+scripts/config --disable CONFIG_SI1145
+scripts/config --disable CONFIG_STK3310
+scripts/config --disable CONFIG_ST_UVIS25
+scripts/config --disable CONFIG_ST_UVIS25_I2C
+scripts/config --disable CONFIG_ST_UVIS25_SPI
+scripts/config --disable CONFIG_TCS3414
+scripts/config --disable CONFIG_TCS3472
+scripts/config --disable CONFIG_SENSORS_TSL2563
+scripts/config --disable CONFIG_TSL2583
+scripts/config --disable CONFIG_TSL2591
+scripts/config --disable CONFIG_TSL2772
+scripts/config --disable CONFIG_TSL4531
+scripts/config --disable CONFIG_US5182D
+scripts/config --disable CONFIG_VCNL4000
+scripts/config --disable CONFIG_VCNL4035
+scripts/config --disable CONFIG_VEML6030
+scripts/config --disable CONFIG_VEML6040
+scripts/config --disable CONFIG_VEML6070
+scripts/config --disable CONFIG_VEML6075
+scripts/config --disable CONFIG_VL6180
+scripts/config --disable CONFIG_ZOPT2201
 # end of Light sensors
 
 #
 # Magnetometer sensors
-#
-scripts/config --module CONFIG_AK8974
-scripts/config --module CONFIG_AK8975
-scripts/config --module CONFIG_AK09911
-scripts/config --module CONFIG_BMC150_MAGN
-scripts/config --module CONFIG_BMC150_MAGN_I2C
-scripts/config --module CONFIG_BMC150_MAGN_SPI
-scripts/config --module CONFIG_MAG3110
-scripts/config --module CONFIG_HID_SENSOR_MAGNETOMETER_3D
-scripts/config --module CONFIG_MMC35240
-scripts/config --module CONFIG_IIO_ST_MAGN_3AXIS
-scripts/config --module CONFIG_IIO_ST_MAGN_I2C_3AXIS
-scripts/config --module CONFIG_IIO_ST_MAGN_SPI_3AXIS
-scripts/config --module CONFIG_SENSORS_HMC5843
-scripts/config --module CONFIG_SENSORS_HMC5843_I2C
-scripts/config --module CONFIG_SENSORS_HMC5843_SPI
-scripts/config --module CONFIG_SENSORS_RM3100
-scripts/config --module CONFIG_SENSORS_RM3100_I2C
-scripts/config --module CONFIG_SENSORS_RM3100_SPI
-scripts/config --module CONFIG_TI_TMAG5273
-scripts/config --module CONFIG_YAMAHA_YAS530
+##(KVM无用，减少编译时间)
+scripts/config --disable CONFIG_AK8974
+scripts/config --disable CONFIG_AK8975
+scripts/config --disable CONFIG_AK09911
+scripts/config --disable CONFIG_BMC150_MAGN
+scripts/config --disable CONFIG_BMC150_MAGN_I2C
+scripts/config --disable CONFIG_BMC150_MAGN_SPI
+scripts/config --disable CONFIG_MAG3110
+scripts/config --disable CONFIG_HID_SENSOR_MAGNETOMETER_3D
+scripts/config --disable CONFIG_MMC35240
+scripts/config --disable CONFIG_IIO_ST_MAGN_3AXIS
+scripts/config --disable CONFIG_IIO_ST_MAGN_I2C_3AXIS
+scripts/config --disable CONFIG_IIO_ST_MAGN_SPI_3AXIS
+scripts/config --disable CONFIG_SENSORS_HMC5843
+scripts/config --disable CONFIG_SENSORS_HMC5843_I2C
+scripts/config --disable CONFIG_SENSORS_HMC5843_SPI
+scripts/config --disable CONFIG_SENSORS_RM3100
+scripts/config --disable CONFIG_SENSORS_RM3100_I2C
+scripts/config --disable CONFIG_SENSORS_RM3100_SPI
+scripts/config --disable CONFIG_TI_TMAG5273
+scripts/config --disable CONFIG_YAMAHA_YAS530
 # end of Magnetometer sensors
 
 #
 # Multiplexers
 #
-scripts/config --module CONFIG_IIO_MUX
+scripts/config --disable CONFIG_IIO_MUX
 # end of Multiplexers
 
 #
 # Inclinometer sensors
-#
-scripts/config --module CONFIG_HID_SENSOR_INCLINOMETER_3D
-scripts/config --module CONFIG_HID_SENSOR_DEVICE_ROTATION
-# end of Inclinometer sensors
+scripts/config --disable CONFIG_HID_SENSOR_INCLINOMETER_3D
+scripts/config --disable CONFIG_HID_SENSOR_DEVICE_ROTATION
 
-#
 # Triggers - standalone
-#
-scripts/config --module CONFIG_IIO_HRTIMER_TRIGGER
-scripts/config --module CONFIG_IIO_INTERRUPT_TRIGGER
-scripts/config --module CONFIG_IIO_TIGHTLOOP_TRIGGER
-scripts/config --module CONFIG_IIO_SYSFS_TRIGGER
-# end of Triggers - standalone
+scripts/config --disable CONFIG_IIO_HRTIMER_TRIGGER
+scripts/config --disable CONFIG_IIO_INTERRUPT_TRIGGER
+scripts/config --disable CONFIG_IIO_TIGHTLOOP_TRIGGER
+scripts/config --disable CONFIG_IIO_SYSFS_TRIGGER
 
-#
 # Linear and angular position sensors
-#
-scripts/config --module CONFIG_IQS624_POS
-scripts/config --module CONFIG_HID_SENSOR_CUSTOM_INTEL_HINGE
-# end of Linear and angular position sensors
+scripts/config --disable CONFIG_IQS624_POS
+scripts/config --disable CONFIG_HID_SENSOR_CUSTOM_INTEL_HINGE
 
-#
 # Digital potentiometers
-#
-scripts/config --module CONFIG_AD5110
-scripts/config --module CONFIG_AD5272
-scripts/config --module CONFIG_DS1803
-scripts/config --module CONFIG_MAX5432
-scripts/config --module CONFIG_MAX5481
-scripts/config --module CONFIG_MAX5487
-scripts/config --module CONFIG_MCP4018
-scripts/config --module CONFIG_MCP4131
-scripts/config --module CONFIG_MCP4531
-scripts/config --module CONFIG_MCP41010
-scripts/config --module CONFIG_TPL0102
-scripts/config --module CONFIG_X9250
+scripts/config --disable CONFIG_AD5110
+scripts/config --disable CONFIG_AD5272
+scripts/config --disable CONFIG_DS1803
+scripts/config --disable CONFIG_MAX5432
+scripts/config --disable CONFIG_MAX5481
+scripts/config --disable CONFIG_MAX5487
+scripts/config --disable CONFIG_MCP4018
+scripts/config --disable CONFIG_MCP4131
+scripts/config --disable CONFIG_MCP4531
+scripts/config --disable CONFIG_MCP41010
+scripts/config --disable CONFIG_TPL0102
+scripts/config --disable CONFIG_X9250
 # end of Digital potentiometers
 
 #
 # Digital potentiostats
-#
-scripts/config --module CONFIG_LMP91000
+scripts/config --disable CONFIG_LMP91000
 # end of Digital potentiostats
 
 #
 # Pressure sensors
 #
-scripts/config --module CONFIG_ABP060MG
-scripts/config --module CONFIG_ROHM_BM1390
-scripts/config --module CONFIG_BMP280
-scripts/config --module CONFIG_BMP280_I2C
-scripts/config --module CONFIG_BMP280_SPI
-scripts/config --module CONFIG_DLHL60D
-scripts/config --module CONFIG_DPS310
-scripts/config --module CONFIG_HID_SENSOR_PRESS
-scripts/config --module CONFIG_HP03
-scripts/config --module CONFIG_HSC030PA
-scripts/config --module CONFIG_HSC030PA_I2C
-scripts/config --module CONFIG_HSC030PA_SPI
-scripts/config --module CONFIG_ICP10100
-scripts/config --module CONFIG_MPL115
-scripts/config --module CONFIG_MPL115_I2C
-scripts/config --module CONFIG_MPL115_SPI
-scripts/config --module CONFIG_MPL3115
-scripts/config --module CONFIG_MPRLS0025PA
-scripts/config --module CONFIG_MPRLS0025PA_I2C
-scripts/config --module CONFIG_MPRLS0025PA_SPI
-scripts/config --module CONFIG_MS5611
-scripts/config --module CONFIG_MS5611_I2C
-scripts/config --module CONFIG_MS5611_SPI
-scripts/config --module CONFIG_MS5637
-scripts/config --module CONFIG_SDP500
-scripts/config --module CONFIG_IIO_ST_PRESS
-scripts/config --module CONFIG_IIO_ST_PRESS_I2C
-scripts/config --module CONFIG_IIO_ST_PRESS_SPI
-scripts/config --module CONFIG_T5403
-scripts/config --module CONFIG_HP206C
-scripts/config --module CONFIG_ZPA2326
-scripts/config --module CONFIG_ZPA2326_I2C
-scripts/config --module CONFIG_ZPA2326_SPI
+scripts/config --disable CONFIG_ABP060MG
+scripts/config --disable CONFIG_ROHM_BM1390
+scripts/config --disable CONFIG_BMP280
+scripts/config --disable CONFIG_BMP280_I2C
+scripts/config --disable CONFIG_BMP280_SPI
+scripts/config --disable CONFIG_DLHL60D
+scripts/config --disable CONFIG_DPS310
+scripts/config --disable CONFIG_HID_SENSOR_PRESS
+scripts/config --disable CONFIG_HP03
+scripts/config --disable CONFIG_HSC030PA
+scripts/config --disable CONFIG_HSC030PA_I2C
+scripts/config --disable CONFIG_HSC030PA_SPI
+scripts/config --disable CONFIG_ICP10100
+scripts/config --disable CONFIG_MPL115
+scripts/config --disable CONFIG_MPL115_I2C
+scripts/config --disable CONFIG_MPL115_SPI
+scripts/config --disable CONFIG_MPL3115
+scripts/config --disable CONFIG_MPRLS0025PA
+scripts/config --disable CONFIG_MPRLS0025PA_I2C
+scripts/config --disable CONFIG_MPRLS0025PA_SPI
+scripts/config --disable CONFIG_MS5611
+scripts/config --disable CONFIG_MS5611_I2C
+scripts/config --disable CONFIG_MS5611_SPI
+scripts/config --disable CONFIG_MS5637
+scripts/config --disable CONFIG_SDP500
+scripts/config --disable CONFIG_IIO_ST_PRESS
+scripts/config --disable CONFIG_IIO_ST_PRESS_I2C
+scripts/config --disable CONFIG_IIO_ST_PRESS_SPI
+scripts/config --disable CONFIG_T5403
+scripts/config --disable CONFIG_HP206C
+scripts/config --disable CONFIG_ZPA2326
+scripts/config --disable CONFIG_ZPA2326_I2C
+scripts/config --disable CONFIG_ZPA2326_SPI
 # end of Pressure sensors
 
 #
 # Lightning sensors
 #
-scripts/config --module CONFIG_AS3935
+scripts/config --disable CONFIG_AS3935
 # end of Lightning sensors
 
 #
 # Proximity and distance sensors
 #
-scripts/config --module CONFIG_CROS_EC_MKBP_PROXIMITY
-scripts/config --module CONFIG_HX9023S
-scripts/config --module CONFIG_IRSD200
-scripts/config --module CONFIG_ISL29501
-scripts/config --module CONFIG_LIDAR_LITE_V2
-scripts/config --module CONFIG_MB1232
-scripts/config --module CONFIG_PING
-scripts/config --module CONFIG_RFD77402
-scripts/config --module CONFIG_SRF04
-scripts/config --module CONFIG_SX_COMMON
-scripts/config --module CONFIG_SX9310
-scripts/config --module CONFIG_SX9324
-scripts/config --module CONFIG_SX9360
-scripts/config --module CONFIG_SX9500
-scripts/config --module CONFIG_SRF08
-scripts/config --module CONFIG_VCNL3020
-scripts/config --module CONFIG_VL53L0X_I2C
-scripts/config --module CONFIG_AW96103
+scripts/config --disable CONFIG_CROS_EC_MKBP_PROXIMITY
+scripts/config --disable CONFIG_HX9023S
+scripts/config --disable CONFIG_IRSD200
+scripts/config --disable CONFIG_ISL29501
+scripts/config --disable CONFIG_LIDAR_LITE_V2
+scripts/config --disable CONFIG_MB1232
+scripts/config --disable CONFIG_PING
+scripts/config --disable CONFIG_RFD77402
+scripts/config --disable CONFIG_SRF04
+scripts/config --disable CONFIG_SX_COMMON
+scripts/config --disable CONFIG_SX9310
+scripts/config --disable CONFIG_SX9324
+scripts/config --disable CONFIG_SX9360
+scripts/config --disable CONFIG_SX9500
+scripts/config --disable CONFIG_SRF08
+scripts/config --disable CONFIG_VCNL3020
+scripts/config --disable CONFIG_VL53L0X_I2C
+scripts/config --disable CONFIG_AW96103
 # end of Proximity and distance sensors
 
 #
 # Resolver to digital converters
 #
-scripts/config --module CONFIG_AD2S90
-scripts/config --module CONFIG_AD2S1200
-scripts/config --module CONFIG_AD2S1210
-# end of Resolver to digital converters
+scripts/config --disable CONFIG_AD2S90
+scripts/config --disable CONFIG_AD2S1200
+scripts/config --disable CONFIG_AD2S1210
 
-#
 # Temperature sensors
-#
-scripts/config --module CONFIG_IQS620AT_TEMP
-scripts/config --module CONFIG_LTC2983
-scripts/config --module CONFIG_MAXIM_THERMOCOUPLE
-scripts/config --module CONFIG_HID_SENSOR_TEMP
-scripts/config --module CONFIG_MLX90614
-scripts/config --module CONFIG_MLX90632
-scripts/config --module CONFIG_MLX90635
-scripts/config --module CONFIG_TMP006
-scripts/config --module CONFIG_TMP007
-scripts/config --module CONFIG_TMP117
-scripts/config --module CONFIG_TSYS01
-scripts/config --module CONFIG_TSYS02D
-scripts/config --module CONFIG_MAX30208
-scripts/config --module CONFIG_MAX31856
-scripts/config --module CONFIG_MAX31865
-scripts/config --module CONFIG_MCP9600
+scripts/config --disable CONFIG_IQS620AT_TEMP
+scripts/config --disable CONFIG_LTC2983
+scripts/config --disable CONFIG_MAXIM_THERMOCOUPLE
+scripts/config --disable CONFIG_HID_SENSOR_TEMP
+scripts/config --disable CONFIG_MLX90614
+scripts/config --disable CONFIG_MLX90632
+scripts/config --disable CONFIG_MLX90635
+scripts/config --disable CONFIG_TMP006
+scripts/config --disable CONFIG_TMP007
+scripts/config --disable CONFIG_TMP117
+scripts/config --disable CONFIG_TSYS01
+scripts/config --disable CONFIG_TSYS02D
+scripts/config --disable CONFIG_MAX30208
+scripts/config --disable CONFIG_MAX31856
+scripts/config --disable CONFIG_MAX31865
+scripts/config --disable CONFIG_MCP9600
 # end of Temperature sensors
 
 scripts/config --module CONFIG_NTB
@@ -7412,133 +7363,132 @@ scripts/config --module CONFIG_PWM_PCA9685
 # IRQ chip support
 #
 # end of IRQ chip support
-
-scripts/config --module CONFIG_IPACK_BUS
-scripts/config --module CONFIG_BOARD_TPCI200
-scripts/config --module CONFIG_SERIAL_IPOCTAL
-scripts/config --enable CONFIG_RESET_CONTROLLER
-scripts/config --module CONFIG_RESET_GPIO
-scripts/config --module CONFIG_RESET_TI_SYSCON
-scripts/config --module CONFIG_RESET_TI_TPS380X
+#(KVM无用，减少编译时间)
+scripts/config --disable CONFIG_IPACK_BUS
+scripts/config --disable CONFIG_BOARD_TPCI200
+scripts/config --disable CONFIG_SERIAL_IPOCTAL
+scripts/config --disable CONFIG_RESET_CONTROLLER
+scripts/config --disable CONFIG_RESET_GPIO
+scripts/config --disable CONFIG_RESET_TI_SYSCON
+scripts/config --disable CONFIG_RESET_TI_TPS380X
 
 #
 # PHY Subsystem
-#
-scripts/config --enable CONFIG_GENERIC_PHY
-scripts/config --module CONFIG_USB_LGM_PHY
-scripts/config --module CONFIG_PHY_CAN_TRANSCEIVER
+##(KVM无用，减少编译时间)
+scripts/config --disable CONFIG_GENERIC_PHY
+scripts/config --disable CONFIG_USB_LGM_PHY
+scripts/config --disable CONFIG_PHY_CAN_TRANSCEIVER
 
 #
 # PHY drivers for Broadcom platforms
 #
-scripts/config --module CONFIG_BCM_KONA_USB2_PHY
+scripts/config --disable CONFIG_BCM_KONA_USB2_PHY
 # end of PHY drivers for Broadcom platforms
 
-scripts/config --module CONFIG_PHY_PXA_28NM_HSIC
-scripts/config --module CONFIG_PHY_PXA_28NM_USB2
-scripts/config --module CONFIG_PHY_CPCAP_USB
-scripts/config --module CONFIG_PHY_QCOM_USB_HS
-scripts/config --module CONFIG_PHY_QCOM_USB_HSIC
-scripts/config --module CONFIG_PHY_SAMSUNG_USB2
-scripts/config --module CONFIG_PHY_TUSB1210
-scripts/config --module CONFIG_PHY_INTEL_LGM_EMMC
+scripts/config --disable CONFIG_PHY_PXA_28NM_HSIC
+scripts/config --disable CONFIG_PHY_PXA_28NM_USB2
+scripts/config --disable CONFIG_PHY_CPCAP_USB
+scripts/config --disable CONFIG_PHY_QCOM_USB_HS
+scripts/config --disable CONFIG_PHY_QCOM_USB_HSIC
+scripts/config --disable CONFIG_PHY_SAMSUNG_USB2
+scripts/config --disable CONFIG_PHY_TUSB1210
+scripts/config --disable CONFIG_PHY_INTEL_LGM_EMMC
 # end of PHY Subsystem
 
-scripts/config --enable CONFIG_POWERCAP
-scripts/config --module CONFIG_INTEL_RAPL_CORE
-scripts/config --module CONFIG_INTEL_RAPL
-scripts/config --module CONFIG_INTEL_RAPL_TPMI
-scripts/config --enable CONFIG_IDLE_INJECT
-scripts/config --module CONFIG_MCB
-scripts/config --module CONFIG_MCB_PCI
-scripts/config --module CONFIG_MCB_LPC
+scripts/config --disable CONFIG_POWERCAP
+scripts/config --disable CONFIG_INTEL_RAPL_CORE
+scripts/config --disable CONFIG_INTEL_RAPL
+scripts/config --disable CONFIG_INTEL_RAPL_TPMI
+scripts/config --disable CONFIG_IDLE_INJECT
+scripts/config --disable CONFIG_MCB
+scripts/config --disable CONFIG_MCB_PCI
+scripts/config --disable CONFIG_MCB_LPC
 
 #
 # Performance monitor support
 #
-scripts/config --module CONFIG_DWC_PCIE_PMU
-scripts/config --module CONFIG_CXL_PMU
+scripts/config --disable CONFIG_DWC_PCIE_PMU
+scripts/config --disable CONFIG_CXL_PMU
 # end of Performance monitor support
 
-scripts/config --enable CONFIG_RAS
-scripts/config --module CONFIG_USB4
+scripts/config --disable CONFIG_RAS
+scripts/config --disable CONFIG_USB4
 scripts/config --disable CONFIG_USB4_DEBUGFS_WRITE
 scripts/config --disable CONFIG_USB4_DMA_TEST
-
 #
 # Android
 #
-scripts/config --module CONFIG_ANDROID_BINDER_IPC
-scripts/config --module CONFIG_ANDROID_BINDERFS
+scripts/config --disable CONFIG_ANDROID_BINDER_IPC
+scripts/config --disable CONFIG_ANDROID_BINDERFS
 scripts/config --set-val CONFIG_ANDROID_BINDER_DEVICES "binder,hwbinder,vndbinder"
 scripts/config --disable CONFIG_ANDROID_BINDER_IPC_SELFTEST
 # end of Android
 
-scripts/config --enable CONFIG_LIBNVDIMM
-scripts/config --module CONFIG_BLK_DEV_PMEM
-scripts/config --enable CONFIG_ND_CLAIM
-scripts/config --module CONFIG_ND_BTT
-scripts/config --enable CONFIG_BTT
-scripts/config --module CONFIG_ND_PFN
-scripts/config --enable CONFIG_NVDIMM_PFN
-scripts/config --enable CONFIG_NVDIMM_DAX
-scripts/config --enable CONFIG_NVDIMM_KEYS
+scripts/config --disable CONFIG_LIBNVDIMM
+scripts/config --disable CONFIG_BLK_DEV_PMEM
+scripts/config --disable CONFIG_ND_CLAIM
+scripts/config --disable CONFIG_ND_BTT
+scripts/config --disable CONFIG_BTT
+scripts/config --disable CONFIG_ND_PFN
+scripts/config --disable CONFIG_NVDIMM_PFN
+scripts/config --disable CONFIG_NVDIMM_DAX
+scripts/config --disable CONFIG_NVDIMM_KEYS
 scripts/config --disable CONFIG_NVDIMM_SECURITY_TEST
-scripts/config --enable CONFIG_DAX
-scripts/config --module CONFIG_DEV_DAX
-scripts/config --module CONFIG_DEV_DAX_PMEM
-scripts/config --module CONFIG_DEV_DAX_HMEM
-scripts/config --module CONFIG_DEV_DAX_CXL
-scripts/config --enable CONFIG_DEV_DAX_HMEM_DEVICES
-scripts/config --module CONFIG_DEV_DAX_KMEM
-scripts/config --enable CONFIG_NVMEM
-scripts/config --enable CONFIG_NVMEM_SYSFS
+scripts/config --disable CONFIG_DAX
+scripts/config --disable CONFIG_DEV_DAX
+scripts/config --disable CONFIG_DEV_DAX_PMEM
+scripts/config --disable CONFIG_DEV_DAX_HMEM
+scripts/config --disable CONFIG_DEV_DAX_CXL
+scripts/config --disable CONFIG_DEV_DAX_HMEM_DEVICES
+scripts/config --disable CONFIG_DEV_DAX_KMEM
+scripts/config --disable CONFIG_NVMEM
+scripts/config --disable CONFIG_NVMEM_SYSFS
 scripts/config --disable CONFIG_NVMEM_LAYOUTS
-scripts/config --module CONFIG_NVMEM_RMEM
+scripts/config --disable CONFIG_NVMEM_RMEM
 
 #
-# HW tracing support
+# HW tracing support (KVM无用，减少编译时间)
 #
-scripts/config --module CONFIG_STM
-scripts/config --module CONFIG_STM_PROTO_BASIC
-scripts/config --module CONFIG_STM_PROTO_SYS_T
-scripts/config --module CONFIG_STM_DUMMY
-scripts/config --module CONFIG_STM_SOURCE_CONSOLE
-scripts/config --module CONFIG_STM_SOURCE_HEARTBEAT
-scripts/config --module CONFIG_STM_SOURCE_FTRACE
-scripts/config --module CONFIG_INTEL_TH
-scripts/config --module CONFIG_INTEL_TH_PCI
-scripts/config --module CONFIG_INTEL_TH_ACPI
-scripts/config --module CONFIG_INTEL_TH_GTH
-scripts/config --module CONFIG_INTEL_TH_STH
-scripts/config --module CONFIG_INTEL_TH_MSU
-scripts/config --module CONFIG_INTEL_TH_PTI
+scripts/config --disable CONFIG_STM
+scripts/config --disable CONFIG_STM_PROTO_BASIC
+scripts/config --disable CONFIG_STM_PROTO_SYS_T
+scripts/config --disable CONFIG_STM_DUMMY
+scripts/config --disable CONFIG_STM_SOURCE_CONSOLE
+scripts/config --disable CONFIG_STM_SOURCE_HEARTBEAT
+scripts/config --disable CONFIG_STM_SOURCE_FTRACE
+scripts/config --disable CONFIG_INTEL_TH
+scripts/config --disable CONFIG_INTEL_TH_PCI
+scripts/config --disable CONFIG_INTEL_TH_ACPI
+scripts/config --disable CONFIG_INTEL_TH_GTH
+scripts/config --disable CONFIG_INTEL_TH_STH
+scripts/config --disable CONFIG_INTEL_TH_MSU
+scripts/config --disable CONFIG_INTEL_TH_PTI
 scripts/config --disable CONFIG_INTEL_TH_DEBUG
 # end of HW tracing support
-
-scripts/config --module CONFIG_FPGA
-scripts/config --module CONFIG_ALTERA_PR_IP_CORE
-scripts/config --module CONFIG_FPGA_MGR_ALTERA_PS_SPI
-scripts/config --module CONFIG_FPGA_MGR_ALTERA_CVP
-scripts/config --module CONFIG_FPGA_MGR_XILINX_CORE
-scripts/config --module CONFIG_FPGA_MGR_XILINX_SELECTMAP
-scripts/config --module CONFIG_FPGA_MGR_XILINX_SPI
-scripts/config --module CONFIG_FPGA_MGR_MACHXO2_SPI
-scripts/config --module CONFIG_FPGA_BRIDGE
-scripts/config --module CONFIG_ALTERA_FREEZE_BRIDGE
-scripts/config --module CONFIG_XILINX_PR_DECOUPLER
-scripts/config --module CONFIG_FPGA_REGION
-scripts/config --module CONFIG_FPGA_DFL
-scripts/config --module CONFIG_FPGA_DFL_FME
-scripts/config --module CONFIG_FPGA_DFL_FME_MGR
-scripts/config --module CONFIG_FPGA_DFL_FME_BRIDGE
-scripts/config --module CONFIG_FPGA_DFL_FME_REGION
-scripts/config --module CONFIG_FPGA_DFL_AFU
-scripts/config --module CONFIG_FPGA_DFL_NIOS_INTEL_PAC_N3000
-scripts/config --module CONFIG_FPGA_DFL_PCI
-scripts/config --module CONFIG_FPGA_MGR_MICROCHIP_SPI
-scripts/config --module CONFIG_FPGA_MGR_LATTICE_SYSCONFIG
-scripts/config --module CONFIG_FPGA_MGR_LATTICE_SYSCONFIG_SPI
+#(KVM无用，减少编译时间)
+scripts/config --disable CONFIG_FPGA
+scripts/config --disable CONFIG_ALTERA_PR_IP_CORE
+scripts/config --disable CONFIG_FPGA_MGR_ALTERA_PS_SPI
+scripts/config --disable CONFIG_FPGA_MGR_ALTERA_CVP
+scripts/config --disable CONFIG_FPGA_MGR_XILINX_CORE
+scripts/config --disable CONFIG_FPGA_MGR_XILINX_SELECTMAP
+scripts/config --disable CONFIG_FPGA_MGR_XILINX_SPI
+scripts/config --disable CONFIG_FPGA_MGR_MACHXO2_SPI
+scripts/config --disable CONFIG_FPGA_BRIDGE
+scripts/config --disable CONFIG_ALTERA_FREEZE_BRIDGE
+scripts/config --disable CONFIG_XILINX_PR_DECOUPLER
+scripts/config --disable CONFIG_FPGA_REGION
+scripts/config --disable CONFIG_FPGA_DFL
+scripts/config --disable CONFIG_FPGA_DFL_FME
+scripts/config --disable CONFIG_FPGA_DFL_FME_MGR
+scripts/config --disable CONFIG_FPGA_DFL_FME_BRIDGE
+scripts/config --disable CONFIG_FPGA_DFL_FME_REGION
+scripts/config --disable CONFIG_FPGA_DFL_AFU
+scripts/config --disable CONFIG_FPGA_DFL_NIOS_INTEL_PAC_N3000
+scripts/config --disable CONFIG_FPGA_DFL_PCI
+scripts/config --disable CONFIG_FPGA_MGR_MICROCHIP_SPI
+scripts/config --disable CONFIG_FPGA_MGR_LATTICE_SYSCONFIG
+scripts/config --disable CONFIG_FPGA_MGR_LATTICE_SYSCONFIG_SPI
 scripts/config --module CONFIG_TEE
 scripts/config --module CONFIG_AMDTEE
 scripts/config --module CONFIG_MULTIPLEXER
