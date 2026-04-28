@@ -550,8 +550,8 @@ scripts/config --set-val CONFIG_PM_WAKELOCKS_LIMIT 100
 scripts/config --enable CONFIG_PM_WAKELOCKS_GC
 scripts/config --enable CONFIG_PM
 scripts/config --disable CONFIG_PM_DEBUG
-scripts/config --enable CONFIG_PM_CLK
-scripts/config --enable CONFIG_WQ_POWER_EFFICIENT_DEFAULT
+scripts/config --disable CONFIG_PM_CLK
+scripts/config --disable CONFIG_WQ_POWER_EFFICIENT_DEFAULT
 scripts/config --enable CONFIG_ARCH_SUPPORTS_ACPI
 scripts/config --enable CONFIG_ACPI
 scripts/config --enable CONFIG_ACPI_LEGACY_TABLES_LOOKUP
@@ -642,7 +642,7 @@ scripts/config --disable CONFIG_INTEL_IDLE
 #
 scripts/config --enable CONFIG_PCI_DIRECT
 scripts/config --disable CONFIG_PCI_MMCONFIG
-scripts/config --enable CONFIG_PCI_XEN
+scripts/config --disable CONFIG_PCI_XEN
 scripts/config --enable CONFIG_ISA_DMA_API
 scripts/config --enable CONFIG_AMD_NB
 # end of Bus options (PCI etc.)
@@ -706,7 +706,7 @@ scripts/config --enable CONFIG_ARCH_CONFIGURES_CPU_MITIGATIONS
 scripts/config --enable CONFIG_ARCH_HAS_DMA_OPS
 
 #
-# General architecture-dependent options
+# General architecture-dependent options (已关闭栈保护)
 #
 scripts/config --enable CONFIG_HOTPLUG_SMT
 scripts/config --enable CONFIG_HOTPLUG_CORE_SYNC
@@ -778,7 +778,7 @@ scripts/config --disable CONFIG_SECCOMP_CACHE_DEBUG
 scripts/config --enable CONFIG_HAVE_ARCH_STACKLEAK
 scripts/config --enable CONFIG_HAVE_STACKPROTECTOR
 scripts/config --enable CONFIG_STACKPROTECTOR
-scripts/config --enable CONFIG_STACKPROTECTOR_STRONG
+scripts/config --disable CONFIG_STACKPROTECTOR_STRONG
 scripts/config --enable CONFIG_LTO
 scripts/config --enable CONFIG_LTO_CLANG
 scripts/config --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG
@@ -836,10 +836,10 @@ scripts/config --enable CONFIG_ARCH_SUPPORTS_RT
 scripts/config --enable CONFIG_HAVE_ARCH_VMAP_STACK
 scripts/config --enable CONFIG_VMAP_STACK
 scripts/config --enable CONFIG_HAVE_ARCH_RANDOMIZE_KSTACK_OFFSET
-scripts/config --enable CONFIG_RANDOMIZE_KSTACK_OFFSET
+scripts/config --disable CONFIG_RANDOMIZE_KSTACK_OFFSET
 scripts/config --enable CONFIG_RANDOMIZE_KSTACK_OFFSET_DEFAULT
 scripts/config --enable CONFIG_ARCH_HAS_STRICT_KERNEL_RWX
-scripts/config --enable CONFIG_STRICT_KERNEL_RWX
+scripts/config --disable CONFIG_STRICT_KERNEL_RWX
 scripts/config --enable CONFIG_ARCH_HAS_STRICT_MODULE_RWX
 scripts/config --enable CONFIG_STRICT_MODULE_RWX
 scripts/config --enable CONFIG_HAVE_ARCH_PREL32_RELOCATIONS
