@@ -14,6 +14,11 @@ jobs:
     env:
       DEB_BUILD_OPTIONS: nocheck
       KERNEL_LOCALVERSION: -cloud
+      KBUILD_BUILD_USER: actions-kernel
+      KBUILD_BUILD_HOST: github-actions
+      LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld
+      KCFLAGS_OPT: -march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error
+      LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
 
     steps:
       - name: Checkout
@@ -49,7 +54,7 @@ jobs:
       - name: 安装 LLVM/Clang
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget lsb-release gnupg
+          sudo apt-get install -y --no-install-recommends wget lsb-release gnupg ca-certificates
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 21 all
@@ -63,8 +68,7 @@ jobs:
           sudo apt-get autoremove -y --purge
           sudo apt-get clean
           sudo -E apt-get -y update
-          sudo apt-get update
-          sudo apt-get install -y \
+          sudo apt-get install -y --no-install-recommends \
             build-essential bc bison flex \
             libssl-dev libelf-dev libncurses-dev \
             libdw-dev debhelper debhelper-compat dpkg-dev devscripts \
@@ -87,7 +91,7 @@ jobs:
           chmod +x config-6.x.sh
           cp CONFIGS/x86_64/config .config
           ./config-6.x.sh
-          make LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld olddefconfig
+          make ${LLVM_ARGS} olddefconfig
 
           
       - name: 导出最终内核配置 .config
@@ -98,31 +102,28 @@ jobs:
       - name: 构建 kernel vmlinux
         run: |
           cd kernel
-          make -j$(nproc) \
-            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+          make -j$(nproc) ${LLVM_ARGS} \
             vmlinux modules_prepare \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error" \
-            LDFLAGS="-Wl,--gc-sections -Wl,-O1"
+            KCFLAGS="${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
 
       - name: 构建内核模块 kernel modules_prepare
         run: |
           cd kernel
-          make -j$(nproc) \
-            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+          make -j$(nproc) ${LLVM_ARGS} \
             modules_prepare \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error" \
-            LDFLAGS="-Wl,--gc-sections -Wl,-O1"
+            KCFLAGS="${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
 
       - name: 构建内核软件包 kernel deb packages
         run: |
           cd kernel
           KDEB_COMPRESS=xz \
-          make -j$(nproc) \
-            LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld \
+          make -j$(nproc) ${LLVM_ARGS} \
             bindeb-pkg \
             LOCALVERSION=${KERNEL_LOCALVERSION} \
-            KCFLAGS="-march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -mllvm -enable-machine-outliner -Wno-error" \
-            LDFLAGS="-Wl,--gc-sections -Wl,-O1"
+            KCFLAGS="${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
 
       - name: 查看文件目录
         run: |

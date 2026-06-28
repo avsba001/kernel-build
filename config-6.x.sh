@@ -95,6 +95,9 @@ scripts/config --enable CONFIG_BPF_JIT_DEFAULT_ON
 scripts/config --enable CONFIG_BPF_UNPRIV_DEFAULT_OFF
 scripts/config --disable CONFIG_BPF_PRELOAD
 scripts/config --disable CONFIG_BPF_LSM
+# Enable full eBPF observability: BTF + perf/tracing hooks are configured below;
+# kprobes are required for bpftrace/bcc/libbpf kprobe programs.
+scripts/config --enable CONFIG_KPROBES
 # end of BPF subsystem
 
 scripts/config --enable CONFIG_PREEMPT_BUILD
@@ -346,7 +349,7 @@ scripts/config --disable CONFIG_XEN_PVH
 scripts/config --disable CONFIG_XEN_DOM0
 scripts/config --disable CONFIG_XEN_PV_MSR_SAFE
 scripts/config --enable CONFIG_KVM_GUEST
-scripts/config --enable CONFIG_ARCH_CPUIDLE_HALTPOLL
+scripts/config --disable CONFIG_ARCH_CPUIDLE_HALTPOLL
 scripts/config --enable CONFIG_PVH
 scripts/config --disable CONFIG_PARAVIRT_TIME_ACCOUNTING
 scripts/config --enable CONFIG_PARAVIRT_CLOCK
@@ -485,11 +488,11 @@ scripts/config --enable CONFIG_EFI_STUB
 scripts/config --enable CONFIG_EFI_HANDOVER_PROTOCOL
 scripts/config --enable CONFIG_EFI_MIXED
 scripts/config --disable CONFIG_HZ_100
-scripts/config --disable CONFIG_HZ_250
+scripts/config --enable CONFIG_HZ_250
 scripts/config --disable CONFIG_HZ_300
 scripts/config --disable CONFIG_HZ_500
-scripts/config --enable CONFIG_HZ_1000
-scripts/config --set-val CONFIG_HZ 1000
+scripts/config --disable CONFIG_HZ_1000
+scripts/config --set-val CONFIG_HZ 250
 scripts/config --enable CONFIG_SCHED_HRTICK
 scripts/config --enable CONFIG_ARCH_SUPPORTS_KEXEC
 scripts/config --enable CONFIG_ARCH_SUPPORTS_KEXEC_FILE
@@ -575,7 +578,7 @@ scripts/config --module CONFIG_ACPI_TAD
 scripts/config --enable CONFIG_ACPI_DOCK
 scripts/config --enable CONFIG_ACPI_CPU_FREQ_PSS
 scripts/config --enable CONFIG_ACPI_PROCESSOR_CSTATE
-scripts/config --enable CONFIG_ACPI_PROCESSOR_IDLE
+scripts/config --disable CONFIG_ACPI_PROCESSOR_IDLE
 scripts/config --enable CONFIG_ACPI_PROCESSOR
 scripts/config --enable CONFIG_ACPI_HOTPLUG_CPU
 scripts/config --module CONFIG_ACPI_PROCESSOR_AGGREGATOR
@@ -626,9 +629,9 @@ scripts/config --disable CONFIG_CPU_FREQ
 #
 # CPU Idle
 #
-scripts/config --enable CONFIG_CPU_IDLE
+scripts/config --disable CONFIG_CPU_IDLE
 scripts/config --disable CONFIG_CPU_IDLE_GOV_LADDER
-scripts/config --enable CONFIG_CPU_IDLE_GOV_MENU
+scripts/config --disable CONFIG_CPU_IDLE_GOV_MENU
 scripts/config --disable CONFIG_CPU_IDLE_GOV_TEO
 scripts/config --disable CONFIG_CPU_IDLE_GOV_HALTPOLL
 scripts/config --disable CONFIG_HALTPOLL_CPUIDLE
@@ -715,7 +718,7 @@ scripts/config --enable CONFIG_HOTPLUG_CORE_SYNC_FULL
 scripts/config --enable CONFIG_HOTPLUG_SPLIT_STARTUP
 scripts/config --enable CONFIG_HOTPLUG_PARALLEL
 scripts/config --enable CONFIG_GENERIC_ENTRY
-scripts/config --disable CONFIG_KPROBES
+scripts/config --enable CONFIG_KPROBES
 scripts/config --enable CONFIG_JUMP_LABEL
 scripts/config --disable CONFIG_STATIC_KEYS_SELFTEST
 scripts/config --disable CONFIG_STATIC_CALL_SELFTEST
@@ -1771,14 +1774,18 @@ scripts/config --module CONFIG_NET_SCH_QFQ
 scripts/config --module CONFIG_NET_SCH_CODEL
 scripts/config --module CONFIG_NET_SCH_FQ_CODEL
 scripts/config --module CONFIG_NET_SCH_CAKE
-scripts/config --module CONFIG_NET_SCH_FQ
+scripts/config --enable CONFIG_NET_SCH_FQ
 scripts/config --module CONFIG_NET_SCH_HHF
 scripts/config --module CONFIG_NET_SCH_PIE
 scripts/config --module CONFIG_NET_SCH_FQ_PIE
 scripts/config --module CONFIG_NET_SCH_INGRESS
 scripts/config --module CONFIG_NET_SCH_PLUG
 scripts/config --module CONFIG_NET_SCH_ETS
-scripts/config --disable CONFIG_NET_SCH_DEFAULT
+scripts/config --enable CONFIG_NET_SCH_DEFAULT
+scripts/config --enable CONFIG_DEFAULT_FQ
+scripts/config --disable CONFIG_DEFAULT_FQ_CODEL
+scripts/config --disable CONFIG_DEFAULT_PFIFO_FAST
+scripts/config --set-val CONFIG_DEFAULT_NET_SCH "fq"
 
 #
 # Classification
@@ -2043,10 +2050,10 @@ scripts/config --disable CONFIG_PCIEAER_INJECT
 scripts/config --enable CONFIG_PCIEAER_CXL
 scripts/config --disable CONFIG_PCIE_ECRC
 scripts/config --enable CONFIG_PCIEASPM
-scripts/config --enable CONFIG_PCIEASPM_DEFAULT
+scripts/config --disable CONFIG_PCIEASPM_DEFAULT
 scripts/config --disable CONFIG_PCIEASPM_POWERSAVE
 scripts/config --disable CONFIG_PCIEASPM_POWER_SUPERSAVE
-scripts/config --disable CONFIG_PCIEASPM_PERFORMANCE
+scripts/config --enable CONFIG_PCIEASPM_PERFORMANCE
 scripts/config --enable CONFIG_PCIE_PME
 scripts/config --enable CONFIG_PCIE_DPC
 scripts/config --enable CONFIG_PCIE_PTM
@@ -8811,6 +8818,7 @@ scripts/config --enable CONFIG_BRANCH_PROFILE_NONE
 scripts/config --disable CONFIG_PROFILE_ANNOTATED_BRANCHES
 scripts/config --enable CONFIG_BLK_DEV_IO_TRACE
 scripts/config --enable CONFIG_FPROBE_EVENTS
+scripts/config --enable CONFIG_KPROBE_EVENTS
 scripts/config --enable CONFIG_PROBE_EVENTS_BTF_ARGS
 scripts/config --enable CONFIG_UPROBE_EVENTS
 scripts/config --enable CONFIG_BPF_EVENTS
