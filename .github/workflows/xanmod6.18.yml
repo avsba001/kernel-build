@@ -17,8 +17,8 @@ jobs:
       KBUILD_BUILD_USER: actions-kernel
       KBUILD_BUILD_HOST: github-actions
       LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld
-      KCFLAGS_OPT: -march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -Wno-error
-      LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
+      KCFLAGS_OPT: -march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -Wno-error -fvisibility=hidden -fno-plt  -fno-semantic-interposition -fdata-sections -fdata-sections
+      LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1 -Wl,--icf=all
 
     steps:
       - name: Checkout
