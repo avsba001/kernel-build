@@ -57,8 +57,8 @@ jobs:
           sudo apt-get install -y --no-install-recommends wget lsb-release gnupg ca-certificates
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
-          sudo ./llvm.sh 21 all
-          echo "PATH=/usr/lib/llvm-21/bin:$PATH" >> $GITHUB_ENV
+          sudo ./llvm.sh 22 all
+          echo "PATH=/usr/lib/llvm-22/bin:$PATH" >> $GITHUB_ENV
 
       - name: 安装依赖 dependencies
         env:
