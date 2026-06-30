@@ -135,6 +135,26 @@ jobs:
           mkdir -p artifacts
           mv linux-image-*.deb artifacts/
           mv linux-headers-*.deb artifacts/
+          
+      - name: 生成 Release 说明
+        id: release_body
+        run: |
+          cat <<EOF > release_body.txt
+
+          构建信息：
+          - Kernel: Linux 6.12 LTS (XanMod 6.x)
+          - LLVM/Clang: 22
+          - 架构优化: x86-64-v3
+          - 编译优化: O3 + Full LTO + gc-sections
+
+          构建参数：
+          - KCFLAGS: ${KCFLAGS_OPT}
+          - LDFLAGS: ${LDFLAGS_OPT}
+          - Build ID: ${{ github.run_id }}
+
+          用途：
+          - VPS / 云服务器
+          EOF
 
       - name: 发布
         uses: softprops/action-gh-release@master
@@ -143,6 +163,7 @@ jobs:
         with:
           tag_name: xanmod-cloud-6.12-${{ github.run_id }}
           name: XanMod Cloud 6.12-内核 v3
+          body_path: release_body.txt
           files: artifacts/*
           overwrite_files: true
 
