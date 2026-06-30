@@ -87,10 +87,10 @@ jobs:
       - name: 从仓库更新 config 配置
         run:  |
           cd kernel
-          cp ../config-6.x.sh .
-          chmod +x config-6.x.sh
+          cp ../config-7.0.sh .
+          chmod +x config-7.0.sh
           cp CONFIGS/x86_64/config .config
-          ./config-6.x.sh
+          ./config-7.0.sh
           make ${LLVM_ARGS} olddefconfig
 
           
