@@ -1,0 +1,57 @@
+name: Sync config files to v2
+
+on:
+  push:
+    branches:
+      - v3
+    paths:
+      - "config-6.x.sh"
+      - "config-7.x.sh"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 配置Git Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name:  复制config文件至临时目录 Backup config files
+        run: |
+          mkdir -p /tmp/config-sync
+          cp config-6.x.sh /tmp/config-sync/
+          cp config-7.x.sh /tmp/config-sync/
+
+      - name: 切换至v2分支 Switch to v2
+        run: |
+          git fetch origin v2
+          git checkout v2
+
+      - name: 更新config文件 Update config files
+        run: |
+          cp /tmp/config-sync/config-6.x.sh .
+          cp /tmp/config-sync/config-7.x.sh .
+
+      - name: 提交并推送更改 Commit and Push
+        run: |
+          git add config-6.x.sh config-7.x.sh
+
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+
+          git commit -m "Sync config files from v3"
+          git push origin v2
