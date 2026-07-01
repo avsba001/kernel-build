@@ -33,7 +33,7 @@ scripts/config --disable CONFIG_HAVE_ARCH_AUDITSYSCALL
 scripts/config --disable CONFIG_AUDITSYSCALL
 
 #
-# IRQ subsystem
+# IRQ subsystem #test修改同步
 #
 scripts/config --enable CONFIG_GENERIC_IRQ_PROBE
 scripts/config --enable CONFIG_GENERIC_IRQ_SHOW
