@@ -1,4 +1,4 @@
-name: Sync config files to v2
+name: 同步config至v2分支
 
 on:
   push:
