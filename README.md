@@ -1,12 +1,11 @@
 # Actions-kernel
 
-Actions-kernel 是一个使用 GitHub Actions 自动构建 XanMod x86-64-v3 云内核的项目，目标是在 VPS/云服务器场景中提供精简、偏网络吞吐、低额外省电干预的 Debian `.deb` 云内核包。
+Actions-kernel 是一个使用 GitHub Actions 自动构建 linux 云内核的项目，目标是在 VPS/云服务器场景中提供精简、高性能的 Debian `.deb` 云内核包。
 
 ## 项目目标
 
-- **面向 VPS/云内核**：默认 localversion 为 `-cloud`，不以笔记本省电为目标。
+- **面向 VPS/云内核**：默认 localversion 为 `-cloud`，不以省电为目标。
 - **网络性能优先**：内核配置启用 BBR、fq 默认队列、RPS/XPS、busy poll、XDP 等网络能力。
-- **保留必要观测能力**：保留 perf/tracing 与 BPF 相关基础能力，便于故障排查，但项目定位仍以精简云内核为主。
 - **自动化构建**：通过 `.github/workflows/` 中的工作流拉取 XanMod 源码、应用 `config-6.x.sh`、生成最终 `.config` 并发布 `.deb` 包。
 
 ## 工作流
@@ -16,20 +15,21 @@ Actions-kernel 是一个使用 GitHub Actions 自动构建 XanMod x86-64-v3 云�
 - `6.12-内核构建`：构建 XanMod `6.12` 分支。
 - `6.18-内核构建`：构建 XanMod `6.18` 分支。
 - `7.0-内核构建`：构建 XanMod `7.0` 分支。
+- `7.1-内核构建`：构建 XanMod `7.1` 分支。
 
 每个构建工作流会：
 
 1. 清理 GitHub runner 上不必要的大型目录，释放编译空间。
-2. 安装 LLVM/Clang 21 与内核打包依赖。
+2. 安装 LLVM/Clang 22 与内核打包依赖。
 3. 浅克隆指定 XanMod 分支。
-4. 复制并执行 `config-6.x.sh`，再运行 `make olddefconfig` 生成最终配置。
+4. 复制并执行 `config-x.x.sh`，再运行 `make olddefconfig` 生成最终配置。
 5. 先执行单独的 `vmlinux` 与 `modules_prepare` 预构建步骤，提前暴露编译问题。
 6. 使用 Clang/LLD、x86-64-v3、`-O3`、函数/数据分段和链接垃圾回收等参数构建 Debian 内核包。
 7. 使用 xz 压缩 `.deb` 包并发布到 GitHub Release。
 
 ## 主要配置方向
 
-`config-6.x.sh` 是核心内核配置脚本，主要调整包括：
+`config-x.x.sh` 是核心内核配置脚本，主要调整包括：
 
 - `CONFIG_HZ_250=y`，关闭 `1000Hz`，降低云服务器通用负载下的定时器开销。
 - 关闭 CPU idle/部分省电路径，避免 VPS 场景下省电策略影响延迟与吞吐。

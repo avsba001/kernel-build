@@ -87,10 +87,10 @@ jobs:
       - name: 从仓库更新 config 配置
         run:  |
           cd kernel
-          cp ../config-7.0.sh .
-          chmod +x config-7.0.sh
+          cp ../config-7.x.sh .
+          chmod +x config-7.x.sh
           cp CONFIGS/x86_64/config .config
-          ./config-7.0.sh
+          ./config-7.x.sh
           make ${LLVM_ARGS} olddefconfig
 
           
@@ -151,13 +151,13 @@ jobs:
         uses: Mattraks/delete-workflow-runs@main
         with:
           retain_days: 30
-          keep_minimum_runs: 5
+          keep_minimum_runs: 2
 
       - name: 删除旧的发布文件
         if: always()
         uses: dev-drprasad/delete-older-releases@master
         with:
-          keep_latest: 5
+          keep_latest: 2
           delete_tags: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
