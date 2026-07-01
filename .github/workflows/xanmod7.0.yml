@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: 7.0-内核构建
+name: 7.0-内核构建 v2
 
 # Controls when the workflow will run
 
@@ -17,7 +17,7 @@ jobs:
       KBUILD_BUILD_USER: actions-kernel
       KBUILD_BUILD_HOST: github-actions
       LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld
-      KCFLAGS_OPT: -march=x86-64-v3 -O3 -ffunction-sections -fdata-sections -ffunction-sections -fomit-frame-pointer -Wno-error
+      KCFLAGS_OPT: -march=x86-64-v2 -O3 -ffunction-sections -fdata-sections -ffunction-sections -fomit-frame-pointer -Wno-error
       LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
 
     steps:
@@ -142,7 +142,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: xanmod-cloud-7.0-${{ github.run_id }}
-          name: XanMod Cloud 7.0-内核 v3
+          name: XanMod Cloud 7.0-内核 v2
           files: artifacts/*
           overwrite_files: true
 
