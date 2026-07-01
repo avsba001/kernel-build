@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-scripts/config --set-val CONFIG_LOCALVERSION "-x64v2"
+
 scripts/config --enable CONFIG_HAVE_KERNEL_GZIP
 scripts/config --enable CONFIG_HAVE_KERNEL_BZIP2
 scripts/config --enable CONFIG_HAVE_KERNEL_LZMA
