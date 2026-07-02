@@ -1,0 +1,41 @@
+- name: Delete old releases (Auto Group)
+  if: always()
+  env:
+    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  run: |
+    KEEP=2
+
+    echo "Getting release list..."
+
+    JSON=$(gh release list --limit 500 \
+      --json name,tagName,createdAt)
+
+    echo "$JSON" \
+      | jq -r '.[].name' \
+      | sort -u \
+      | while read GROUP
+      do
+          echo ""
+          echo "==============================="
+          echo "Processing group:"
+          echo "$GROUP"
+          echo "==============================="
+
+          echo "$JSON" \
+            | jq -r --arg g "$GROUP" '
+                .[]
+                | select(.name==$g)
+                | [.createdAt,.tagName]
+                | @tsv
+              ' \
+            | sort -r \
+            | tail -n +$((KEEP+1)) \
+            | while IFS=$'\t' read CREATED TAG
+              do
+                  echo "Delete $TAG"
+
+                  gh release delete "$TAG" \
+                      --cleanup-tag \
+                      -y
+              done
+      done
