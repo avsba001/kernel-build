@@ -136,6 +136,26 @@ jobs:
           mv linux-image-*.deb artifacts/
           mv linux-headers-*.deb artifacts/
 
+      - name: 生成 Release 说明
+        id: release_body
+        run: |
+          cat <<EOF > release_body.txt
+
+          构建信息：
+          - Kernel: Linux 7.0 XanMod
+          - LLVM/Clang: 22
+          - 架构优化: x86-64-v3
+          - 编译优化: O3 + Full LTO + gc-sections
+
+          构建参数：
+          - KCFLAGS: ${KCFLAGS_OPT}
+          - LDFLAGS: ${LDFLAGS_OPT}
+
+          用途：
+          - VPS / 云服务器
+          EOF
+          
+
       - name: 发布
         uses: softprops/action-gh-release@master
         env:
