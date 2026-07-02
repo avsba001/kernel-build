@@ -1,41 +1,40 @@
-- name: Delete old releases (Auto Group)
-  if: always()
-  env:
-    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  run: |
-    KEEP=2
+name: Cleanup old releases
 
-    echo "Getting release list..."
+on:
+  workflow_dispatch:
 
-    JSON=$(gh release list --limit 500 \
-      --json name,tagName,createdAt)
+permissions:
+  contents: write
 
-    echo "$JSON" \
-      | jq -r '.[].name' \
-      | sort -u \
-      | while read GROUP
-      do
-          echo ""
-          echo "==============================="
-          echo "Processing group:"
-          echo "$GROUP"
-          echo "==============================="
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
 
-          echo "$JSON" \
-            | jq -r --arg g "$GROUP" '
-                .[]
-                | select(.name==$g)
-                | [.createdAt,.tagName]
-                | @tsv
-              ' \
+    steps:
+      - name: Delete old releases by group
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          KEEP=2
+
+          gh api repos/${{ github.repository }}/releases --paginate > releases.json
+
+          jq -r '.[].name' releases.json | sort -u | while read -r GROUP; do
+            echo "========================="
+            echo "Group: $GROUP"
+            echo "========================="
+
+            jq -r --arg g "$GROUP" '
+              .[]
+              | select(.name == $g)
+              | [.created_at, .tag_name]
+              | @tsv
+            ' releases.json \
             | sort -r \
             | tail -n +$((KEEP+1)) \
-            | while IFS=$'\t' read CREATED TAG
-              do
-                  echo "Delete $TAG"
-
-                  gh release delete "$TAG" \
-                      --cleanup-tag \
-                      -y
-              done
-      done
+            | while IFS=$'\t' read -r CREATED TAG
+            do
+              echo "Deleting $TAG"
+              gh release delete "$TAG" --cleanup-tag -y
+            done
+          done
