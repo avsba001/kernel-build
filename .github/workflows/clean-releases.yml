@@ -1,4 +1,4 @@
-name: Cleanup old releases
+name: 清理旧发布文件 Cleanup old releases
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Delete old releases by group
+      - name: Delete old releases (by kernel + variant)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -19,17 +19,30 @@ jobs:
 
           gh api repos/${{ github.repository }}/releases --paginate > releases.json
 
-          jq -r '.[].name' releases.json | sort -u | while read -r GROUP; do
+          # 提取分组：6.12-v2 / 7.1-v3
+          jq -r '
+            .[] |
+            {
+              name,
+              tag: .tag_name,
+              created: .created_at,
+              group: (
+                (.name | capture("(?<k>[0-9.]+).*?(v[23])") | "\(.k)-\(.v)")
+              )
+            }
+          ' releases.json > parsed.json
+
+          # 获取所有 group
+          jq -r '.group' parsed.json | sort -u | while read GROUP; do
             echo "========================="
             echo "Group: $GROUP"
             echo "========================="
 
             jq -r --arg g "$GROUP" '
-              .[]
-              | select(.name == $g)
-              | [.created_at, .tag_name]
+              select(.group == $g)
+              | [.created, .tag]
               | @tsv
-            ' releases.json \
+            ' parsed.json \
             | sort -r \
             | tail -n +$((KEEP+1)) \
             | while IFS=$'\t' read -r CREATED TAG
