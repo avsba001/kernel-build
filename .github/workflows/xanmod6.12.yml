@@ -141,19 +141,8 @@ jobs:
         run: |
           cat <<EOF > release_body.txt
 
-          构建信息：
-          - Kernel: Linux 6.12 LTS (XanMod 6.x)
-          - LLVM/Clang: 22
-          - 架构优化: x86-64-v2
-          - 编译优化: O3 + Full LTO + gc-sections
-
-          构建参数：
-          - KCFLAGS: ${KCFLAGS_OPT}
-          - LDFLAGS: ${LDFLAGS_OPT}
-          - Build ID: ${{ github.run_id }}
-
-          用途：
-          - VPS / 云服务器
+        注意：这是v2版本，CPU支持的情况下请优先选择V3！！
+        
           EOF
 
       - name: 发布
