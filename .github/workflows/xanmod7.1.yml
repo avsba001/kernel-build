@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: 7.1-内核构建 v2
+name: 7.1-内核构建
 
 # Controls when the workflow will run
 
