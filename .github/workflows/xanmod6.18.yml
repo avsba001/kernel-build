@@ -161,12 +161,3 @@ jobs:
         with:
           retain_days: 30
           keep_minimum_runs: 10
-
-      - name: 删除旧的发布文件
-        if: always()
-        uses: dev-drprasad/delete-older-releases@master
-        with:
-          keep_latest: 10
-          delete_tags: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
