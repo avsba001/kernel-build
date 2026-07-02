@@ -2,7 +2,9 @@ name: 清理旧发布文件 Cleanup old releases
 
 on:
   workflow_dispatch:
-
+  schedule:
+    - cron: '0 3 * * 0'  # 每周日 03:00 UTC（约北京时间周日 11:00）
+    
 permissions:
   contents: write
 
