@@ -48,6 +48,6 @@ jobs:
             | while IFS=$'\t' read -r CREATED TAG
             do
               echo "Deleting $TAG"
-              gh release delete "$TAG" --cleanup-tag -y
+              gh release delete "$TAG" -R "${{ github.repository }}" --cleanup-tag -y
             done
           done
