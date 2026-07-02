@@ -141,10 +141,9 @@ jobs:
         run: |
           cat <<EOF > release_body.txt
 
-        注意：这是v2版本，CPU支持的情况下请优先选择V3！！
-        
+          用途：
+          - 注意：这是v2版本，CPU支持的情况下请优先选择V3！！
           EOF
-
       - name: 发布
         uses: softprops/action-gh-release@master
         env:
