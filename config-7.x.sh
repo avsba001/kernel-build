@@ -26,7 +26,7 @@ scripts/config --enable CONFIG_WATCH_QUEUE
 scripts/config --enable CONFIG_CROSS_MEMORY_ATTACH
 scripts/config --disable CONFIG_USELIB
 
-#内核审计（auditd）记录系统调用、权限变化，有相关问题优先恢复
+#内核审计（auditd）记录系统调用、权限变化，有相关问题优先恢复（测试合并字段）
 
 scripts/config --disable CONFIG_AUDIT
 scripts/config --disable CONFIG_HAVE_ARCH_AUDITSYSCALL
@@ -399,7 +399,7 @@ scripts/config --disable CONFIG_MEMERALDRAPIDS
 scripts/config --enable CONFIG_GENERIC_CPU
 scripts/config --disable CONFIG_MNATIVE_INTEL
 scripts/config --disable CONFIG_MNATIVE_AMD
-scripts/config --set-val CONFIG_X86_64_VERSION 2
+scripts/config --set-val CONFIG_X86_64_VERSION 3
 scripts/config --set-val CONFIG_X86_INTERNODE_CACHE_SHIFT 6
 scripts/config --set-val CONFIG_X86_L1_CACHE_SHIFT 6
 scripts/config --enable CONFIG_X86_TSC
