@@ -28,39 +28,21 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Fetch all branches
+      - name: Fetch branches
         run: |
           git fetch origin v2
           git fetch origin v3
 
-      - name: 切换到 v2 分支
+      - name: 切换到 v2
         run: |
           git checkout v2
-
-      - name: 合并 v3（保留 v2 修改 + 三方合并）
-        run: |
-          # 确保在 v2 最新状态
           git reset --hard origin/v2
 
-          # 合并 v3
-          git merge origin/v3 --no-edit || true
-
-      - name: 仅处理 config 文件冲突（策略：优先保留双方合并结果）
+      - name: 仅同步 v3 的 config 文件（安全增量覆盖）
         run: |
-          # 如果发生冲突，尝试自动采用合并版本
-          if git ls-files -u | grep -q config-; then
-            echo "Conflict detected in config files, resolving..."
+          git checkout origin/v3 -- config-6.x.sh config-7.x.sh
 
-            for file in config-6.x.sh config-7.x.sh; do
-              if git ls-files -u | grep -q "$file"; then
-                # 使用合并后的版本（index 3 = merged result）
-                git checkout --theirs -- "$file" || true
-                git add "$file"
-              fi
-            done
-          fi
-
-      - name: 提交并推送
+      - name: 检查是否有变更
         run: |
           git add config-6.x.sh config-7.x.sh
 
@@ -69,5 +51,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Sync config changes from v3 to v2 (merge)"
+      - name: 提交并推送
+        run: |
+          git commit -m "Sync config files from v3 to v2"
           git push origin v2
