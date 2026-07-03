@@ -399,7 +399,7 @@ scripts/config --disable CONFIG_MEMERALDRAPIDS
 scripts/config --enable CONFIG_GENERIC_CPU
 scripts/config --disable CONFIG_MNATIVE_INTEL
 scripts/config --disable CONFIG_MNATIVE_AMD
-scripts/config --set-val CONFIG_X86_64_VERSION 3
+scripts/config --set-val CONFIG_X86_64_VERSION 2
 scripts/config --set-val CONFIG_X86_INTERNODE_CACHE_SHIFT 6
 scripts/config --set-val CONFIG_X86_L1_CACHE_SHIFT 6
 scripts/config --enable CONFIG_X86_TSC
