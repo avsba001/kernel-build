@@ -1,0 +1,81 @@
+name: 同步config并校正参数
+
+on:
+  push:
+    branches:
+      - v3
+    paths:
+      - "config-6.x.sh"
+      - "config-7.x.sh"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-fix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout v2
+        uses: actions/checkout@v4
+        with:
+          ref: v2
+          fetch-depth: 0
+
+      - name: 配置 Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      # =========================
+      # Step 1: 文件同步（v3 → v2）
+      # =========================
+      - name: Sync config from v3
+        run: |
+          git fetch origin v3
+
+          git checkout origin/v3 -- config-6.x.sh config-7.x.sh
+
+      # =========================
+      # Step 2: 校正参数
+      # =========================
+      - name: Fix CONFIG_X86_64_VERSION in config-6.x.sh
+        run: |
+          if grep -q "CONFIG_X86_64_VERSION" config-6.x.sh; then
+            current=$(grep "CONFIG_X86_64_VERSION" config-6.x.sh | awk '{print $3}')
+            echo "config-6.x.sh current: $current"
+
+            if [ "$current" != "2" ]; then
+              echo "fixing config-6.x.sh"
+              scripts/config --file config-6.x.sh --set-val CONFIG_X86_64_VERSION 2
+            fi
+          fi
+
+      - name: Fix CONFIG_X86_64_VERSION in config-7.x.sh
+        run: |
+          if grep -q "CONFIG_X86_64_VERSION" config-7.x.sh; then
+            current=$(grep "CONFIG_X86_64_VERSION" config-7.x.sh | awk '{print $3}')
+            echo "config-7.x.sh current: $current"
+
+            if [ "$current" != "2" ]; then
+              echo "fixing config-7.x.sh"
+              scripts/config --file config-7.x.sh --set-val CONFIG_X86_64_VERSION 2
+            fi
+          fi
+
+      # =========================
+      # Step 3: 提交
+      # =========================
+      - name: Commit changes
+        run: |
+          git add config-6.x.sh config-7.x.sh
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+
+          git commit -m "Sync v3 configs to v2 and enforce CONFIG_X86_64_VERSION=2"
+          git push origin v2
