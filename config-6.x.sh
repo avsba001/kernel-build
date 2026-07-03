@@ -26,7 +26,7 @@ scripts/config --enable CONFIG_WATCH_QUEUE
 scripts/config --enable CONFIG_CROSS_MEMORY_ATTACH
 scripts/config --disable CONFIG_USELIB
 
-#内核审计（auditd）记录系统调用、权限变化，有相关问题优先恢复 （test）234
+#内核审计（auditd）记录系统调用、权限变化，有相关问题优先恢复 （test）2354
 
 scripts/config --disable CONFIG_AUDIT
 scripts/config --disable CONFIG_HAVE_ARCH_AUDITSYSCALL
