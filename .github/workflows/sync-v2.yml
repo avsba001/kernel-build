@@ -1,4 +1,4 @@
-name: 同步config + 强制修正参数
+name: 校正 scripts/config 参数值
 
 on:
   push:
@@ -14,13 +14,10 @@ permissions:
   contents: write
 
 jobs:
-  sync:
+  fix:
     runs-on: ubuntu-latest
 
     steps:
-      # =========================
-      # 1. 检出 v2
-      # =========================
       - name: Checkout v2
         uses: actions/checkout@v4
         with:
@@ -32,58 +29,39 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      # =========================
-      # 2. 同步 v3 的 config 文件
-      # =========================
-      - name: Sync config files from v3
+      - name: Sync config from v3
         run: |
           git fetch origin v3
           git checkout origin/v3 -- config-6.x.sh config-7.x.sh
 
-      # =========================
-      # 3. 强制修正 CONFIG_X86_64_VERSION = 2
-      # =========================
-      - name: Force CONFIG_X86_64_VERSION = 2
+      - name: Fix CONFIG_X86_64_VERSION value only
         run: |
           for file in config-6.x.sh config-7.x.sh; do
 
             echo "processing $file"
 
-            # 删除所有历史写法（= / 空格 / 注释）
-            sed -i '/CONFIG_X86_64_VERSION/d' "$file"
+            while IFS= read -r line; do
 
-            # 统一写入标准格式
-            echo "CONFIG_X86_64_VERSION=2" >> "$file"
+              if [[ "$line" == scripts/config*CONFIG_X86_64_VERSION* ]]; then
 
-          done
+                # 提取最后一个字段（值）
+                value=$(echo "$line" | awk '{print $NF}')
 
-      # =========================
-      # 4. 强制修正 MNATIVE_AMD
-      # =========================
-      - name: Disable CONFIG_MNATIVE_AMD
-        run: |
-          for file in config-6.x.sh config-7.x.sh; do
+                if [ "$value" != "2" ]; then
+                  echo "fixing: $line"
 
-            sed -i '/CONFIG_MNATIVE_AMD/d' "$file"
-            echo "# CONFIG_MNATIVE_AMD is not set" >> "$file"
+                  # 替换最后一个字段为 2（保留整行结构）
+                  new_line=$(echo "$line" | awk '{$NF=2; print}')
 
-          done
+                  sed -i "s|^$line$|$new_line|" "$file"
+                fi
 
-      # =========================
-      # 5. 设置 cache shift
-      # =========================
-      - name: Set CONFIG_X86_INTERNODE_CACHE_SHIFT=6
-        run: |
-          for file in config-6.x.sh config-7.x.sh; do
+              fi
 
-            sed -i '/CONFIG_X86_INTERNODE_CACHE_SHIFT/d' "$file"
-            echo "CONFIG_X86_INTERNODE_CACHE_SHIFT=6" >> "$file"
+            done < "$file"
 
           done
 
-      # =========================
-      # 6. 提交变更
-      # =========================
       - name: Commit changes
         run: |
           git add config-6.x.sh config-7.x.sh
@@ -93,5 +71,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Sync v3 configs + enforce CONFIG policy (v2)"
+          git commit -m "Fix CONFIG_X86_64_VERSION value to 2"
           git push origin v2
