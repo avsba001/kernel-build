@@ -1,4 +1,4 @@
-name: 同步config并校正参数
+name: 同步config + 强制修正参数
 
 on:
   push:
@@ -14,10 +14,13 @@ permissions:
   contents: write
 
 jobs:
-  sync-and-fix:
+  sync:
     runs-on: ubuntu-latest
 
     steps:
+      # =========================
+      # 1. 检出 v2
+      # =========================
       - name: Checkout v2
         uses: actions/checkout@v4
         with:
@@ -30,43 +33,56 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       # =========================
-      # Step 1: 文件同步（v3 → v2）
+      # 2. 同步 v3 的 config 文件
       # =========================
-      - name: Sync config from v3
+      - name: Sync config files from v3
         run: |
           git fetch origin v3
-
           git checkout origin/v3 -- config-6.x.sh config-7.x.sh
 
       # =========================
-      # Step 2: 校正参数
+      # 3. 强制修正 CONFIG_X86_64_VERSION = 2
       # =========================
-      - name: Fix CONFIG_X86_64_VERSION in config-6.x.sh
+      - name: Force CONFIG_X86_64_VERSION = 2
         run: |
-          if grep -q "CONFIG_X86_64_VERSION" config-6.x.sh; then
-            current=$(grep "CONFIG_X86_64_VERSION" config-6.x.sh | awk '{print $3}')
-            echo "config-6.x.sh current: $current"
+          for file in config-6.x.sh config-7.x.sh; do
 
-            if [ "$current" != "2" ]; then
-              echo "fixing config-6.x.sh"
-              scripts/config --file config-6.x.sh --set-val CONFIG_X86_64_VERSION 2
-            fi
-          fi
+            echo "processing $file"
 
-      - name: Fix CONFIG_X86_64_VERSION in config-7.x.sh
-        run: |
-          if grep -q "CONFIG_X86_64_VERSION" config-7.x.sh; then
-            current=$(grep "CONFIG_X86_64_VERSION" config-7.x.sh | awk '{print $3}')
-            echo "config-7.x.sh current: $current"
+            # 删除所有历史写法（= / 空格 / 注释）
+            sed -i '/CONFIG_X86_64_VERSION/d' "$file"
 
-            if [ "$current" != "2" ]; then
-              echo "fixing config-7.x.sh"
-              scripts/config --file config-7.x.sh --set-val CONFIG_X86_64_VERSION 2
-            fi
-          fi
+            # 统一写入标准格式
+            echo "CONFIG_X86_64_VERSION=2" >> "$file"
+
+          done
 
       # =========================
-      # Step 3: 提交
+      # 4. 强制修正 MNATIVE_AMD
+      # =========================
+      - name: Disable CONFIG_MNATIVE_AMD
+        run: |
+          for file in config-6.x.sh config-7.x.sh; do
+
+            sed -i '/CONFIG_MNATIVE_AMD/d' "$file"
+            echo "# CONFIG_MNATIVE_AMD is not set" >> "$file"
+
+          done
+
+      # =========================
+      # 5. 设置 cache shift
+      # =========================
+      - name: Set CONFIG_X86_INTERNODE_CACHE_SHIFT=6
+        run: |
+          for file in config-6.x.sh config-7.x.sh; do
+
+            sed -i '/CONFIG_X86_INTERNODE_CACHE_SHIFT/d' "$file"
+            echo "CONFIG_X86_INTERNODE_CACHE_SHIFT=6" >> "$file"
+
+          done
+
+      # =========================
+      # 6. 提交变更
       # =========================
       - name: Commit changes
         run: |
@@ -77,5 +93,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Sync v3 configs to v2 and enforce CONFIG_X86_64_VERSION=2"
+          git commit -m "Sync v3 configs + enforce CONFIG policy (v2)"
           git push origin v2
