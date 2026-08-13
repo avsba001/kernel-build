@@ -1,3 +1,5 @@
+
+
 # Actions-kernel
 
 Actions-kernel 是一个使用 GitHub Actions 自动构建 linux 云内核的项目，目标是在 VPS/云服务器场景中提供精简、高性能的 Debian `.deb` 云内核包。
@@ -38,7 +40,7 @@ bash <(curl -sL https://raw.githubusercontent.com/avsba001/kernel-build/refs/hea
 1. Fork 或克隆本仓库。
 2. 在 GitHub Actions 页面手动运行需要的内核版本工作流。
 3. 构建完成后，从 Release 下载 `linux-image-*.deb` 与 `linux-headers-*.deb`。
-4. 在目标 Debian/Ubuntu VPS 上安装
+4. 在目标 Debian/Ubuntu VPS 上安装（例如：`sudo dpkg -i linux-image-*.deb linux-headers-*.deb`）
 
 > 注意：该配置偏向云服务器/VPS 的精简与网络性能，不适合追求省电、桌面兼容性或极限安全加固的场景。上线前建议先在测试 VPS 验证启动、网卡、磁盘、iptables/nftables 与容器环境。
 
