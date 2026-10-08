@@ -1081,7 +1081,7 @@ scripts/config --disable CONFIG_TRANSPARENT_HUGEPAGE_ALWAYS
 scripts/config --enable CONFIG_TRANSPARENT_HUGEPAGE_MADVISE
 scripts/config --disable CONFIG_TRANSPARENT_HUGEPAGE_NEVER
 scripts/config --enable CONFIG_THP_SWAP
-scripts/config --disable CONFIG_READ_ONLY_THP_FOR_FS
+scripts/config --enable CONFIG_READ_ONLY_THP_FOR_FS
 scripts/config --enable CONFIG_PGTABLE_HAS_HUGE_LEAVES
 scripts/config --enable CONFIG_ARCH_SUPPORTS_HUGE_PFNMAP
 scripts/config --enable CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
