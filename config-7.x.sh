@@ -3048,7 +3048,7 @@ scripts/config --enable CONFIG_TUN
 scripts/config --module CONFIG_TAP
 scripts/config --disable CONFIG_TUN_VNET_CROSS_LE
 scripts/config --module CONFIG_VETH
-scripts/config --module CONFIG_VIRTIO_NET
+scripts/config --enable CONFIG_VIRTIO_NET
 scripts/config --module CONFIG_NLMON
 scripts/config --enable CONFIG_NETKIT
 scripts/config --module CONFIG_NET_VRF
