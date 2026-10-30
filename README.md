@@ -21,7 +21,7 @@
 在目标服务器运行：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/avsba001/kernel-build/refs/heads/v3/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/avsba001/kernel-build/refs/heads/main/install.sh)
 ```
 
 脚本自动检测 CPU 的 **v2/v3 指令集与 Intel/AMD 厂商**，匹配对应内核。选择内核系列后，确认才会下载并安装，完成后重启生效。
