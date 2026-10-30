@@ -1285,7 +1285,7 @@ scripts/config --module CONFIG_BRIDGE_NETFILTER
 scripts/config --enable CONFIG_NETFILTER_INGRESS
 scripts/config --enable CONFIG_NETFILTER_EGRESS
 scripts/config --enable CONFIG_NETFILTER_SKIP_EGRESS
-scripts/config --module CONFIG_NETFILTER_NETLINK
+scripts/config --enable CONFIG_NETFILTER_NETLINK
 scripts/config --enable CONFIG_NETFILTER_FAMILY_BRIDGE
 scripts/config --enable CONFIG_NETFILTER_FAMILY_ARP
 scripts/config --enable CONFIG_NETFILTER_BPF_LINK
@@ -7499,7 +7499,7 @@ scripts/config --disable CONFIG_FPGA_MGR_LATTICE_SYSCONFIG
 scripts/config --disable CONFIG_FPGA_MGR_LATTICE_SYSCONFIG_SPI
 scripts/config --module CONFIG_TEE
 scripts/config --module CONFIG_AMDTEE
-scripts/config --module CONFIG_MULTIPLEXER
+scripts/config --enable CONFIG_MULTIPLEXER
 
 #
 # Multiplexer drivers
@@ -8412,13 +8412,13 @@ scripts/config --module CONFIG_CRYPTO_LIB_CHACHA_GENERIC
 scripts/config --module CONFIG_CRYPTO_LIB_CHACHA_INTERNAL
 scripts/config --module CONFIG_CRYPTO_LIB_CHACHA
 scripts/config --enable CONFIG_CRYPTO_ARCH_HAVE_LIB_CURVE25519
-scripts/config --module CONFIG_CRYPTO_LIB_CURVE25519_GENERIC
+scripts/config --enable CONFIG_CRYPTO_LIB_CURVE25519_GENERIC
 scripts/config --module CONFIG_CRYPTO_LIB_CURVE25519_INTERNAL
 scripts/config --module CONFIG_CRYPTO_LIB_CURVE25519
 scripts/config --module CONFIG_CRYPTO_LIB_DES
 scripts/config --set-val CONFIG_CRYPTO_LIB_POLY1305_RSIZE 11
 scripts/config --enable CONFIG_CRYPTO_ARCH_HAVE_LIB_POLY1305
-scripts/config --module CONFIG_CRYPTO_LIB_POLY1305_GENERIC
+scripts/config --enable CONFIG_CRYPTO_LIB_POLY1305_GENERIC
 scripts/config --module CONFIG_CRYPTO_LIB_POLY1305_INTERNAL
 scripts/config --module CONFIG_CRYPTO_LIB_POLY1305
 scripts/config --module CONFIG_CRYPTO_LIB_CHACHA20POLY1305
@@ -8683,7 +8683,6 @@ scripts/config --set-val CONFIG_PANIC_ON_OOPS_VALUE 0
 scripts/config --set-val CONFIG_PANIC_TIMEOUT 0
 scripts/config --enable CONFIG_LOCKUP_DETECTOR
 scripts/config --enable CONFIG_SOFTLOCKUP_DETECTOR
-scripts/config --disable CONFIG_BOOTPARAM_SOFTLOCKUP_PANIC
 scripts/config --enable CONFIG_HAVE_HARDLOCKUP_DETECTOR_BUDDY
 scripts/config --enable CONFIG_HARDLOCKUP_DETECTOR
 scripts/config --disable CONFIG_HARDLOCKUP_DETECTOR_PREFER_BUDDY
@@ -8695,7 +8694,6 @@ scripts/config --enable CONFIG_HARDLOCKUP_CHECK_TIMESTAMP
 scripts/config --disable CONFIG_BOOTPARAM_HARDLOCKUP_PANIC
 scripts/config --enable CONFIG_DETECT_HUNG_TASK
 scripts/config --set-val CONFIG_DEFAULT_HUNG_TASK_TIMEOUT 120
-scripts/config --disable CONFIG_BOOTPARAM_HUNG_TASK_PANIC
 scripts/config --disable CONFIG_WQ_WATCHDOG
 scripts/config --disable CONFIG_WQ_CPU_INTENSIVE_REPORT
 scripts/config --disable CONFIG_TEST_LOCKUP
@@ -8955,7 +8953,7 @@ scripts/config --enable CONFIG_FB_EFI
 scripts/config --enable CONFIG_FRAMEBUFFER_CONSOLE
 scripts/config --disable CONFIG_DRM_VIRTIO_GPU
 scripts/config --module CONFIG_DRM_CIRRUS_QEMU
-scripts/config --module CONFIG_FB_VESA
+scripts/config --enable CONFIG_FB_VESA
 scripts/config --module CONFIG_FB_CIRRUS
 scripts/config --module CONFIG_FB_VGA16
 scripts/config --module CONFIG_DRM_BOCHS

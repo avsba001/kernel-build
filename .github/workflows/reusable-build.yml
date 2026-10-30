@@ -117,8 +117,15 @@ jobs:
           VERSION: ${{ inputs.version }}
           PROFILE: ${{ inputs.profile }}
         run: |
-          mv kernel/linux-image-*.deb artifacts/
-          mv kernel/linux-headers-*.deb artifacts/
+          mapfile -d '' image_packages < <(find "$GITHUB_WORKSPACE" -type f -name 'linux-image-*.deb' -print0)
+          mapfile -d '' header_packages < <(find "$GITHUB_WORKSPACE" -type f -name 'linux-headers-*.deb' -print0)
+          if (( ${#image_packages[@]} == 0 || ${#header_packages[@]} == 0 )); then
+            echo "未找到完整的 image/headers Debian 软件包。搜索到的 .deb 文件：" >&2
+            find "$GITHUB_WORKSPACE" -type f -name '*.deb' -print >&2
+            exit 1
+          fi
+          mv -- "${image_packages[@]}" artifacts/
+          mv -- "${header_packages[@]}" artifacts/
           printf 'XanMod %s\nProfile: %s\nLLVM/Clang: 23.1.0\nKCFLAGS: %s %s\nLDFLAGS: %s\n' \
             "$VERSION" "$PROFILE" "$KCFLAGS_ARCH" "$KCFLAGS_OPT" "$LDFLAGS_OPT" > release_body.txt
       - name: 发布 GitHub Release
