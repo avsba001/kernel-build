@@ -1,4 +1,4 @@
-name: 清理旧发布文件 Cleanup old releases
+name: 清理旧版内核发布
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Delete old releases (by kernel + variant)
+      - name: 按内核版本与配置组合清理旧发布
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

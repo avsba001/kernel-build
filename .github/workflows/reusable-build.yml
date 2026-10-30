@@ -1,4 +1,4 @@
-name: Reusable XanMod build
+name: 复用构建 XanMod 内核
 
 on:
   workflow_call:
@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   build:
+    name: 构建 Debian 内核软件包
     runs-on: ubuntu-latest
     env:
       DEB_BUILD_OPTIONS: nocheck
@@ -24,19 +25,19 @@ jobs:
       KCFLAGS_OPT: -O3 -ffunction-sections -fdata-sections -ffunction-sections -fomit-frame-pointer -Wno-error
       LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
     steps:
-      - name: Checkout build scripts
+      - name: 检出构建脚本
         uses: actions/checkout@v6
-      - name: Free runner disk space
+      - name: 清理 Runner 磁盘空间
         run: |
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
           df -h
-      - name: Show runner information and set timezone
+      - name: 显示 Runner 信息并设置时区
         run: |
           echo -e "Total CPU cores\t: $(nproc)"
           cat /proc/cpuinfo
           cat /proc/meminfo
           sudo timedatectl set-timezone Asia/Shanghai
-      - name: Install LLVM/Clang 23
+      - name: 安装 LLVM/Clang 23
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends wget lsb-release gnupg ca-certificates
@@ -44,7 +45,7 @@ jobs:
           chmod +x llvm.sh
           sudo ./llvm.sh 23 all
           echo "/usr/lib/llvm-23/bin" >> "$GITHUB_PATH"
-      - name: Install kernel build dependencies
+      - name: 安装内核构建依赖
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -54,11 +55,11 @@ jobs:
             libdw-dev debhelper debhelper-compat dpkg-dev devscripts linux-libc-dev \
             linux-firmware curl wget dwarves pahole fakeroot git pkg-config perl \
             rsync xz-utils zstd binutils cpio initramfs-tools jq
-      - name: Fetch XanMod source
+      - name: 获取 XanMod 内核源码
         env:
           VERSION: ${{ inputs.version }}
         run: git clone --depth=1 --branch "$VERSION" https://gitlab.com/xanmod/linux.git kernel
-      - name: Apply major-version and CPU profile config
+      - name: 应用大版本配置与 CPU profile
         env:
           VERSION: ${{ inputs.version }}
           PROFILE: ${{ inputs.profile }}
@@ -88,21 +89,21 @@ jobs:
           grep -qx "CONFIG_X86_64_VERSION=$([[ "$level" == v2 ]] && echo 2 || echo 3)" .config || { echo "ISA baseline mismatch" >&2; exit 1; }
           mkdir -p ../artifacts
           cp .config "../artifacts/config-${VERSION}-${PROFILE}-${GITHUB_RUN_ID}"
-      - name: Build kernel and prepare modules
+      - name: 编译内核并准备模块
         run: |
           cd kernel
           make -j"$(nproc)" ${LLVM_ARGS} \
             vmlinux modules_prepare \
             KCFLAGS="${KCFLAGS_ARCH} ${KCFLAGS_OPT}" \
             LDFLAGS="${LDFLAGS_OPT}"
-      - name: Build Debian packages
+      - name: 构建 Debian 软件包
         run: |
           cd kernel
           KDEB_COMPRESS=xz make -j"$(nproc)" ${LLVM_ARGS} \
             bindeb-pkg LOCALVERSION="${KERNEL_LOCALVERSION}" \
             KCFLAGS="${KCFLAGS_ARCH} ${KCFLAGS_OPT}" \
             LDFLAGS="${LDFLAGS_OPT}"
-      - name: Collect packages
+      - name: 收集构建产物
         env:
           VERSION: ${{ inputs.version }}
           PROFILE: ${{ inputs.profile }}
@@ -111,7 +112,7 @@ jobs:
           mv kernel/linux-headers-*.deb artifacts/
           printf 'XanMod %s\nProfile: %s\nLLVM/Clang: 23.1.0\nKCFLAGS: %s %s\nLDFLAGS: %s\n' \
             "$VERSION" "$PROFILE" "$KCFLAGS_ARCH" "$KCFLAGS_OPT" "$LDFLAGS_OPT" > release_body.txt
-      - name: Publish release
+      - name: 发布 GitHub Release
         uses: softprops/action-gh-release@master
         env:
           GITHUB_TOKEN: ${{ github.token }}

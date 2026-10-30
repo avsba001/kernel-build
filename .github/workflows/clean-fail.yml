@@ -10,7 +10,7 @@ jobs:
       actions: write
       contents: read
     steps:
-      - name: Delete workflow runs
+      - name: 删除多余的工作流运行记录
         uses: Mattraks/delete-workflow-runs@v2
         with:
           token: ${{ github.token }}

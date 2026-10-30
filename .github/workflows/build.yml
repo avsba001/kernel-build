@@ -1,15 +1,15 @@
-name: XanMod kernel matrix
+name: XanMod 内核矩阵构建
 
 on:
   workflow_dispatch:
     inputs:
       versions:
-        description: 'JSON array of XanMod branches, for example ["7.3"]; empty discovers all supported branches'
+        description: '内核版本（JSON 数组，例如 ["7.3"]）；填写 [] 自动发现所有支持的分支'
         required: false
         default: '[]'
         type: string
       profiles:
-        description: 'JSON array of CPU profiles'
+        description: 'CPU 配置组合（JSON 数组，可选 v2-intel、v2-amd、v3-intel、v3-amd）'
         required: false
         default: '["v2-intel","v2-amd","v3-intel","v3-amd"]'
         type: string
@@ -21,18 +21,20 @@ permissions:
 
 jobs:
   matrix:
+    name: 生成版本与配置矩阵
     runs-on: ubuntu-latest
     outputs:
       include: ${{ steps.matrix.outputs.include }}
     steps:
-      - uses: actions/checkout@v6
-      - name: Discover supported XanMod branches
+      - name: 检出仓库
+        uses: actions/checkout@v6
+      - name: 发现受支持的 XanMod 分支
         id: discover
         if: github.event_name == 'schedule' || inputs.versions == '[]' || inputs.versions == ''
         run: |
           chmod +x scripts/discover-versions.sh
           echo "versions=$(scripts/discover-versions.sh)" >> "$GITHUB_OUTPUT"
-      - name: Build matrix
+      - name: 生成构建矩阵
         id: matrix
         env:
           INPUT_VERSIONS: ${{ inputs.versions }}
@@ -57,6 +59,7 @@ jobs:
           echo "include=$(cat matrix.json)" >> "$GITHUB_OUTPUT"
 
   build:
+    name: 内核 ${{ matrix.version }} · 配置 ${{ matrix.profile }}
     needs: matrix
     strategy:
       fail-fast: false
