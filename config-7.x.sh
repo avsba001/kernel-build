@@ -15,8 +15,8 @@ scripts/config --disable CONFIG_KERNEL_XZ
 scripts/config --disable CONFIG_KERNEL_LZO
 scripts/config --disable CONFIG_KERNEL_LZ4
 scripts/config --disable CONFIG_KERNEL_ZSTD
-scripts/config --set-val CONFIG_DEFAULT_INIT ""
-scripts/config --set-val CONFIG_DEFAULT_HOSTNAME "(none)"
+scripts/config --set-str CONFIG_DEFAULT_INIT ""
+scripts/config --set-str CONFIG_DEFAULT_HOSTNAME "(none)"
 scripts/config --enable CONFIG_SYSVIPC
 scripts/config --enable CONFIG_SYSVIPC_SYSCTL
 scripts/config --enable CONFIG_SYSVIPC_COMPAT
@@ -150,7 +150,7 @@ scripts/config --disable CONFIG_TASKS_TRACE_RCU_READ_MB
 scripts/config --disable CONFIG_RCU_DOUBLE_CHECK_CB_TIME
 # end of RCU Subsystem
 
-scripts/config --disable CONFIG_IKCONFIG
+scripts/config --enable CONFIG_IKCONFIG
 scripts/config --disable CONFIG_IKHEADERS
 scripts/config --set-val CONFIG_LOG_BUF_SHIFT 17
 scripts/config --set-val CONFIG_LOG_CPU_MAX_BUF_SHIFT 12
@@ -165,7 +165,7 @@ scripts/config --enable CONFIG_HAVE_UNSTABLE_SCHED_CLOCK
 scripts/config --enable CONFIG_ARCH_SUPPORTS_NUMA_BALANCING
 scripts/config --enable CONFIG_ARCH_WANT_BATCHED_UNMAP_TLB_FLUSH
 scripts/config --enable CONFIG_CC_HAS_INT128
-scripts/config --set-val CONFIG_CC_IMPLICIT_FALLTHROUGH "-Wimplicit-fallthrough"
+scripts/config --set-str CONFIG_CC_IMPLICIT_FALLTHROUGH "-Wimplicit-fallthrough"
 scripts/config --enable CONFIG_GCC10_NO_ARRAY_BOUNDS
 scripts/config --enable CONFIG_GCC_NO_STRINGOP_OVERFLOW
 scripts/config --enable CONFIG_ARCH_SUPPORTS_INT128
@@ -211,12 +211,12 @@ scripts/config --enable CONFIG_SCHED_AUTOGROUP
 scripts/config --enable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED
 scripts/config --enable CONFIG_RELAY
 scripts/config --enable CONFIG_BLK_DEV_INITRD
-scripts/config --set-val CONFIG_INITRAMFS_SOURCE ""
+scripts/config --set-str CONFIG_INITRAMFS_SOURCE ""
 scripts/config --enable CONFIG_RD_GZIP
-scripts/config --disable CONFIG_RD_BZIP2
-scripts/config --disable CONFIG_RD_LZMA
-scripts/config --disable CONFIG_RD_XZ
-scripts/config --disable CONFIG_RD_LZO
+scripts/config --enable CONFIG_RD_BZIP2
+scripts/config --enable CONFIG_RD_LZMA
+scripts/config --enable CONFIG_RD_XZ
+scripts/config --enable CONFIG_RD_LZO
 scripts/config --enable CONFIG_RD_LZ4
 scripts/config --enable CONFIG_RD_ZSTD
 scripts/config --enable CONFIG_BOOT_CONFIG
@@ -226,7 +226,7 @@ scripts/config --enable CONFIG_INITRAMFS_PRESERVE_MTIME
 scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
 scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
 scripts/config --enable CONFIG_LD_ORPHAN_WARN
-scripts/config --set-val CONFIG_LD_ORPHAN_WARN_LEVEL "warn"
+scripts/config --set-str CONFIG_LD_ORPHAN_WARN_LEVEL "warn"
 scripts/config --enable CONFIG_SYSCTL
 scripts/config --enable CONFIG_HAVE_UID16
 scripts/config --enable CONFIG_SYSCTL_EXCEPTION_TRACE
@@ -287,7 +287,7 @@ scripts/config --enable CONFIG_64BIT
 scripts/config --enable CONFIG_X86_64
 scripts/config --enable CONFIG_X86
 scripts/config --enable CONFIG_INSTRUCTION_DECODER
-scripts/config --set-val CONFIG_OUTPUT_FORMAT "elf64-x86-64"
+scripts/config --set-str CONFIG_OUTPUT_FORMAT "elf64-x86-64"
 scripts/config --enable CONFIG_LOCKDEP_SUPPORT
 scripts/config --enable CONFIG_STACKTRACE_SUPPORT
 scripts/config --enable CONFIG_MMU
@@ -330,22 +330,22 @@ scripts/config --enable CONFIG_IOSF_MBI
 scripts/config --disable CONFIG_IOSF_MBI_DEBUG
 scripts/config --enable CONFIG_SCHED_OMIT_FRAME_POINTER
 scripts/config --enable CONFIG_HYPERVISOR_GUEST
-scripts/config --disable CONFIG_PARAVIRT
-scripts/config --disable CONFIG_PARAVIRT_XXL
+scripts/config --enable CONFIG_PARAVIRT
+scripts/config --enable CONFIG_PARAVIRT_XXL
 scripts/config --disable CONFIG_PARAVIRT_DEBUG
 scripts/config --enable CONFIG_PARAVIRT_SPINLOCKS
 scripts/config --enable CONFIG_X86_HV_CALLBACK_VECTOR
-scripts/config --disable CONFIG_XEN
-scripts/config --disable CONFIG_XEN_PV
+scripts/config --enable CONFIG_XEN
+scripts/config --enable CONFIG_XEN_PV
 scripts/config --disable CONFIG_XEN_512GB
 scripts/config --disable CONFIG_XEN_PV_SMP
 scripts/config --disable CONFIG_XEN_PV_DOM0
-scripts/config --disable CONFIG_XEN_PVHVM
+scripts/config --enable CONFIG_XEN_PVHVM
 scripts/config --disable CONFIG_XEN_PVHVM_SMP
 scripts/config --disable CONFIG_XEN_PVHVM_GUEST
-scripts/config --disable CONFIG_XEN_SAVE_RESTORE
+scripts/config --enable CONFIG_XEN_SAVE_RESTORE
 scripts/config --disable CONFIG_XEN_DEBUG_FS
-scripts/config --disable CONFIG_XEN_PVH
+scripts/config --enable CONFIG_XEN_PVH
 scripts/config --disable CONFIG_XEN_DOM0
 scripts/config --disable CONFIG_XEN_PV_MSR_SAFE
 scripts/config --enable CONFIG_KVM_GUEST
@@ -542,8 +542,8 @@ scripts/config --enable CONFIG_HIBERNATION
 scripts/config --disable CONFIG_HIBERNATION_SNAPSHOT_DEV
 scripts/config --enable CONFIG_HIBERNATION_COMP_LZO
 scripts/config --disable CONFIG_HIBERNATION_COMP_LZ4
-scripts/config --set-val CONFIG_HIBERNATION_DEF_COMP "lzo"
-scripts/config --set-val CONFIG_PM_STD_PARTITION ""
+scripts/config --set-str CONFIG_HIBERNATION_DEF_COMP "lzo"
+scripts/config --set-str CONFIG_PM_STD_PARTITION ""
 scripts/config --enable CONFIG_PM_SLEEP
 scripts/config --enable CONFIG_PM_SLEEP_SMP
 scripts/config --disable CONFIG_PM_AUTOSLEEP
@@ -584,7 +584,7 @@ scripts/config --enable CONFIG_ACPI_HOTPLUG_CPU
 scripts/config --module CONFIG_ACPI_PROCESSOR_AGGREGATOR
 scripts/config --disable CONFIG_ACPI_THERMAL
 scripts/config --module CONFIG_ACPI_PLATFORM_PROFILE
-scripts/config --set-val CONFIG_ACPI_CUSTOM_DSDT_FILE ""
+scripts/config --set-str CONFIG_ACPI_CUSTOM_DSDT_FILE ""
 scripts/config --enable CONFIG_ARCH_HAS_ACPI_TABLE_UPGRADE
 scripts/config --enable CONFIG_ACPI_TABLE_UPGRADE
 scripts/config --enable CONFIG_ACPI_DEBUG
@@ -697,14 +697,14 @@ scripts/config --enable CONFIG_KVM_SMM
 scripts/config --enable CONFIG_KVM_HYPERV
 scripts/config --enable CONFIG_KVM_XEN
 scripts/config --set-val CONFIG_KVM_MAX_NR_VCPUS 4096
-scripts/config --enable CONFIG_AS_AVX512
-scripts/config --enable CONFIG_AS_SHA1_NI
-scripts/config --enable CONFIG_AS_SHA256_NI
-scripts/config --enable CONFIG_AS_TPAUSE
-scripts/config --enable CONFIG_AS_GFNI
-scripts/config --enable CONFIG_AS_VAES
-scripts/config --enable CONFIG_AS_VPCLMULQDQ
-scripts/config --enable CONFIG_AS_WRUSS
+# CONFIG_AS_AVX512: 由 Kconfig 检测工具链能力，不手动强制设置。
+# CONFIG_AS_SHA1_NI: 由 Kconfig 检测工具链能力，不手动强制设置。
+# CONFIG_AS_SHA256_NI: 由 Kconfig 检测工具链能力，不手动强制设置。
+# CONFIG_AS_TPAUSE: 由 Kconfig 检测工具链能力，不手动强制设置。
+# CONFIG_AS_GFNI: 由 Kconfig 检测工具链能力，不手动强制设置。
+# CONFIG_AS_VAES: 由 Kconfig 检测工具链能力，不手动强制设置。
+# CONFIG_AS_VPCLMULQDQ: 由 Kconfig 检测工具链能力，不手动强制设置。
+# CONFIG_AS_WRUSS: 由 Kconfig 检测工具链能力，不手动强制设置。
 scripts/config --enable CONFIG_ARCH_CONFIGURES_CPU_MITIGATIONS
 scripts/config --enable CONFIG_ARCH_HAS_DMA_OPS
 
@@ -898,10 +898,10 @@ scripts/config --enable CONFIG_MODULE_SIG_SHA512
 scripts/config --disable CONFIG_MODULE_SIG_SHA3_256
 scripts/config --disable CONFIG_MODULE_SIG_SHA3_384
 scripts/config --disable CONFIG_MODULE_SIG_SHA3_512
-scripts/config --set-val CONFIG_MODULE_SIG_HASH "sha512"
+scripts/config --set-str CONFIG_MODULE_SIG_HASH "sha512"
 scripts/config --disable CONFIG_MODULE_COMPRESS
 scripts/config --disable CONFIG_MODULE_ALLOW_MISSING_NAMESPACE_IMPORTS
-scripts/config --set-val CONFIG_MODPROBE_PATH "/sbin/modprobe"
+scripts/config --set-str CONFIG_MODPROBE_PATH "/sbin/modprobe"
 scripts/config --disable CONFIG_TRIM_UNUSED_KSYMS
 scripts/config --enable CONFIG_MODULES_TREE_LOOKUP
 scripts/config --enable CONFIG_BLOCK
@@ -1012,11 +1012,11 @@ scripts/config --disable CONFIG_ZSWAP_COMPRESSOR_DEFAULT_842
 scripts/config --enable CONFIG_ZSWAP_COMPRESSOR_DEFAULT_LZ4
 scripts/config --disable CONFIG_ZSWAP_COMPRESSOR_DEFAULT_LZ4HC
 scripts/config --disable CONFIG_ZSWAP_COMPRESSOR_DEFAULT_ZSTD
-scripts/config --set-val CONFIG_ZSWAP_COMPRESSOR_DEFAULT "lz4"
+scripts/config --set-str CONFIG_ZSWAP_COMPRESSOR_DEFAULT "lz4"
 scripts/config --enable CONFIG_ZSWAP_ZPOOL_DEFAULT_ZBUD
 scripts/config --disable CONFIG_ZSWAP_ZPOOL_DEFAULT_Z3FOLD_DEPRECATED
 scripts/config --disable CONFIG_ZSWAP_ZPOOL_DEFAULT_ZSMALLOC
-scripts/config --set-val CONFIG_ZSWAP_ZPOOL_DEFAULT "zbud"
+scripts/config --set-str CONFIG_ZSWAP_ZPOOL_DEFAULT "zbud"
 scripts/config --enable CONFIG_ZBUD
 scripts/config --disable CONFIG_Z3FOLD_DEPRECATED
 scripts/config --module CONFIG_ZSMALLOC
@@ -1235,7 +1235,7 @@ scripts/config --module CONFIG_TCP_CONG_CDG
 scripts/config --enable CONFIG_TCP_CONG_BBR
 scripts/config --enable CONFIG_DEFAULT_BBR
 scripts/config --disable CONFIG_DEFAULT_RENO
-scripts/config --set-val CONFIG_DEFAULT_TCP_CONG "bbr"
+scripts/config --set-str CONFIG_DEFAULT_TCP_CONG "bbr"
 scripts/config --enable CONFIG_TCP_SIGPOOL
 scripts/config --enable CONFIG_TCP_AO
 scripts/config --enable CONFIG_TCP_MD5SIG
@@ -1785,7 +1785,7 @@ scripts/config --enable CONFIG_NET_SCH_DEFAULT
 scripts/config --enable CONFIG_DEFAULT_FQ
 scripts/config --disable CONFIG_DEFAULT_FQ_CODEL
 scripts/config --disable CONFIG_DEFAULT_PFIFO_FAST
-scripts/config --set-val CONFIG_DEFAULT_NET_SCH "fq"
+scripts/config --set-str CONFIG_DEFAULT_NET_SCH "fq"
 
 #
 # Classification
@@ -1949,7 +1949,7 @@ scripts/config --disable CONFIG_MAC80211
 scripts/config --disable CONFIG_MAC80211_HAS_RC
 scripts/config --disable CONFIG_MAC80211_RC_MINSTREL
 scripts/config --disable CONFIG_MAC80211_RC_DEFAULT_MINSTREL
-scripts/config --set-val CONFIG_MAC80211_RC_DEFAULT "minstrel_ht"
+scripts/config --set-str CONFIG_MAC80211_RC_DEFAULT "minstrel_ht"
 scripts/config --disable CONFIG_MAC80211_MESH
 scripts/config --disable CONFIG_MAC80211_LEDS
 scripts/config --disable CONFIG_MAC80211_DEBUGFS
@@ -2077,7 +2077,7 @@ scripts/config --enable CONFIG_PCI_PRI
 scripts/config --enable CONFIG_PCI_PASID
 scripts/config --enable CONFIG_PCI_P2PDMA
 scripts/config --enable CONFIG_PCI_LABEL
-scripts/config --module CONFIG_PCI_HYPERV
+scripts/config --enable CONFIG_PCI_HYPERV
 scripts/config --enable CONFIG_VGA_ARB
 scripts/config --set-val CONFIG_VGA_ARB_MAX_GPUS 16
 scripts/config --enable CONFIG_HOTPLUG_PCI
@@ -2092,7 +2092,7 @@ scripts/config --enable CONFIG_HOTPLUG_PCI_SHPC
 # PCI controller drivers
 #
 scripts/config --module CONFIG_VMD
-scripts/config --module CONFIG_PCI_HYPERV_INTERFACE
+scripts/config --enable CONFIG_PCI_HYPERV_INTERFACE
 
 #
 # Cadence-based PCIe controllers
@@ -2188,7 +2188,7 @@ scripts/config --disable CONFIG_RAPIDIO_RXS_GEN3
 #
 scripts/config --enable CONFIG_AUXILIARY_BUS
 scripts/config --enable CONFIG_UEVENT_HELPER
-scripts/config --set-val CONFIG_UEVENT_HELPER_PATH ""
+scripts/config --set-str CONFIG_UEVENT_HELPER_PATH ""
 scripts/config --enable CONFIG_DEVTMPFS
 scripts/config --enable CONFIG_DEVTMPFS_MOUNT
 scripts/config --enable CONFIG_DEVTMPFS_SAFE
@@ -2202,7 +2202,7 @@ scripts/config --enable CONFIG_FW_LOADER
 scripts/config --enable CONFIG_FW_LOADER_DEBUG
 scripts/config --enable CONFIG_FW_LOADER_PAGED_BUF
 scripts/config --enable CONFIG_FW_LOADER_SYSFS
-scripts/config --set-val CONFIG_EXTRA_FIRMWARE ""
+scripts/config --set-str CONFIG_EXTRA_FIRMWARE ""
 scripts/config --enable CONFIG_FW_LOADER_USER_HELPER
 scripts/config --disable CONFIG_FW_LOADER_USER_HELPER_FALLBACK
 scripts/config --enable CONFIG_FW_LOADER_COMPRESS
@@ -2521,7 +2521,7 @@ scripts/config --disable CONFIG_ZRAM_DEF_COMP_LZO
 scripts/config --disable CONFIG_ZRAM_DEF_COMP_LZ4
 scripts/config --disable CONFIG_ZRAM_DEF_COMP_LZ4HC
 scripts/config --disable CONFIG_ZRAM_DEF_COMP_ZSTD
-scripts/config --set-val CONFIG_ZRAM_DEF_COMP "lzo-rle"
+scripts/config --set-str CONFIG_ZRAM_DEF_COMP "lzo-rle"
 scripts/config --enable CONFIG_ZRAM_WRITEBACK
 scripts/config --enable CONFIG_ZRAM_TRACK_ENTRY_ACTIME
 scripts/config --enable CONFIG_ZRAM_MEMORY_TRACKING
@@ -2538,7 +2538,7 @@ scripts/config --disable CONFIG_CDROM_PKTCDVD
 scripts/config --disable CONFIG_ATA_OVER_ETH
 scripts/config --enable CONFIG_XEN_BLKDEV_FRONTEND
 scripts/config --module CONFIG_XEN_BLKDEV_BACKEND
-scripts/config --module CONFIG_VIRTIO_BLK
+scripts/config --enable CONFIG_VIRTIO_BLK
 scripts/config --module CONFIG_BLK_DEV_RBD
 scripts/config --module CONFIG_BLK_DEV_UBLK
 scripts/config --disable CONFIG_BLKDEV_UBLK_LEGACY_OPCODES
@@ -2551,8 +2551,8 @@ scripts/config --module CONFIG_BLK_DEV_RNBD_SERVER
 #
 scripts/config --module CONFIG_NVME_KEYRING
 scripts/config --module CONFIG_NVME_AUTH
-scripts/config --module CONFIG_NVME_CORE
-scripts/config --module CONFIG_BLK_DEV_NVME
+scripts/config --enable CONFIG_NVME_CORE
+scripts/config --enable CONFIG_BLK_DEV_NVME
 scripts/config --enable CONFIG_NVME_MULTIPATH
 scripts/config --disable CONFIG_NVME_VERBOSE_ERRORS
 scripts/config --enable CONFIG_NVME_HWMON
@@ -2684,10 +2684,10 @@ scripts/config --enable CONFIG_SCSI_SCAN_ASYNC
 #
 # SCSI Transports
 #
-scripts/config --module CONFIG_SCSI_SPI_ATTRS
+scripts/config --enable CONFIG_SCSI_SPI_ATTRS
 scripts/config --module CONFIG_SCSI_FC_ATTRS
 scripts/config --module CONFIG_SCSI_ISCSI_ATTRS
-scripts/config --module CONFIG_SCSI_SAS_ATTRS
+scripts/config --enable CONFIG_SCSI_SAS_ATTRS
 scripts/config --module CONFIG_SCSI_SAS_LIBSAS
 scripts/config --enable CONFIG_SCSI_SAS_ATA
 scripts/config --enable CONFIG_SCSI_SAS_HOST_SMP
@@ -2734,20 +2734,20 @@ scripts/config --disable CONFIG_MEGARAID_MM
 scripts/config --disable CONFIG_MEGARAID_MAILBOX
 scripts/config --disable CONFIG_MEGARAID_LEGACY
 scripts/config --disable CONFIG_MEGARAID_SAS
-scripts/config --disable CONFIG_SCSI_MPT3SAS
+scripts/config --enable CONFIG_SCSI_MPT3SAS
 scripts/config --set-val CONFIG_SCSI_MPT2SAS_MAX_SGE 128
 scripts/config --set-val CONFIG_SCSI_MPT3SAS_MAX_SGE 128
 scripts/config --disable CONFIG_SCSI_MPT2SAS
 scripts/config --disable CONFIG_SCSI_MPI3MR
 scripts/config --disable CONFIG_SCSI_SMARTPQI
 scripts/config --disable CONFIG_SCSI_HPTIOP
-scripts/config --disable CONFIG_SCSI_BUSLOGIC
+scripts/config --enable CONFIG_SCSI_BUSLOGIC
 scripts/config --enable CONFIG_SCSI_FLASHPOINT
 scripts/config --disable CONFIG_SCSI_MYRB
 scripts/config --disable CONFIG_SCSI_MYRS
-scripts/config --module CONFIG_VMWARE_PVSCSI
-scripts/config --module CONFIG_XEN_SCSI_FRONTEND
-scripts/config --module CONFIG_HYPERV_STORAGE
+scripts/config --enable CONFIG_VMWARE_PVSCSI
+scripts/config --enable CONFIG_XEN_SCSI_FRONTEND
+scripts/config --enable CONFIG_HYPERV_STORAGE
 scripts/config --disable CONFIG_LIBFC
 scripts/config --disable CONFIG_LIBFCOE
 scripts/config --disable CONFIG_FCOE
@@ -2765,7 +2765,7 @@ scripts/config --disable CONFIG_SCSI_PPA
 scripts/config --disable CONFIG_SCSI_IMM
 scripts/config --disable CONFIG_SCSI_IZIP_SLOW_CTR
 scripts/config --disable CONFIG_SCSI_STEX
-scripts/config --disable CONFIG_SCSI_SYM53C8XX_2
+scripts/config --enable CONFIG_SCSI_SYM53C8XX_2
 scripts/config --set-val CONFIG_SCSI_SYM53C8XX_DMA_ADDRESSING_MODE 1
 scripts/config --set-val CONFIG_SCSI_SYM53C8XX_DEFAULT_TAGS 16
 scripts/config --set-val CONFIG_SCSI_SYM53C8XX_MAX_TAGS 64
@@ -2788,7 +2788,7 @@ scripts/config --module CONFIG_SCSI_DEBUG
 scripts/config --disable CONFIG_SCSI_PMCRAID
 scripts/config --disable CONFIG_SCSI_PM8001
 scripts/config --disable CONFIG_SCSI_BFA_FC
-scripts/config --module CONFIG_SCSI_VIRTIO
+scripts/config --enable CONFIG_SCSI_VIRTIO
 scripts/config --disable CONFIG_SCSI_CHELSIO_FCOE
 scripts/config --enable CONFIG_SCSI_LOWLEVEL_PCMCIA
 scripts/config --disable CONFIG_PCMCIA_AHA152X
@@ -2814,14 +2814,14 @@ scripts/config --disable CONFIG_SATA_PMP
 #
 # Controllers with non-SFF native interface
 #
-scripts/config --disable CONFIG_SATA_AHCI
+scripts/config --enable CONFIG_SATA_AHCI
 scripts/config --set-val CONFIG_SATA_MOBILE_LPM_POLICY 3
 scripts/config --disable CONFIG_SATA_AHCI_PLATFORM
 scripts/config --disable CONFIG_AHCI_DWC
 scripts/config --disable CONFIG_SATA_INIC162X
 scripts/config --disable CONFIG_SATA_ACARD_AHCI
 scripts/config --disable CONFIG_SATA_SIL24
-scripts/config --disable CONFIG_ATA_SFF
+scripts/config --enable CONFIG_ATA_SFF
 
 #
 # SFF controllers with custom DMA interface
@@ -2829,12 +2829,12 @@ scripts/config --disable CONFIG_ATA_SFF
 scripts/config --disable CONFIG_PDC_ADMA
 scripts/config --disable CONFIG_SATA_QSTOR
 scripts/config --disable CONFIG_SATA_SX4
-scripts/config --disable CONFIG_ATA_BMDMA
+scripts/config --enable CONFIG_ATA_BMDMA
 
 #
 # SATA SFF controllers with BMDMA
 #
-scripts/config --disable CONFIG_ATA_PIIX
+scripts/config --enable CONFIG_ATA_PIIX
 scripts/config --disable CONFIG_SATA_DWC
 scripts/config --disable CONFIG_SATA_MV
 scripts/config --disable CONFIG_SATA_NV
@@ -2850,7 +2850,7 @@ scripts/config --disable CONFIG_SATA_VITESSE
 # PATA SFF controllers with BMDMA
 #
 scripts/config --disable CONFIG_PATA_ALI
-scripts/config --disable CONFIG_PATA_AMD
+scripts/config --enable CONFIG_PATA_AMD
 scripts/config --disable CONFIG_PATA_ARTOP
 scripts/config --disable CONFIG_PATA_ATIIXP
 scripts/config --disable CONFIG_PATA_ATP867X
@@ -2917,8 +2917,8 @@ scripts/config --disable CONFIG_PATA_PARPORT_ON26
 #
 # Generic fallback / legacy drivers
 #
-scripts/config --disable CONFIG_PATA_ACPI
-scripts/config --disable CONFIG_ATA_GENERIC
+scripts/config --enable CONFIG_PATA_ACPI
+scripts/config --enable CONFIG_ATA_GENERIC
 scripts/config --disable CONFIG_PATA_LEGACY
 scripts/config --enable CONFIG_MD
 scripts/config --enable CONFIG_BLK_DEV_MD
@@ -2987,9 +2987,9 @@ scripts/config --module CONFIG_ISCSI_TARGET_CXGB4
 scripts/config --module CONFIG_SBP_TARGET
 scripts/config --module CONFIG_REMOTE_TARGET
 scripts/config --enable CONFIG_FUSION
-scripts/config --module CONFIG_FUSION_SPI
+scripts/config --enable CONFIG_FUSION_SPI
 scripts/config --module CONFIG_FUSION_FC
-scripts/config --module CONFIG_FUSION_SAS
+scripts/config --enable CONFIG_FUSION_SAS
 scripts/config --set-val CONFIG_FUSION_MAX_SGE 128
 scripts/config --module CONFIG_FUSION_CTL
 scripts/config --module CONFIG_FUSION_LAN
@@ -4966,12 +4966,12 @@ scripts/config --module CONFIG_SEG_LED_GPIO
 scripts/config --module CONFIG_PANEL
 scripts/config --disable CONFIG_AGP
 scripts/config --disable CONFIG_VGA_SWITCHEROO
-scripts/config --disable CONFIG_DRM
+scripts/config --enable CONFIG_DRM
 
 #
 # Frame buffer Devices
 #
-scripts/config --disable CONFIG_FB
+scripts/config --enable CONFIG_FB
 # end of Frame buffer Devices
 
 #
@@ -5847,9 +5847,9 @@ scripts/config --enable CONFIG_RTC_LIB
 scripts/config --enable CONFIG_RTC_MC146818_LIB
 scripts/config --enable CONFIG_RTC_CLASS
 scripts/config --enable CONFIG_RTC_HCTOSYS
-scripts/config --set-val CONFIG_RTC_HCTOSYS_DEVICE "rtc0"
+scripts/config --set-str CONFIG_RTC_HCTOSYS_DEVICE "rtc0"
 scripts/config --enable CONFIG_RTC_SYSTOHC
-scripts/config --set-val CONFIG_RTC_SYSTOHC_DEVICE "rtc0"
+scripts/config --set-str CONFIG_RTC_SYSTOHC_DEVICE "rtc0"
 scripts/config --disable CONFIG_RTC_DEBUG
 scripts/config --enable CONFIG_RTC_NVMEM
 
@@ -6117,7 +6117,7 @@ scripts/config --enable CONFIG_VHOST_ENABLE_FORK_OWNER_CONTROL
 #
 # Microsoft Hyper-V guest support
 #
-scripts/config --module CONFIG_HYPERV
+scripts/config --enable CONFIG_HYPERV
 scripts/config --disable CONFIG_HYPERV_VTL_MODE
 scripts/config --enable CONFIG_HYPERV_TIMER
 scripts/config --module CONFIG_HYPERV_UTILS
@@ -6558,7 +6558,7 @@ scripts/config --enable CONFIG_INTEL_IOMMU
 scripts/config --enable CONFIG_INTEL_IOMMU_SVM
 scripts/config --enable CONFIG_INTEL_IOMMU_DEFAULT_ON
 scripts/config --enable CONFIG_INTEL_IOMMU_FLOPPY_WA
-scripts/config --enable CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON
+scripts/config --disable CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON
 scripts/config --enable CONFIG_INTEL_IOMMU_PERF_EVENTS
 scripts/config --module CONFIG_IOMMUFD
 scripts/config --enable CONFIG_IRQ_REMAP
@@ -7430,7 +7430,7 @@ scripts/config --disable CONFIG_USB4_DMA_TEST
 #
 scripts/config --disable CONFIG_ANDROID_BINDER_IPC
 scripts/config --disable CONFIG_ANDROID_BINDERFS
-scripts/config --set-val CONFIG_ANDROID_BINDER_DEVICES "binder,hwbinder,vndbinder"
+scripts/config --set-str CONFIG_ANDROID_BINDER_DEVICES "binder,hwbinder,vndbinder"
 scripts/config --disable CONFIG_ANDROID_BINDER_IPC_SELFTEST
 # end of Android
 
@@ -7559,7 +7559,7 @@ scripts/config --enable CONFIG_JFS_POSIX_ACL
 scripts/config --enable CONFIG_JFS_SECURITY
 scripts/config --disable CONFIG_JFS_DEBUG
 scripts/config --enable CONFIG_JFS_STATISTICS
-scripts/config --module CONFIG_XFS_FS
+scripts/config --enable CONFIG_XFS_FS
 scripts/config --enable CONFIG_XFS_SUPPORT_V4
 scripts/config --enable CONFIG_XFS_SUPPORT_ASCII_CI
 scripts/config --enable CONFIG_XFS_QUOTA
@@ -7576,7 +7576,7 @@ scripts/config --module CONFIG_OCFS2_FS_USERSPACE_CLUSTER
 scripts/config --enable CONFIG_OCFS2_FS_STATS
 scripts/config --enable CONFIG_OCFS2_DEBUG_MASKLOG
 scripts/config --disable CONFIG_OCFS2_DEBUG_FS
-scripts/config --module CONFIG_BTRFS_FS
+scripts/config --enable CONFIG_BTRFS_FS
 scripts/config --enable CONFIG_BTRFS_FS_POSIX_ACL
 scripts/config --disable CONFIG_BTRFS_FS_RUN_SANITY_TESTS
 scripts/config --disable CONFIG_BTRFS_DEBUG
@@ -7676,10 +7676,10 @@ scripts/config --enable CONFIG_FAT_FS
 scripts/config --module CONFIG_MSDOS_FS
 scripts/config --enable CONFIG_VFAT_FS
 scripts/config --set-val CONFIG_FAT_DEFAULT_CODEPAGE 437
-scripts/config --set-val CONFIG_FAT_DEFAULT_IOCHARSET "iso8859-1"
+scripts/config --set-str CONFIG_FAT_DEFAULT_IOCHARSET "iso8859-1"
 scripts/config --disable CONFIG_FAT_DEFAULT_UTF8
 scripts/config --module CONFIG_EXFAT_FS
-scripts/config --set-val CONFIG_EXFAT_DEFAULT_IOCHARSET "utf8"
+scripts/config --set-str CONFIG_EXFAT_DEFAULT_IOCHARSET "utf8"
 scripts/config --module CONFIG_NTFS3_FS
 scripts/config --disable CONFIG_NTFS3_64BIT_CLUSTER
 scripts/config --enable CONFIG_NTFS3_LZX_XPRESS
@@ -7794,7 +7794,7 @@ scripts/config --disable CONFIG_PSTORE_FTRACE
 scripts/config --module CONFIG_PSTORE_RAM
 scripts/config --module CONFIG_PSTORE_ZONE
 scripts/config --module CONFIG_PSTORE_BLK
-scripts/config --set-val CONFIG_PSTORE_BLK_BLKDEV ""
+scripts/config --set-str CONFIG_PSTORE_BLK_BLKDEV ""
 scripts/config --set-val CONFIG_PSTORE_BLK_KMSG_SIZE 64
 scripts/config --set-val CONFIG_PSTORE_BLK_MAX_REASON 2
 scripts/config --module CONFIG_SYSV_FS
@@ -7827,7 +7827,7 @@ scripts/config --enable CONFIG_NFS_V4_2
 scripts/config --module CONFIG_PNFS_FILE_LAYOUT
 scripts/config --module CONFIG_PNFS_BLOCK
 scripts/config --module CONFIG_PNFS_FLEXFILE_LAYOUT
-scripts/config --set-val CONFIG_NFS_V4_1_IMPLEMENTATION_ID_DOMAIN "kernel.org"
+scripts/config --set-str CONFIG_NFS_V4_1_IMPLEMENTATION_ID_DOMAIN "kernel.org"
 scripts/config --enable CONFIG_NFS_V4_1_MIGRATION
 scripts/config --enable CONFIG_NFS_V4_SECURITY_LABEL
 scripts/config --enable CONFIG_NFS_FSCACHE
@@ -7897,7 +7897,7 @@ scripts/config --enable CONFIG_9P_FSCACHE
 scripts/config --enable CONFIG_9P_FS_POSIX_ACL
 scripts/config --enable CONFIG_9P_FS_SECURITY
 scripts/config --enable CONFIG_NLS
-scripts/config --set-val CONFIG_NLS_DEFAULT "utf8"
+scripts/config --set-str CONFIG_NLS_DEFAULT "utf8"
 scripts/config --enable CONFIG_NLS_CODEPAGE_437
 scripts/config --module CONFIG_NLS_CODEPAGE_737
 scripts/config --module CONFIG_NLS_CODEPAGE_775
@@ -7998,8 +7998,8 @@ scripts/config --enable CONFIG_SECURITY_TOMOYO
 scripts/config --set-val CONFIG_SECURITY_TOMOYO_MAX_ACCEPT_ENTRY 2048
 scripts/config --set-val CONFIG_SECURITY_TOMOYO_MAX_AUDIT_LOG 1024
 scripts/config --disable CONFIG_SECURITY_TOMOYO_OMIT_USERSPACE_LOADER
-scripts/config --set-val CONFIG_SECURITY_TOMOYO_POLICY_LOADER "/sbin/tomoyo-init"
-scripts/config --set-val CONFIG_SECURITY_TOMOYO_ACTIVATION_TRIGGER "/sbin/init"
+scripts/config --set-str CONFIG_SECURITY_TOMOYO_POLICY_LOADER "/sbin/tomoyo-init"
+scripts/config --set-str CONFIG_SECURITY_TOMOYO_ACTIVATION_TRIGGER "/sbin/init"
 scripts/config --disable CONFIG_SECURITY_TOMOYO_INSECURE_BUILTIN_SETTING
 scripts/config --enable CONFIG_SECURITY_APPARMOR
 scripts/config --disable CONFIG_SECURITY_APPARMOR_DEBUG
@@ -8032,11 +8032,11 @@ scripts/config --set-val CONFIG_IMA_MEASURE_PCR_IDX 10
 scripts/config --enable CONFIG_IMA_LSM_RULES
 scripts/config --enable CONFIG_IMA_NG_TEMPLATE
 scripts/config --disable CONFIG_IMA_SIG_TEMPLATE
-scripts/config --set-val CONFIG_IMA_DEFAULT_TEMPLATE "ima-ng"
+scripts/config --set-str CONFIG_IMA_DEFAULT_TEMPLATE "ima-ng"
 scripts/config --disable CONFIG_IMA_DEFAULT_HASH_SHA1
 scripts/config --enable CONFIG_IMA_DEFAULT_HASH_SHA256
 scripts/config --disable CONFIG_IMA_DEFAULT_HASH_SHA512
-scripts/config --set-val CONFIG_IMA_DEFAULT_HASH "sha256"
+scripts/config --set-str CONFIG_IMA_DEFAULT_HASH "sha256"
 scripts/config --disable CONFIG_IMA_WRITE_POLICY
 scripts/config --disable CONFIG_IMA_READ_POLICY
 scripts/config --enable CONFIG_IMA_APPRAISE
@@ -8061,7 +8061,7 @@ scripts/config --disable CONFIG_DEFAULT_SECURITY_SMACK
 scripts/config --disable CONFIG_DEFAULT_SECURITY_TOMOYO
 scripts/config --enable CONFIG_DEFAULT_SECURITY_APPARMOR
 scripts/config --disable CONFIG_DEFAULT_SECURITY_DAC
-scripts/config --set-val CONFIG_LSM "landlock,lockdown,yama,integrity,apparmor"
+scripts/config --set-str CONFIG_LSM "landlock,lockdown,yama,integrity,apparmor"
 
 #
 # Kernel hardening options
@@ -8363,19 +8363,19 @@ scripts/config --disable CONFIG_FIPS_SIGNATURE_SELFTEST
 #
 # Certificates for signature checking
 #
-scripts/config --set-val CONFIG_MODULE_SIG_KEY "certs/signing_key.pem"
+scripts/config --set-str CONFIG_MODULE_SIG_KEY "certs/signing_key.pem"
 scripts/config --enable CONFIG_MODULE_SIG_KEY_TYPE_RSA
 scripts/config --disable CONFIG_MODULE_SIG_KEY_TYPE_ECDSA
 scripts/config --enable CONFIG_SYSTEM_TRUSTED_KEYRING
-scripts/config --set-val CONFIG_SYSTEM_TRUSTED_KEYS ""
+scripts/config --set-str CONFIG_SYSTEM_TRUSTED_KEYS ""
 scripts/config --enable CONFIG_SYSTEM_EXTRA_CERTIFICATE
 scripts/config --set-val CONFIG_SYSTEM_EXTRA_CERTIFICATE_SIZE 4096
 scripts/config --enable CONFIG_SECONDARY_TRUSTED_KEYRING
 scripts/config --disable CONFIG_SECONDARY_TRUSTED_KEYRING_SIGNED_BY_BUILTIN
 scripts/config --enable CONFIG_SYSTEM_BLACKLIST_KEYRING
-scripts/config --set-val CONFIG_SYSTEM_BLACKLIST_HASH_LIST ""
+scripts/config --set-str CONFIG_SYSTEM_BLACKLIST_HASH_LIST ""
 scripts/config --enable CONFIG_SYSTEM_REVOCATION_LIST
-scripts/config --set-val CONFIG_SYSTEM_REVOCATION_KEYS ""
+scripts/config --set-str CONFIG_SYSTEM_REVOCATION_KEYS ""
 scripts/config --disable CONFIG_SYSTEM_BLACKLIST_AUTH_UPDATE
 # end of Certificates for signature checking
 
@@ -8601,7 +8601,7 @@ scripts/config --disable CONFIG_DEBUG_FORCE_WEAK_PER_CPU
 scripts/config --enable CONFIG_MAGIC_SYSRQ
 scripts/config --set-val CONFIG_MAGIC_SYSRQ_DEFAULT_ENABLE 0x01b6
 scripts/config --enable CONFIG_MAGIC_SYSRQ_SERIAL
-scripts/config --set-val CONFIG_MAGIC_SYSRQ_SERIAL_SEQUENCE ""
+scripts/config --set-str CONFIG_MAGIC_SYSRQ_SERIAL_SEQUENCE ""
 scripts/config --enable CONFIG_DEBUG_FS
 scripts/config --enable CONFIG_DEBUG_FS_ALLOW_ALL
 scripts/config --disable CONFIG_DEBUG_FS_DISALLOW_MOUNT
@@ -8948,3 +8948,10 @@ scripts/config --disable CONFIG_HYPERV_TESTING
 #
 # end of Rust hacking
 # end of Kernel hacking
+
+# ---- 补齐原文件未列出的通用虚拟机启动依赖 ----
+scripts/config --enable CONFIG_HYPERV_CONSOLE
+scripts/config --enable CONFIG_IKCONFIG_PROC
+scripts/config --enable CONFIG_DRM_SIMPLEDRM
+scripts/config --enable CONFIG_FB_EFI
+scripts/config --enable CONFIG_FRAMEBUFFER_CONSOLE
