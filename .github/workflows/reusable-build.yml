@@ -1,0 +1,120 @@
+name: Reusable XanMod build
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+      profile:
+        required: true
+        type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DEB_BUILD_OPTIONS: nocheck
+      KERNEL_LOCALVERSION: -cloud-${{ inputs.profile }}
+      KBUILD_BUILD_USER: actions-kernel
+      KBUILD_BUILD_HOST: github-actions
+      LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld
+      KCFLAGS_OPT: -O3 -ffunction-sections -fdata-sections -ffunction-sections -fomit-frame-pointer -Wno-error
+      LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
+    steps:
+      - name: Checkout build scripts
+        uses: actions/checkout@v6
+      - name: Free runner disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h
+      - name: Show runner information and set timezone
+        run: |
+          echo -e "Total CPU cores\t: $(nproc)"
+          cat /proc/cpuinfo
+          cat /proc/meminfo
+          sudo timedatectl set-timezone Asia/Shanghai
+      - name: Install LLVM/Clang 23
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends wget lsb-release gnupg ca-certificates
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 23 all
+          echo "/usr/lib/llvm-23/bin" >> "$GITHUB_PATH"
+      - name: Install kernel build dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential bc bison flex libssl-dev libelf-dev libncurses-dev \
+            libdw-dev debhelper debhelper-compat dpkg-dev devscripts linux-libc-dev \
+            linux-firmware curl wget dwarves pahole fakeroot git pkg-config perl \
+            rsync xz-utils zstd binutils cpio initramfs-tools jq
+      - name: Fetch XanMod source
+        env:
+          VERSION: ${{ inputs.version }}
+        run: git clone --depth=1 --branch "$VERSION" https://gitlab.com/xanmod/linux.git kernel
+      - name: Apply major-version and CPU profile config
+        env:
+          VERSION: ${{ inputs.version }}
+          PROFILE: ${{ inputs.profile }}
+        run: |
+          major="${VERSION%%.*}"
+          case "$major" in 6|7) ;; *) echo "No config supported for kernel major $major" >&2; exit 1 ;; esac
+          [[ -f "config/${major}.x/config.sh" ]] || { echo "Missing config for ${major}.x" >&2; exit 1; }
+          [[ "$PROFILE" =~ ^v[23]-(intel|amd)$ ]] || { echo "Invalid CPU profile: $PROFILE" >&2; exit 1; }
+          cd kernel
+          if [[ "$VERSION" == 6.12 ]]; then
+            cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
+          else
+            cp CONFIGS/x86_64/config .config
+          fi
+          chmod +x ../config/${major}.x/config.sh ../config/cpu/apply.sh
+          ../config/${major}.x/config.sh
+          level="${PROFILE%%-*}"
+          vendor="${PROFILE#*-}"
+          ../config/cpu/apply.sh "$level" "$vendor"
+          make ${LLVM_ARGS} olddefconfig
+          mkdir -p ../artifacts
+          cp .config "../artifacts/config-${VERSION}-${PROFILE}-${GITHUB_RUN_ID}"
+      - name: Build kernel and prepare modules
+        run: |
+          cd kernel
+          make -j"$(nproc)" ${LLVM_ARGS} \
+            vmlinux modules_prepare \
+            KCFLAGS="${KCFLAGS_ARCH} ${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
+      - name: Build Debian packages
+        run: |
+          cd kernel
+          KDEB_COMPRESS=xz make -j"$(nproc)" ${LLVM_ARGS} \
+            bindeb-pkg LOCALVERSION="${KERNEL_LOCALVERSION}" \
+            KCFLAGS="${KCFLAGS_ARCH} ${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
+      - name: Collect packages
+        env:
+          VERSION: ${{ inputs.version }}
+          PROFILE: ${{ inputs.profile }}
+        run: |
+          mv kernel/linux-image-*.deb artifacts/
+          mv kernel/linux-headers-*.deb artifacts/
+          printf 'XanMod %s\nProfile: %s\nLLVM/Clang: 23.1.0\nKCFLAGS: %s %s\nLDFLAGS: %s\n' \
+            "$VERSION" "$PROFILE" "$KCFLAGS_ARCH" "$KCFLAGS_OPT" "$LDFLAGS_OPT" > release_body.txt
+      - name: Publish release
+        uses: softprops/action-gh-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: xanmod-cloud-${{ inputs.version }}-${{ inputs.profile }}-${{ github.run_id }}
+          name: XanMod Cloud ${{ inputs.version }} ${{ inputs.profile }}
+          body_path: release_body.txt
+          files: artifacts/*
+          overwrite_files: true
