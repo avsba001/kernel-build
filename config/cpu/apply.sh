@@ -3,33 +3,51 @@ set -euo pipefail
 
 level="${1:?usage: apply.sh <v2|v3> <intel|amd>}"
 vendor="${2:?usage: apply.sh <v2|v3> <intel|amd>}"
-
 case "$level" in
   v2) version=2; march=x86-64-v2 ;;
   v3) version=3; march=x86-64-v3 ;;
   *) echo "Unsupported ISA level: $level" >&2; exit 2 ;;
 esac
-
 case "$vendor" in
-  intel|amd) tune=generic ;;
+  intel|amd) ;;
   *) echo "Unsupported CPU vendor: $vendor" >&2; exit 2 ;;
 esac
 
-for option in \
-  CONFIG_MK8 CONFIG_MK8SSE3 CONFIG_MK10 CONFIG_MBARCELONA CONFIG_MBOBCAT \
-  CONFIG_MJAGUAR CONFIG_MBULLDOZER CONFIG_MPILEDRIVER CONFIG_MSTEAMROLLER \
-  CONFIG_MEXCAVATOR CONFIG_MZEN CONFIG_MZEN2 CONFIG_MZEN3 CONFIG_MZEN4 \
-  CONFIG_MZEN5 CONFIG_MPSC CONFIG_MATOM CONFIG_MCORE2 CONFIG_MNEHALEM \
-  CONFIG_MWESTMERE CONFIG_MSILVERMONT CONFIG_MGOLDMONT CONFIG_MGOLDMONTPLUS \
-  CONFIG_MSANDYBRIDGE CONFIG_MIVYBRIDGE CONFIG_MHASWELL CONFIG_MBROADWELL \
-  CONFIG_MSKYLAKE CONFIG_MSKYLAKEX CONFIG_MCANNONLAKE CONFIG_MICELAKE \
-  CONFIG_MCASCADELAKE CONFIG_MCOOPERLAKE CONFIG_MTIGERLAKE CONFIG_MSAPPHIRERAPIDS \
-  CONFIG_MROCKETLAKE CONFIG_MALDERLAKE CONFIG_MRAPTORLAKE CONFIG_MMETEORLAKE \
-  CONFIG_MEMERALDRAPIDS CONFIG_MNATIVE_INTEL CONFIG_MNATIVE_AMD; do
-  scripts/config --disable "$option"
-done
+# Processor family is a Kconfig choice. Retain the ISA baseline instead of
+# selecting a model-specific -march (MZEN, MHASWELL, or a native target).
+while IFS= read -r option; do
+  scripts/config --disable "CONFIG_$option"
+done < <(sed -nE 's/^config (M[A-Z0-9_]+)$/\1/p' arch/x86/Kconfig.cpu)
 scripts/config --enable CONFIG_GENERIC_CPU
 scripts/config --set-val CONFIG_X86_64_VERSION "$version"
 
-printf 'CPU_PROFILE=%s-%s\n' "$level" "$vendor" >> "$GITHUB_ENV"
-printf 'KCFLAGS_ARCH=-march=%s -mtune=%s\n' "$march" "$tune" >> "$GITHUB_ENV"
+# CPU vendor support is distinct from PCI device vendor support: keep network,
+# storage and other peripheral drivers from the major-version baseline.
+scripts/config --enable CONFIG_EXPERT
+scripts/config --enable CONFIG_PROCESSOR_SELECT
+scripts/config --disable CONFIG_CPU_SUP_HYGON
+scripts/config --disable CONFIG_CPU_SUP_CENTAUR
+scripts/config --disable CONFIG_CPU_SUP_ZHAOXIN
+if [[ "$vendor" == intel ]]; then
+  scripts/config --enable CONFIG_CPU_SUP_INTEL
+  scripts/config --disable CONFIG_CPU_SUP_AMD
+  scripts/config --disable CONFIG_AMD_NUMA
+  scripts/config --disable CONFIG_KVM_AMD
+  scripts/config --disable CONFIG_KVM_AMD_SEV
+  scripts/config --module CONFIG_KVM_INTEL
+  scripts/config --enable CONFIG_INTEL_IOMMU
+  scripts/config --enable CONFIG_INTEL_IOMMU_SVM
+else
+  scripts/config --enable CONFIG_CPU_SUP_AMD
+  scripts/config --disable CONFIG_CPU_SUP_INTEL
+  scripts/config --enable CONFIG_AMD_NUMA
+  scripts/config --disable CONFIG_KVM_INTEL
+  scripts/config --module CONFIG_KVM_AMD
+  scripts/config --enable CONFIG_AMD_IOMMU
+  # Keep SEV opt-in: it requires memory-encryption support and firmware setup.
+fi
+
+if [[ -n "${GITHUB_ENV:-}" ]]; then
+  printf 'CPU_PROFILE=%s-%s\n' "$level" "$vendor" >> "$GITHUB_ENV"
+  printf 'KCFLAGS_ARCH=-march=%s -mtune=generic\n' "$march" >> "$GITHUB_ENV"
+fi

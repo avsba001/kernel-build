@@ -9,10 +9,6 @@ on:
       profile:
         required: true
         type: string
-    secrets:
-      GITHUB_TOKEN:
-        required: true
-
 permissions:
   contents: write
 
@@ -83,6 +79,13 @@ jobs:
           vendor="${PROFILE#*-}"
           ../config/cpu/apply.sh "$level" "$vendor"
           make ${LLVM_ARGS} olddefconfig
+          expected_vendor="CONFIG_CPU_SUP_${vendor^^}=y"
+          other_vendor=INTEL
+          [[ "$vendor" == intel ]] && other_vendor=AMD
+          grep -qx "$expected_vendor" .config || { echo "Selected CPU vendor support missing: $expected_vendor" >&2; exit 1; }
+          grep -qx "# CONFIG_CPU_SUP_${other_vendor} is not set" .config || { echo "Unexpected other-vendor CPU support remains enabled" >&2; exit 1; }
+          grep -qx "CONFIG_GENERIC_CPU=y" .config || { echo "Generic CPU baseline was not retained" >&2; exit 1; }
+          grep -qx "CONFIG_X86_64_VERSION=$([[ "$level" == v2 ]] && echo 2 || echo 3)" .config || { echo "ISA baseline mismatch" >&2; exit 1; }
           mkdir -p ../artifacts
           cp .config "../artifacts/config-${VERSION}-${PROFILE}-${GITHUB_RUN_ID}"
       - name: Build kernel and prepare modules
@@ -111,7 +114,7 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           tag_name: xanmod-cloud-${{ inputs.version }}-${{ inputs.profile }}-${{ github.run_id }}
           name: XanMod Cloud ${{ inputs.version }} ${{ inputs.profile }}
