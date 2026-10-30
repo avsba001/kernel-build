@@ -14,6 +14,7 @@
 - 支持 XanMod **6.18 及以上 6.x、7.x** 分支，每月 1 日自动构建。
 - **6.x、7.x 独立配置**，新增内核大版本需补充对应配置。
 - **v2/v3 指令集基线 + Intel/AMD 厂商配置**，不绑定具体 CPU 型号。
+- 面向无 GPU 的 VPS 虚拟机，保留常见 VGA、QXL、VMware SVGA、Cirrus 虚拟显示与 framebuffer 控制台，禁用 virtio-gpu 和物理 GPU 驱动。
 - 使用 **LLVM/Clang 23、O3、Full LTO**，默认 **BBR + fq**。
 
 ## 一键检测安装

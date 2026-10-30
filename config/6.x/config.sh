@@ -4964,21 +4964,21 @@ scripts/config --module CONFIG_SEG_LED_GPIO
 scripts/config --module CONFIG_PANEL
 scripts/config --disable CONFIG_AGP
 scripts/config --disable CONFIG_VGA_SWITCHEROO
-scripts/config --disable CONFIG_DRM
+scripts/config --enable CONFIG_DRM
 
 #
 # Frame buffer Devices
 #
-scripts/config --disable CONFIG_FB
+scripts/config --enable CONFIG_FB
 # end of Frame buffer Devices
 
 #
 # Backlight & LCD device support
 #
 scripts/config --disable CONFIG_LCD_CLASS_DEVICE
-scripts/config --module CONFIG_BACKLIGHT_CLASS_DEVICE
+scripts/config --disable CONFIG_BACKLIGHT_CLASS_DEVICE
 scripts/config --disable CONFIG_BACKLIGHT_KTD253
-scripts/config --module CONFIG_BACKLIGHT_KTD2801
+scripts/config --disable CONFIG_BACKLIGHT_KTD2801
 scripts/config --disable CONFIG_BACKLIGHT_KTZ8866
 scripts/config --disable CONFIG_BACKLIGHT_PWM
 scripts/config --disable CONFIG_BACKLIGHT_DA903X
@@ -8946,3 +8946,13 @@ scripts/config --disable CONFIG_HYPERV_TESTING
 #
 # end of Rust hacking
 # end of Kernel hacking
+scripts/config --disable CONFIG_DRM_VIRTIO_GPU
+scripts/config --module CONFIG_DRM_CIRRUS_QEMU
+scripts/config --module CONFIG_FB_VESA
+scripts/config --module CONFIG_FB_CIRRUS
+scripts/config --module CONFIG_FB_VGA16
+scripts/config --module CONFIG_DRM_BOCHS
+scripts/config --module CONFIG_DRM_VMWGFX
+scripts/config --module CONFIG_DRM_QXL
+scripts/config --enable CONFIG_DRM_SIMPLEDRM
+scripts/config --enable CONFIG_FB_EFI
