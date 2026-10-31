@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       versions:
-        description: '内核版本（JSON 数组，例如 ["7.3"]）；填写 [] 自动发现所有支持的分支'
+        description: '内核版本（JSON 数组，例如 ["7.2"]）；填写 [] 构建 6.12、6.18、7.0、7.1、7.2'
         required: false
         default: '[]'
         type: string
@@ -28,12 +28,13 @@ jobs:
     steps:
       - name: 检出仓库
         uses: actions/checkout@v6
-      - name: 发现受支持的 XanMod 分支
+      - name: 检查五个固定 XanMod 分支
         id: discover
         if: github.event_name == 'schedule' || inputs.versions == '[]' || inputs.versions == ''
         run: |
           chmod +x scripts/discover-versions.sh
-          echo "versions=$(scripts/discover-versions.sh)" >> "$GITHUB_OUTPUT"
+          versions="$(scripts/discover-versions.sh)"
+          echo "versions=$versions" >> "$GITHUB_OUTPUT"
       - name: 生成构建矩阵
         id: matrix
         env:

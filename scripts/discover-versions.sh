@@ -2,19 +2,24 @@
 set -euo pipefail
 
 repo="${XANMOD_REPO:-https://gitlab.com/xanmod/linux.git}"
-branches="$(git ls-remote --heads "$repo" | awk '{sub("refs/heads/", "", $2); print $2}' | grep -E '^(6\.(18|19|[2-9][0-9]+)|7\.[0-9]+)$' | sort -Vu)"
+# Monthly builds intentionally use this fixed list. Do not auto-discover every
+# new XanMod branch; add a version here only after its config is reviewed.
+supported_versions=(6.12 6.18 7.0 7.1 7.2)
 
-if [[ -z "$branches" ]]; then
-  echo "No supported XanMod branches found" >&2
-  exit 1
-fi
+branches=()
+for version in "${supported_versions[@]}"; do
+  if ! git ls-remote --exit-code --heads "$repo" "refs/heads/$version" >/dev/null 2>&1; then
+    echo "Required XanMod branch is unavailable: ${version}" >&2
+    exit 1
+  fi
 
-for version in $branches; do
   major="${version%%.*}"
   if [[ ! -f "config/${major}.x/config.sh" ]]; then
     echo "Missing config/${major}.x/config.sh for XanMod ${version}" >&2
     exit 1
   fi
+
+  branches+=("$version")
 done
 
-printf '%s\n' "$branches" | jq -Rsc 'split("\n") | map(select(length > 0))'
+printf '%s\n' "${branches[@]}" | jq -Rsc 'split("\n") | map(select(length > 0))'
