@@ -1,0 +1,189 @@
+name: 复用构建 XanMod 内核
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+      profile:
+        required: true
+        type: string
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: 构建 Debian 内核软件包
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      DEB_BUILD_OPTIONS: nocheck
+      KERNEL_LOCALVERSION: -cloud-${{ inputs.profile }}
+      KBUILD_BUILD_USER: actions-kernel
+      KBUILD_BUILD_HOST: github-actions
+      LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang
+      BUILD_JOBS: '1'
+      LTO_JOBS: '1'
+      KCFLAGS_OPT: -O3 -ffunction-sections -fdata-sections -fomit-frame-pointer -Wno-error
+      LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
+    steps:
+      - name: 检出构建脚本
+        uses: actions/checkout@v6
+      - name: 清理 Runner 磁盘空间
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h
+      - name: 显示 Runner 信息并设置时区
+        run: |
+          echo -e "Total CPU cores\t: $(nproc)"
+          cat /proc/cpuinfo
+          cat /proc/meminfo
+          sudo timedatectl set-timezone Asia/Shanghai
+      - name: 为链接阶段准备交换空间
+        run: |
+          # Ensure at least 8 GiB of swap; keep the runner's existing swap active.
+          swap_kib=$(awk '/^SwapTotal:/ {print $2}' /proc/meminfo)
+          target_kib=$((8 * 1024 * 1024))
+          if (( swap_kib < target_kib )); then
+            missing_mib=$(( (target_kib - swap_kib + 1023) / 1024 ))
+            available_kib=$(df --output=avail / | awk 'NR == 2 {print $1}')
+            if (( available_kib < missing_mib * 1024 + 12 * 1024 * 1024 )); then
+              echo '磁盘空间不足：无法在保留 12 GiB 空闲空间的同时配置 swap。' >&2
+              df -h
+              exit 1
+            fi
+            sudo fallocate -l "${missing_mib}M" /swapfile-kernel-build
+            sudo chmod 600 /swapfile-kernel-build
+            sudo mkswap /swapfile-kernel-build
+            sudo swapon /swapfile-kernel-build
+          fi
+          free -h
+          swapon --show
+          df -h
+      - name: 安装 LLVM/Clang 23
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends wget lsb-release gnupg ca-certificates
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 23 all
+          echo "/usr/lib/llvm-23/bin" >> "$GITHUB_PATH"
+      - name: 安装内核构建依赖
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential bc bison flex libssl-dev libelf-dev libncurses-dev \
+            libdw-dev debhelper debhelper-compat dpkg-dev devscripts linux-libc-dev \
+            linux-firmware curl wget dwarves pahole fakeroot git pkg-config perl \
+            rsync xz-utils zstd binutils cpio initramfs-tools jq time
+      - name: 获取 XanMod 内核源码
+        env:
+          VERSION: ${{ inputs.version }}
+        run: git clone --depth=1 --branch "$VERSION" https://gitlab.com/xanmod/linux.git kernel
+      - name: 应用大版本配置与 CPU profile
+        env:
+          VERSION: ${{ inputs.version }}
+          PROFILE: ${{ inputs.profile }}
+        run: |
+          major="${VERSION%%.*}"
+          case "$major" in 6|7) ;; *) echo "No config supported for kernel major $major" >&2; exit 1 ;; esac
+          [[ -f "config/${major}.x/config.sh" ]] || { echo "Missing config for ${major}.x" >&2; exit 1; }
+          [[ "$PROFILE" =~ ^v[23]-(intel|amd)$ ]] || { echo "Invalid CPU profile: $PROFILE" >&2; exit 1; }
+          cd kernel
+          if [[ "$VERSION" == 6.12 ]]; then
+            cp CONFIGS/xanmod/gcc/config_x86-64-v3 .config
+          else
+            cp CONFIGS/x86_64/config .config
+          fi
+          chmod +x ../config/${major}.x/config.sh ../config/cpu/apply.sh
+          ../config/${major}.x/config.sh
+          level="${PROFILE%%-*}"
+          vendor="${PROFILE#*-}"
+          ../config/cpu/apply.sh "$level" "$vendor"
+          make ${LLVM_ARGS} LD=ld.lld olddefconfig
+          grep -qx 'CONFIG_LTO_CLANG_FULL=y' .config || { echo '未启用 Full LTO' >&2; exit 1; }
+          grep -qx '# CONFIG_LTO_CLANG_THIN is not set' .config || { echo '不应启用 ThinLTO' >&2; exit 1; }
+          expected_vendor="CONFIG_CPU_SUP_${vendor^^}=y"
+          other_vendor=INTEL
+          [[ "$vendor" == intel ]] && other_vendor=AMD
+          grep -qx "$expected_vendor" .config || { echo "Selected CPU vendor support missing: $expected_vendor" >&2; exit 1; }
+          grep -qx "# CONFIG_CPU_SUP_${other_vendor} is not set" .config || { echo "Unexpected other-vendor CPU support remains enabled" >&2; exit 1; }
+          grep -qx "CONFIG_GENERIC_CPU=y" .config || { echo "Generic CPU baseline was not retained" >&2; exit 1; }
+          grep -qx "CONFIG_X86_64_VERSION=$([[ "$level" == v2 ]] && echo 2 || echo 3)" .config || { echo "ISA baseline mismatch" >&2; exit 1; }
+          grep -qx '# CONFIG_DRM is not set' .config || { echo 'DRM 驱动未完全禁用' >&2; exit 1; }
+          for symbol in FB FB_VESA FB_EFI VGA_CONSOLE FRAMEBUFFER_CONSOLE; do
+            grep -qx "CONFIG_${symbol}=y\|CONFIG_${symbol}=m" .config || { echo "显示控制台选项未启用：CONFIG_${symbol}" >&2; exit 1; }
+          done
+          for key in CONFIG_FB_CIRRUS CONFIG_FB_VGA16; do
+            if grep -qE "^${key}=" .config; then
+              grep -qE "^${key}=[ym]$" .config || { echo "虚拟显示适配器选项异常：$key" >&2; exit 1; }
+            fi
+          done
+          for symbol in USB_GADGET USBIP_CORE USB_STORAGE USB_UAS USB_SERIAL USB_PRINTER COMEDI IIO MMC MEMSTICK INFINIBAND FTRACE FUNCTION_TRACER FUNCTION_GRAPH_TRACER DYNAMIC_DEBUG DYNAMIC_DEBUG_CORE KPROBES UPROBES BPF_EVENTS KFENCE PAGE_POISONING SCHEDSTATS THERMAL_CORE_TESTING; do
+            if grep -qE "^CONFIG_${symbol}=[ym]$" .config; then
+              echo "VPS 裁剪选项被重新启用：CONFIG_${symbol}" >&2
+              exit 1
+            fi
+          done
+          if grep -E '^CONFIG_(TEST_.*|.*_KUNIT_TEST.*|KUNIT.*)=[ym]$' .config; then
+            echo '不应启用内核测试模块' >&2
+            exit 1
+          fi
+          for symbol in USB USB_XHCI_HCD USB_XHCI_PCI HID HID_GENERIC USB_HID INPUT_EVDEV BPF BPF_SYSCALL DEBUG_INFO_BTF; do
+            grep -qx "CONFIG_${symbol}=y" .config || { echo "基础支持缺失：CONFIG_${symbol}" >&2; exit 1; }
+          done
+          mkdir -p ../artifacts
+          cp .config "../artifacts/config-${VERSION}-${PROFILE}-${GITHUB_RUN_ID}"
+      - name: 编译内核并构建 Debian 软件包
+        run: |
+          cd kernel
+          # bindeb-pkg builds the kernel and modules itself. Use the same
+          # LOCALVERSION throughout to avoid rebuilding an initial vmlinux.
+          # LD is invoked directly by Kbuild, so pass raw lld options here.
+          KDEB_COMPRESS=xz /usr/bin/time -v make -j"${BUILD_JOBS}" ${LLVM_ARGS} \
+            LD="ld.lld --threads=${LTO_JOBS} --lto-partitions=${LTO_JOBS}" \
+            bindeb-pkg LOCALVERSION="${KERNEL_LOCALVERSION}" \
+            KCFLAGS="${KCFLAGS_ARCH} ${KCFLAGS_OPT}" \
+            LDFLAGS="${LDFLAGS_OPT}"
+      - name: 构建失败时显示资源诊断
+        if: ${{ failure() }}
+        run: |
+          free -h
+          swapon --show
+          df -h
+          for counter in /sys/fs/cgroup/memory.events /sys/fs/cgroup/memory.peak; do
+            if [[ -r "$counter" ]]; then
+              echo "=== $counter ==="
+              cat "$counter"
+            fi
+          done
+          sudo dmesg --ctime | grep -Ei 'out of memory|oom|killed process' || true
+      - name: 收集构建产物
+        env:
+          VERSION: ${{ inputs.version }}
+          PROFILE: ${{ inputs.profile }}
+        run: |
+          mapfile -d '' image_packages < <(find "$GITHUB_WORKSPACE" -type f -name 'linux-image-*.deb' -print0)
+          mapfile -d '' header_packages < <(find "$GITHUB_WORKSPACE" -type f -name 'linux-headers-*.deb' -print0)
+          if (( ${#image_packages[@]} == 0 || ${#header_packages[@]} == 0 )); then
+            echo "未找到完整的 image/headers Debian 软件包。搜索到的 .deb 文件：" >&2
+            find "$GITHUB_WORKSPACE" -type f -name '*.deb' -print >&2
+            exit 1
+          fi
+          mv -- "${image_packages[@]}" artifacts/
+          mv -- "${header_packages[@]}" artifacts/
+          printf 'XanMod %s\nProfile: %s\nLLVM/Clang: 23.1.0\nLTO: Full LTO\nKCFLAGS: %s %s\nLDFLAGS: %s\n' \
+            "$VERSION" "$PROFILE" "$KCFLAGS_ARCH" "$KCFLAGS_OPT" "$LDFLAGS_OPT" > release_body.txt
+      - name: 发布 GitHub Release
+        uses: softprops/action-gh-release@master
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag_name: xanmod-cloud-${{ inputs.version }}-${{ inputs.profile }}-${{ github.run_id }}
+          name: XanMod Cloud ${{ inputs.version }} ${{ inputs.profile }}
+          body_path: release_body.txt
+          files: artifacts/*
+          overwrite_files: true

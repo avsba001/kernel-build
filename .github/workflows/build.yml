@@ -1,0 +1,74 @@
+name: XanMod 内核矩阵构建
+
+on:
+  workflow_dispatch:
+    inputs:
+      versions:
+        description: '内核版本（JSON 数组，例如 ["7.2"]）；填写 [] 构建 6.12、6.18、7.0、7.1、7.2'
+        required: false
+        default: '[]'
+        type: string
+      profiles:
+        description: 'CPU 配置组合（JSON 数组，可选 v2-intel、v2-amd、v3-intel、v3-amd）'
+        required: false
+        default: '["v2-intel","v2-amd","v3-intel","v3-amd"]'
+        type: string
+  schedule:
+    - cron: '23 3 1 * *'
+
+permissions:
+  contents: write
+
+jobs:
+  matrix:
+    name: 生成版本与配置矩阵
+    runs-on: ubuntu-latest
+    outputs:
+      include: ${{ steps.matrix.outputs.include }}
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v6
+      - name: 检查五个固定 XanMod 分支
+        id: discover
+        if: github.event_name == 'schedule' || inputs.versions == '[]' || inputs.versions == ''
+        run: |
+          chmod +x scripts/discover-versions.sh
+          versions="$(scripts/discover-versions.sh)"
+          echo "versions=$versions" >> "$GITHUB_OUTPUT"
+      - name: 生成构建矩阵
+        id: matrix
+        env:
+          INPUT_VERSIONS: ${{ inputs.versions }}
+          INPUT_PROFILES: ${{ inputs.profiles }}
+          DISCOVERED: ${{ steps.discover.outputs.versions }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          versions="$INPUT_VERSIONS"
+          if [[ "$EVENT_NAME" == schedule || -z "$versions" || "$versions" == '[]' ]]; then
+            versions="$DISCOVERED"
+          fi
+          profiles="$INPUT_PROFILES"
+          if [[ -z "$profiles" || "$profiles" == '[]' ]]; then
+            profiles='["v2-intel","v2-amd","v3-intel","v3-amd"]'
+          fi
+          chmod +x scripts/validate-inputs.sh
+          scripts/validate-inputs.sh "$versions" "$profiles"
+          jq -cn --argjson versions "$versions" --argjson profiles "$profiles" '
+            [$versions[] as $version | $profiles[] as $profile |
+              {version:$version, profile:$profile}]
+          ' | tee matrix.json
+          echo "include=$(cat matrix.json)" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: 内核 ${{ matrix.version }} · 配置 ${{ matrix.profile }}
+    needs: matrix
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include: ${{ fromJSON(needs.matrix.outputs.include) }}
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      version: ${{ matrix.version }}
+      profile: ${{ matrix.profile }}
+    secrets: inherit

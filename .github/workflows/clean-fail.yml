@@ -1,0 +1,19 @@
+name: 删除多余工作流
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *'  # 每天 03:17 UTC（北京时间 11:17）
+jobs:
+  del_runs:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: 删除多余的工作流运行记录
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 3
+          keep_minimum_runs: 3
