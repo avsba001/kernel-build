@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 3 * * 0'  # 每周日 03:00 UTC（约北京时间周日 11:00）
-    
+
 permissions:
   contents: write
 
@@ -16,12 +16,12 @@ jobs:
       - name: 按内核版本与配置组合清理旧发布
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
         run: |
           KEEP=2
 
-          gh api repos/${{ github.repository }}/releases --paginate > releases.json
+          gh api "repos/${REPOSITORY}/releases" --paginate > releases.json
 
-          # 提取分组：6.12-v2 / 7.1-v3
           jq -r '
             .[] |
             {
@@ -34,11 +34,8 @@ jobs:
             }
           ' releases.json > parsed.json
 
-          # 获取所有 group
-          jq -r '.group' parsed.json | sort -u | while read GROUP; do
-            echo "========================="
-            echo "Group: $GROUP"
-            echo "========================="
+          jq -r '.group' parsed.json | sort -u | while read -r GROUP; do
+            echo "清理分组：$GROUP"
 
             jq -r --arg g "$GROUP" '
               select(.group == $g)
@@ -47,9 +44,33 @@ jobs:
             ' parsed.json \
             | sort -r \
             | tail -n +$((KEEP+1)) \
-            | while IFS=$'\t' read -r CREATED TAG
-            do
-              echo "Deleting $TAG"
-              gh release delete "$TAG" -R "${{ github.repository }}" --cleanup-tag -y
+            | while IFS=$'\t' read -r CREATED TAG; do
+              [[ -n "$TAG" ]] || continue
+              echo "删除旧 Release：$TAG"
+              gh release delete "$TAG" -R "$REPOSITORY" --cleanup-tag -y
             done
+          done
+
+      - name: 清理没有对应 Release 的旧构建 tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          mapfile -t release_tags < <(
+            gh api --paginate "repos/${REPOSITORY}/releases" --jq '.[].tag_name' | sort -u
+          )
+          mapfile -t build_tags < <(
+            gh api --paginate "repos/${REPOSITORY}/git/matching-refs/tags/xanmod-cloud-" \
+              --jq '.[].ref | sub("^refs/tags/"; "")'
+          )
+
+          for tag in "${build_tags[@]}"; do
+            [[ -n "$tag" ]] || continue
+            if printf '%s\n' "${release_tags[@]}" | grep -Fxq -- "$tag"; then
+              echo "保留有对应 Release 的 tag：$tag"
+              continue
+            fi
+
+            echo "删除无对应 Release 的旧 tag：$tag"
+            gh api --method DELETE "repos/${REPOSITORY}/git/refs/tags/${tag}"
           done
