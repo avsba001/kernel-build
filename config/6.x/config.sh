@@ -3685,7 +3685,7 @@ scripts/config --disable CONFIG_KEYBOARD_ADP5520
 scripts/config --disable CONFIG_KEYBOARD_ADP5588
 scripts/config --disable CONFIG_KEYBOARD_ADP5589
 scripts/config --disable CONFIG_KEYBOARD_APPLESPI
-scripts/config --disable CONFIG_KEYBOARD_ATKBD
+scripts/config --enable CONFIG_KEYBOARD_ATKBD
 scripts/config --disable CONFIG_KEYBOARD_QT1050
 scripts/config --disable CONFIG_KEYBOARD_QT1070
 scripts/config --disable CONFIG_KEYBOARD_QT2160
@@ -3713,7 +3713,7 @@ scripts/config --disable CONFIG_KEYBOARD_CROS_EC
 scripts/config --disable CONFIG_KEYBOARD_MTK_PMIC
 scripts/config --disable CONFIG_KEYBOARD_CYPRESS_SF
 scripts/config --enable CONFIG_INPUT_MOUSE
-scripts/config --disable CONFIG_MOUSE_PS2
+scripts/config --enable CONFIG_MOUSE_PS2
 scripts/config --disable CONFIG_MOUSE_SERIAL
 scripts/config --disable CONFIG_MOUSE_APPLETOUCH
 scripts/config --disable CONFIG_MOUSE_BCM5974
@@ -3860,17 +3860,17 @@ scripts/config --disable CONFIG_RMI4_F55
 #
 scripts/config --enable CONFIG_SERIO
 scripts/config --enable CONFIG_ARCH_MIGHT_HAVE_PC_SERIO
-scripts/config --disable CONFIG_SERIO_I8042
+scripts/config --enable CONFIG_SERIO_I8042
 scripts/config --disable CONFIG_SERIO_SERPORT
 scripts/config --disable CONFIG_SERIO_CT82C710
 scripts/config --disable CONFIG_SERIO_PARKBD
 scripts/config --disable CONFIG_SERIO_PCIPS2
 scripts/config --enable CONFIG_SERIO_LIBPS2
-scripts/config --module CONFIG_SERIO_RAW
+scripts/config --disable CONFIG_SERIO_RAW
 scripts/config --disable CONFIG_SERIO_ALTERA_PS2
 scripts/config --disable CONFIG_SERIO_PS2MULT
 scripts/config --disable CONFIG_SERIO_ARC_PS2
-scripts/config --disable CONFIG_HYPERV_KEYBOARD
+scripts/config --module CONFIG_HYPERV_KEYBOARD
 scripts/config --disable CONFIG_SERIO_GPIO_PS2
 scripts/config --disable CONFIG_USERIO
 scripts/config --disable CONFIG_GAMEPORT
@@ -5020,157 +5020,157 @@ scripts/config --set-val CONFIG_DUMMY_CONSOLE_ROWS 25
 
 scripts/config --disable CONFIG_SOUND
 scripts/config --enable CONFIG_HID_SUPPORT
-scripts/config --module CONFIG_HID
-scripts/config --enable CONFIG_HID_BATTERY_STRENGTH
-scripts/config --enable CONFIG_HIDRAW
-scripts/config --module CONFIG_UHID
-scripts/config --module CONFIG_HID_GENERIC
+scripts/config --enable CONFIG_HID
+scripts/config --disable CONFIG_HID_BATTERY_STRENGTH
+scripts/config --disable CONFIG_HIDRAW
+scripts/config --disable CONFIG_UHID
+scripts/config --enable CONFIG_HID_GENERIC
 
 #
 # Special HID drivers
 #
-scripts/config --module CONFIG_HID_A4TECH
-scripts/config --module CONFIG_HID_ACCUTOUCH
-scripts/config --module CONFIG_HID_ACRUX
-scripts/config --enable CONFIG_HID_ACRUX_FF
-scripts/config --module CONFIG_HID_APPLE
-scripts/config --module CONFIG_HID_APPLEIR
-scripts/config --module CONFIG_HID_ASUS
-scripts/config --module CONFIG_HID_AUREAL
-scripts/config --module CONFIG_HID_BELKIN
-scripts/config --module CONFIG_HID_BETOP_FF
-scripts/config --module CONFIG_HID_BIGBEN_FF
-scripts/config --module CONFIG_HID_CHERRY
-scripts/config --module CONFIG_HID_CHICONY
-scripts/config --module CONFIG_HID_CORSAIR
-scripts/config --module CONFIG_HID_COUGAR
-scripts/config --module CONFIG_HID_MACALLY
-scripts/config --module CONFIG_HID_CMEDIA
-scripts/config --module CONFIG_HID_CP2112
-scripts/config --module CONFIG_HID_CREATIVE_SB0540
-scripts/config --module CONFIG_HID_CYPRESS
-scripts/config --module CONFIG_HID_DRAGONRISE
-scripts/config --enable CONFIG_DRAGONRISE_FF
-scripts/config --module CONFIG_HID_EMS_FF
-scripts/config --module CONFIG_HID_ELAN
-scripts/config --module CONFIG_HID_ELECOM
-scripts/config --module CONFIG_HID_ELO
-scripts/config --module CONFIG_HID_EVISION
-scripts/config --module CONFIG_HID_EZKEY
-scripts/config --module CONFIG_HID_FT260
-scripts/config --module CONFIG_HID_GEMBIRD
-scripts/config --module CONFIG_HID_GFRM
-scripts/config --module CONFIG_HID_GLORIOUS
-scripts/config --module CONFIG_HID_HOLTEK
-scripts/config --enable CONFIG_HOLTEK_FF
-scripts/config --module CONFIG_HID_VIVALDI_COMMON
-scripts/config --module CONFIG_HID_GOODIX_SPI
-scripts/config --module CONFIG_HID_GOOGLE_HAMMER
-scripts/config --module CONFIG_HID_GOOGLE_STADIA_FF
-scripts/config --module CONFIG_HID_VIVALDI
-scripts/config --module CONFIG_HID_GT683R
-scripts/config --module CONFIG_HID_KEYTOUCH
-scripts/config --module CONFIG_HID_KYE
-scripts/config --module CONFIG_HID_UCLOGIC
-scripts/config --module CONFIG_HID_WALTOP
-scripts/config --module CONFIG_HID_VIEWSONIC
-scripts/config --module CONFIG_HID_VRC2
-scripts/config --module CONFIG_HID_XIAOMI
-scripts/config --module CONFIG_HID_GYRATION
-scripts/config --module CONFIG_HID_ICADE
-scripts/config --module CONFIG_HID_ITE
-scripts/config --module CONFIG_HID_JABRA
-scripts/config --module CONFIG_HID_TWINHAN
-scripts/config --module CONFIG_HID_KENSINGTON
-scripts/config --module CONFIG_HID_LCPOWER
-scripts/config --module CONFIG_HID_LED
-scripts/config --module CONFIG_HID_LENOVO
-scripts/config --module CONFIG_HID_LETSKETCH
-scripts/config --module CONFIG_HID_LOGITECH
-scripts/config --module CONFIG_HID_LOGITECH_DJ
-scripts/config --module CONFIG_HID_LOGITECH_HIDPP
-scripts/config --enable CONFIG_LOGITECH_FF
-scripts/config --enable CONFIG_LOGIRUMBLEPAD2_FF
-scripts/config --enable CONFIG_LOGIG940_FF
-scripts/config --enable CONFIG_LOGIWHEELS_FF
-scripts/config --module CONFIG_HID_MAGICMOUSE
-scripts/config --module CONFIG_HID_MALTRON
-scripts/config --module CONFIG_HID_MAYFLASH
-scripts/config --module CONFIG_HID_MEGAWORLD_FF
-scripts/config --module CONFIG_HID_REDRAGON
-scripts/config --module CONFIG_HID_MICROSOFT
-scripts/config --module CONFIG_HID_MONTEREY
-scripts/config --module CONFIG_HID_MULTITOUCH
-scripts/config --module CONFIG_HID_NINTENDO
-scripts/config --enable CONFIG_NINTENDO_FF
-scripts/config --module CONFIG_HID_NTI
-scripts/config --module CONFIG_HID_NTRIG
-scripts/config --module CONFIG_HID_ORTEK
-scripts/config --module CONFIG_HID_PANTHERLORD
-scripts/config --enable CONFIG_PANTHERLORD_FF
-scripts/config --module CONFIG_HID_PENMOUNT
-scripts/config --module CONFIG_HID_PETALYNX
-scripts/config --module CONFIG_HID_PICOLCD
-scripts/config --enable CONFIG_HID_PICOLCD_BACKLIGHT
-scripts/config --enable CONFIG_HID_PICOLCD_LEDS
-scripts/config --module CONFIG_HID_PLANTRONICS
-scripts/config --module CONFIG_HID_PLAYSTATION
-scripts/config --enable CONFIG_PLAYSTATION_FF
-scripts/config --module CONFIG_HID_PXRC
-scripts/config --module CONFIG_HID_RAZER
-scripts/config --module CONFIG_HID_PRIMAX
-scripts/config --module CONFIG_HID_RETRODE
-scripts/config --module CONFIG_HID_ROCCAT
-scripts/config --module CONFIG_HID_SAITEK
-scripts/config --module CONFIG_HID_SAMSUNG
-scripts/config --module CONFIG_HID_SEMITEK
-scripts/config --module CONFIG_HID_SIGMAMICRO
-scripts/config --module CONFIG_HID_SONY
-scripts/config --enable CONFIG_SONY_FF
-scripts/config --module CONFIG_HID_SPEEDLINK
-scripts/config --module CONFIG_HID_STEAM
-scripts/config --enable CONFIG_STEAM_FF
-scripts/config --module CONFIG_HID_STEELSERIES
-scripts/config --module CONFIG_HID_SUNPLUS
-scripts/config --module CONFIG_HID_RMI
-scripts/config --module CONFIG_HID_GREENASIA
-scripts/config --enable CONFIG_GREENASIA_FF
+scripts/config --disable CONFIG_HID_A4TECH
+scripts/config --disable CONFIG_HID_ACCUTOUCH
+scripts/config --disable CONFIG_HID_ACRUX
+scripts/config --disable CONFIG_HID_ACRUX_FF
+scripts/config --disable CONFIG_HID_APPLE
+scripts/config --disable CONFIG_HID_APPLEIR
+scripts/config --disable CONFIG_HID_ASUS
+scripts/config --disable CONFIG_HID_AUREAL
+scripts/config --disable CONFIG_HID_BELKIN
+scripts/config --disable CONFIG_HID_BETOP_FF
+scripts/config --disable CONFIG_HID_BIGBEN_FF
+scripts/config --disable CONFIG_HID_CHERRY
+scripts/config --disable CONFIG_HID_CHICONY
+scripts/config --disable CONFIG_HID_CORSAIR
+scripts/config --disable CONFIG_HID_COUGAR
+scripts/config --disable CONFIG_HID_MACALLY
+scripts/config --disable CONFIG_HID_CMEDIA
+scripts/config --disable CONFIG_HID_CP2112
+scripts/config --disable CONFIG_HID_CREATIVE_SB0540
+scripts/config --disable CONFIG_HID_CYPRESS
+scripts/config --disable CONFIG_HID_DRAGONRISE
+scripts/config --disable CONFIG_DRAGONRISE_FF
+scripts/config --disable CONFIG_HID_EMS_FF
+scripts/config --disable CONFIG_HID_ELAN
+scripts/config --disable CONFIG_HID_ELECOM
+scripts/config --disable CONFIG_HID_ELO
+scripts/config --disable CONFIG_HID_EVISION
+scripts/config --disable CONFIG_HID_EZKEY
+scripts/config --disable CONFIG_HID_FT260
+scripts/config --disable CONFIG_HID_GEMBIRD
+scripts/config --disable CONFIG_HID_GFRM
+scripts/config --disable CONFIG_HID_GLORIOUS
+scripts/config --disable CONFIG_HID_HOLTEK
+scripts/config --disable CONFIG_HOLTEK_FF
+scripts/config --disable CONFIG_HID_VIVALDI_COMMON
+scripts/config --disable CONFIG_HID_GOODIX_SPI
+scripts/config --disable CONFIG_HID_GOOGLE_HAMMER
+scripts/config --disable CONFIG_HID_GOOGLE_STADIA_FF
+scripts/config --disable CONFIG_HID_VIVALDI
+scripts/config --disable CONFIG_HID_GT683R
+scripts/config --disable CONFIG_HID_KEYTOUCH
+scripts/config --disable CONFIG_HID_KYE
+scripts/config --disable CONFIG_HID_UCLOGIC
+scripts/config --disable CONFIG_HID_WALTOP
+scripts/config --disable CONFIG_HID_VIEWSONIC
+scripts/config --disable CONFIG_HID_VRC2
+scripts/config --disable CONFIG_HID_XIAOMI
+scripts/config --disable CONFIG_HID_GYRATION
+scripts/config --disable CONFIG_HID_ICADE
+scripts/config --disable CONFIG_HID_ITE
+scripts/config --disable CONFIG_HID_JABRA
+scripts/config --disable CONFIG_HID_TWINHAN
+scripts/config --disable CONFIG_HID_KENSINGTON
+scripts/config --disable CONFIG_HID_LCPOWER
+scripts/config --disable CONFIG_HID_LED
+scripts/config --disable CONFIG_HID_LENOVO
+scripts/config --disable CONFIG_HID_LETSKETCH
+scripts/config --disable CONFIG_HID_LOGITECH
+scripts/config --disable CONFIG_HID_LOGITECH_DJ
+scripts/config --disable CONFIG_HID_LOGITECH_HIDPP
+scripts/config --disable CONFIG_LOGITECH_FF
+scripts/config --disable CONFIG_LOGIRUMBLEPAD2_FF
+scripts/config --disable CONFIG_LOGIG940_FF
+scripts/config --disable CONFIG_LOGIWHEELS_FF
+scripts/config --disable CONFIG_HID_MAGICMOUSE
+scripts/config --disable CONFIG_HID_MALTRON
+scripts/config --disable CONFIG_HID_MAYFLASH
+scripts/config --disable CONFIG_HID_MEGAWORLD_FF
+scripts/config --disable CONFIG_HID_REDRAGON
+scripts/config --disable CONFIG_HID_MICROSOFT
+scripts/config --disable CONFIG_HID_MONTEREY
+scripts/config --disable CONFIG_HID_MULTITOUCH
+scripts/config --disable CONFIG_HID_NINTENDO
+scripts/config --disable CONFIG_NINTENDO_FF
+scripts/config --disable CONFIG_HID_NTI
+scripts/config --disable CONFIG_HID_NTRIG
+scripts/config --disable CONFIG_HID_ORTEK
+scripts/config --disable CONFIG_HID_PANTHERLORD
+scripts/config --disable CONFIG_PANTHERLORD_FF
+scripts/config --disable CONFIG_HID_PENMOUNT
+scripts/config --disable CONFIG_HID_PETALYNX
+scripts/config --disable CONFIG_HID_PICOLCD
+scripts/config --disable CONFIG_HID_PICOLCD_BACKLIGHT
+scripts/config --disable CONFIG_HID_PICOLCD_LEDS
+scripts/config --disable CONFIG_HID_PLANTRONICS
+scripts/config --disable CONFIG_HID_PLAYSTATION
+scripts/config --disable CONFIG_PLAYSTATION_FF
+scripts/config --disable CONFIG_HID_PXRC
+scripts/config --disable CONFIG_HID_RAZER
+scripts/config --disable CONFIG_HID_PRIMAX
+scripts/config --disable CONFIG_HID_RETRODE
+scripts/config --disable CONFIG_HID_ROCCAT
+scripts/config --disable CONFIG_HID_SAITEK
+scripts/config --disable CONFIG_HID_SAMSUNG
+scripts/config --disable CONFIG_HID_SEMITEK
+scripts/config --disable CONFIG_HID_SIGMAMICRO
+scripts/config --disable CONFIG_HID_SONY
+scripts/config --disable CONFIG_SONY_FF
+scripts/config --disable CONFIG_HID_SPEEDLINK
+scripts/config --disable CONFIG_HID_STEAM
+scripts/config --disable CONFIG_STEAM_FF
+scripts/config --disable CONFIG_HID_STEELSERIES
+scripts/config --disable CONFIG_HID_SUNPLUS
+scripts/config --disable CONFIG_HID_RMI
+scripts/config --disable CONFIG_HID_GREENASIA
+scripts/config --disable CONFIG_GREENASIA_FF
 scripts/config --module CONFIG_HID_HYPERV_MOUSE
-scripts/config --module CONFIG_HID_SMARTJOYPLUS
-scripts/config --enable CONFIG_SMARTJOYPLUS_FF
-scripts/config --module CONFIG_HID_TIVO
-scripts/config --module CONFIG_HID_TOPSEED
-scripts/config --module CONFIG_HID_TOPRE
-scripts/config --module CONFIG_HID_THINGM
-scripts/config --module CONFIG_HID_THRUSTMASTER
-scripts/config --enable CONFIG_THRUSTMASTER_FF
-scripts/config --module CONFIG_HID_UDRAW_PS3
-scripts/config --module CONFIG_HID_U2FZERO
-scripts/config --module CONFIG_HID_UNIVERSAL_PIDFF
-scripts/config --module CONFIG_HID_WACOM
-scripts/config --module CONFIG_HID_WIIMOTE
-scripts/config --module CONFIG_HID_WINWING
-scripts/config --module CONFIG_HID_XINMO
-scripts/config --module CONFIG_HID_ZEROPLUS
-scripts/config --enable CONFIG_ZEROPLUS_FF
-scripts/config --module CONFIG_HID_ZYDACRON
-scripts/config --module CONFIG_HID_SENSOR_HUB
-scripts/config --module CONFIG_HID_SENSOR_CUSTOM_SENSOR
-scripts/config --module CONFIG_HID_ALPS
-scripts/config --module CONFIG_HID_MCP2200
-scripts/config --module CONFIG_HID_MCP2221
+scripts/config --disable CONFIG_HID_SMARTJOYPLUS
+scripts/config --disable CONFIG_SMARTJOYPLUS_FF
+scripts/config --disable CONFIG_HID_TIVO
+scripts/config --disable CONFIG_HID_TOPSEED
+scripts/config --disable CONFIG_HID_TOPRE
+scripts/config --disable CONFIG_HID_THINGM
+scripts/config --disable CONFIG_HID_THRUSTMASTER
+scripts/config --disable CONFIG_THRUSTMASTER_FF
+scripts/config --disable CONFIG_HID_UDRAW_PS3
+scripts/config --disable CONFIG_HID_U2FZERO
+scripts/config --disable CONFIG_HID_UNIVERSAL_PIDFF
+scripts/config --disable CONFIG_HID_WACOM
+scripts/config --disable CONFIG_HID_WIIMOTE
+scripts/config --disable CONFIG_HID_WINWING
+scripts/config --disable CONFIG_HID_XINMO
+scripts/config --disable CONFIG_HID_ZEROPLUS
+scripts/config --disable CONFIG_ZEROPLUS_FF
+scripts/config --disable CONFIG_HID_ZYDACRON
+scripts/config --disable CONFIG_HID_SENSOR_HUB
+scripts/config --disable CONFIG_HID_SENSOR_CUSTOM_SENSOR
+scripts/config --disable CONFIG_HID_ALPS
+scripts/config --disable CONFIG_HID_MCP2200
+scripts/config --disable CONFIG_HID_MCP2221
 # end of Special HID drivers
 
 #
 # HID-BPF support
 #
-scripts/config --enable CONFIG_HID_BPF
+scripts/config --disable CONFIG_HID_BPF
 # end of HID-BPF support
 
 #
 # USB HID support
 #
-scripts/config --disable CONFIG_USB_HID
+scripts/config --enable CONFIG_USB_HID
 scripts/config --disable CONFIG_HID_PID
 scripts/config --disable CONFIG_USB_HIDDEV
 # end of USB HID support
@@ -5183,24 +5183,24 @@ scripts/config --disable CONFIG_I2C_HID_CORE
 #
 # Intel ISH HID support
 #
-scripts/config --module CONFIG_INTEL_ISH_HID
-scripts/config --module CONFIG_INTEL_ISH_FIRMWARE_DOWNLOADER
+scripts/config --disable CONFIG_INTEL_ISH_HID
+scripts/config --disable CONFIG_INTEL_ISH_FIRMWARE_DOWNLOADER
 # end of Intel ISH HID support
 
 #
 # AMD SFH HID Support
 #
-scripts/config --module CONFIG_AMD_SFH_HID
+scripts/config --disable CONFIG_AMD_SFH_HID
 # end of AMD SFH HID Support
 
 #
 # Surface System Aggregator Module HID support
 #
-scripts/config --module CONFIG_SURFACE_HID
-scripts/config --module CONFIG_SURFACE_KBD
+scripts/config --disable CONFIG_SURFACE_HID
+scripts/config --disable CONFIG_SURFACE_KBD
 # end of Surface System Aggregator Module HID support
 
-scripts/config --module CONFIG_SURFACE_HID_CORE
+scripts/config --disable CONFIG_SURFACE_HID_CORE
 scripts/config --enable CONFIG_USB_OHCI_LITTLE_ENDIAN
 scripts/config --enable CONFIG_USB_SUPPORT
 scripts/config --enable CONFIG_USB_COMMON
@@ -6762,7 +6762,7 @@ scripts/config --module CONFIG_DMARD10
 scripts/config --module CONFIG_FXLS8962AF
 scripts/config --module CONFIG_FXLS8962AF_I2C
 scripts/config --module CONFIG_FXLS8962AF_SPI
-scripts/config --module CONFIG_HID_SENSOR_ACCEL_3D
+scripts/config --disable CONFIG_HID_SENSOR_ACCEL_3D
 scripts/config --module CONFIG_IIO_ST_ACCEL_3AXIS
 scripts/config --module CONFIG_IIO_ST_ACCEL_I2C_3AXIS
 scripts/config --module CONFIG_IIO_ST_ACCEL_SPI_3AXIS
@@ -8954,3 +8954,5 @@ scripts/config --module CONFIG_DRM_VMWGFX
 scripts/config --module CONFIG_DRM_QXL
 scripts/config --enable CONFIG_DRM_SIMPLEDRM
 scripts/config --enable CONFIG_FB_EFI
+
+scripts/config --enable CONFIG_MOUSE_PS2_VMMOUSE
