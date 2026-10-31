@@ -2,7 +2,7 @@ name: 删除多余工作流
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '17 3 * * *'  # 每天 03:17 UTC（北京时间 11:17）
 jobs:
   del_runs:
     runs-on: ubuntu-latest
@@ -15,5 +15,5 @@ jobs:
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: 7
-          keep_minimum_runs: 10
+          retain_days: 3
+          keep_minimum_runs: 3
