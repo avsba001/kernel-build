@@ -786,9 +786,9 @@ scripts/config --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG
 scripts/config --enable CONFIG_ARCH_SUPPORTS_LTO_CLANG_THIN
 scripts/config --enable CONFIG_HAS_LTO_CLANG
 scripts/config --disable CONFIG_LTO_NONE
-# ThinLTO avoids the monolithic Full LTO link's memory peak on hosted runners.
-scripts/config --disable CONFIG_LTO_CLANG_FULL
-scripts/config --enable CONFIG_LTO_CLANG_THIN
+# Keep Full LTO; the workflow bounds linker threads and codegen partitions.
+scripts/config --enable CONFIG_LTO_CLANG_FULL
+scripts/config --disable CONFIG_LTO_CLANG_THIN
 scripts/config --enable CONFIG_ARCH_SUPPORTS_CFI_CLANG
 scripts/config --disable CONFIG_CFI_CLANG
 scripts/config --enable CONFIG_HAVE_CFI_ICALL_NORMALIZE_INTEGERS_CLANG

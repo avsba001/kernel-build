@@ -23,8 +23,8 @@ jobs:
       KBUILD_BUILD_USER: actions-kernel
       KBUILD_BUILD_HOST: github-actions
       LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang
-      BUILD_JOBS: '2'
-      LTO_JOBS: '2'
+      BUILD_JOBS: '1'
+      LTO_JOBS: '1'
       KCFLAGS_OPT: -O3 -ffunction-sections -fdata-sections -fomit-frame-pointer -Wno-error
       LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
     steps:
@@ -104,8 +104,8 @@ jobs:
           vendor="${PROFILE#*-}"
           ../config/cpu/apply.sh "$level" "$vendor"
           make ${LLVM_ARGS} LD=ld.lld olddefconfig
-          grep -qx 'CONFIG_LTO_CLANG_THIN=y' .config || { echo '未启用 ThinLTO' >&2; exit 1; }
-          grep -qx '# CONFIG_LTO_CLANG_FULL is not set' .config || { echo '不应启用 Full LTO' >&2; exit 1; }
+          grep -qx 'CONFIG_LTO_CLANG_FULL=y' .config || { echo '未启用 Full LTO' >&2; exit 1; }
+          grep -qx '# CONFIG_LTO_CLANG_THIN is not set' .config || { echo '不应启用 ThinLTO' >&2; exit 1; }
           expected_vendor="CONFIG_CPU_SUP_${vendor^^}=y"
           other_vendor=INTEL
           [[ "$vendor" == intel ]] && other_vendor=AMD
@@ -131,7 +131,7 @@ jobs:
           # LOCALVERSION throughout to avoid rebuilding an initial vmlinux.
           # LD is invoked directly by Kbuild, so pass raw lld options here.
           KDEB_COMPRESS=xz /usr/bin/time -v make -j"${BUILD_JOBS}" ${LLVM_ARGS} \
-            LD="ld.lld --thinlto-jobs=${LTO_JOBS}" \
+            LD="ld.lld --threads=${LTO_JOBS} --lto-partitions=${LTO_JOBS}" \
             bindeb-pkg LOCALVERSION="${KERNEL_LOCALVERSION}" \
             KCFLAGS="${KCFLAGS_ARCH} ${KCFLAGS_OPT}" \
             LDFLAGS="${LDFLAGS_OPT}"
@@ -162,7 +162,7 @@ jobs:
           fi
           mv -- "${image_packages[@]}" artifacts/
           mv -- "${header_packages[@]}" artifacts/
-          printf 'XanMod %s\nProfile: %s\nLLVM/Clang: 23.1.0\nLTO: ThinLTO\nKCFLAGS: %s %s\nLDFLAGS: %s\n' \
+          printf 'XanMod %s\nProfile: %s\nLLVM/Clang: 23.1.0\nLTO: Full LTO\nKCFLAGS: %s %s\nLDFLAGS: %s\n' \
             "$VERSION" "$PROFILE" "$KCFLAGS_ARCH" "$KCFLAGS_OPT" "$LDFLAGS_OPT" > release_body.txt
       - name: 发布 GitHub Release
         uses: softprops/action-gh-release@master

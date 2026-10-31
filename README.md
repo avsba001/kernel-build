@@ -15,8 +15,8 @@
 - **6.x、7.x 独立配置**，新增内核大版本需补充对应配置。
 - **v2/v3 指令集基线 + Intel/AMD 厂商配置**，不绑定具体 CPU 型号。
 - 面向无 GPU 的 VPS 虚拟机，保留常见 VGA、QXL、VMware SVGA、Cirrus 虚拟显示与 framebuffer 控制台，禁用 virtio-gpu 和物理 GPU 驱动。
-- 使用 **LLVM/Clang 23、O3、ThinLTO**，默认 **BBR + fq**。
-- GitHub Runner 默认使用 2 个构建任务、2 个 ThinLTO 后端线程和至少 8 GiB swap，降低链接阶段内存耗尽的风险。
+- 使用 **LLVM/Clang 23、O3、Full LTO**，默认 **BBR + fq**。
+- GitHub Runner 默认使用 1 个构建任务，链接线程和 Full LTO 代码生成分区均限制为 1，并配置至少 8 GiB swap，降低链接阶段内存耗尽的风险。
 
 ## 一键检测安装
 
