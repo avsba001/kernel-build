@@ -113,11 +113,11 @@ jobs:
           grep -qx "# CONFIG_CPU_SUP_${other_vendor} is not set" .config || { echo "Unexpected other-vendor CPU support remains enabled" >&2; exit 1; }
           grep -qx "CONFIG_GENERIC_CPU=y" .config || { echo "Generic CPU baseline was not retained" >&2; exit 1; }
           grep -qx "CONFIG_X86_64_VERSION=$([[ "$level" == v2 ]] && echo 2 || echo 3)" .config || { echo "ISA baseline mismatch" >&2; exit 1; }
-          grep -qx '# CONFIG_DRM_VIRTIO_GPU is not set' .config || { echo "不应启用 virtio-gpu：CONFIG_DRM_VIRTIO_GPU" >&2; exit 1; }
-          for symbol in DRM FB DRM_SIMPLEDRM FB_EFI VGA_CONSOLE FRAMEBUFFER_CONSOLE; do
+          grep -qx '# CONFIG_DRM is not set' .config || { echo 'DRM 驱动未完全禁用' >&2; exit 1; }
+          for symbol in FB FB_VESA FB_EFI VGA_CONSOLE FRAMEBUFFER_CONSOLE; do
             grep -qx "CONFIG_${symbol}=y\|CONFIG_${symbol}=m" .config || { echo "显示控制台选项未启用：CONFIG_${symbol}" >&2; exit 1; }
           done
-          for key in CONFIG_DRM_BOCHS CONFIG_DRM_QXL CONFIG_DRM_VMWGFX CONFIG_DRM_CIRRUS_QEMU CONFIG_FB_VESA CONFIG_FB_CIRRUS CONFIG_FB_VGA16; do
+          for key in CONFIG_FB_CIRRUS CONFIG_FB_VGA16; do
             if grep -qE "^${key}=" .config; then
               grep -qE "^${key}=[ym]$" .config || { echo "虚拟显示适配器选项异常：$key" >&2; exit 1; }
             fi

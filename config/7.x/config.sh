@@ -4965,7 +4965,7 @@ scripts/config --module CONFIG_SEG_LED_GPIO
 scripts/config --module CONFIG_PANEL
 scripts/config --disable CONFIG_AGP
 scripts/config --disable CONFIG_VGA_SWITCHEROO
-scripts/config --enable CONFIG_DRM
+scripts/config --disable CONFIG_DRM
 
 #
 # Frame buffer Devices
@@ -8949,16 +8949,11 @@ scripts/config --disable CONFIG_HYPERV_TESTING
 # ---- 补齐原文件未列出的通用虚拟机启动依赖 ----
 scripts/config --enable CONFIG_HYPERV_CONSOLE
 scripts/config --enable CONFIG_IKCONFIG_PROC
-scripts/config --enable CONFIG_DRM_SIMPLEDRM
 scripts/config --enable CONFIG_FB_EFI
 scripts/config --enable CONFIG_FRAMEBUFFER_CONSOLE
-scripts/config --disable CONFIG_DRM_VIRTIO_GPU
-scripts/config --module CONFIG_DRM_CIRRUS_QEMU
+scripts/config --disable CONFIG_DRM
 scripts/config --enable CONFIG_FB_VESA
 scripts/config --module CONFIG_FB_CIRRUS
 scripts/config --module CONFIG_FB_VGA16
-scripts/config --module CONFIG_DRM_BOCHS
-scripts/config --module CONFIG_DRM_VMWGFX
-scripts/config --module CONFIG_DRM_QXL
 
 scripts/config --enable CONFIG_MOUSE_PS2_VMMOUSE
