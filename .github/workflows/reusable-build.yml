@@ -16,13 +16,16 @@ jobs:
   build:
     name: 构建 Debian 内核软件包
     runs-on: ubuntu-latest
+    timeout-minutes: 360
     env:
       DEB_BUILD_OPTIONS: nocheck
       KERNEL_LOCALVERSION: -cloud-${{ inputs.profile }}
       KBUILD_BUILD_USER: actions-kernel
       KBUILD_BUILD_HOST: github-actions
-      LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld
-      KCFLAGS_OPT: -O3 -ffunction-sections -fdata-sections -ffunction-sections -fomit-frame-pointer -Wno-error
+      LLVM_ARGS: LLVM=1 LLVM_IAS=1 CC=clang
+      BUILD_JOBS: '2'
+      LTO_JOBS: '2'
+      KCFLAGS_OPT: -O3 -ffunction-sections -fdata-sections -fomit-frame-pointer -Wno-error
       LDFLAGS_OPT: -Wl,--gc-sections -Wl,-O1
     steps:
       - name: 检出构建脚本
@@ -37,6 +40,27 @@ jobs:
           cat /proc/cpuinfo
           cat /proc/meminfo
           sudo timedatectl set-timezone Asia/Shanghai
+      - name: 为链接阶段准备交换空间
+        run: |
+          # Ensure at least 8 GiB of swap; keep the runner's existing swap active.
+          swap_kib=$(awk '/^SwapTotal:/ {print $2}' /proc/meminfo)
+          target_kib=$((8 * 1024 * 1024))
+          if (( swap_kib < target_kib )); then
+            missing_mib=$(( (target_kib - swap_kib + 1023) / 1024 ))
+            available_kib=$(df --output=avail / | awk 'NR == 2 {print $1}')
+            if (( available_kib < missing_mib * 1024 + 12 * 1024 * 1024 )); then
+              echo '磁盘空间不足：无法在保留 12 GiB 空闲空间的同时配置 swap。' >&2
+              df -h
+              exit 1
+            fi
+            sudo fallocate -l "${missing_mib}M" /swapfile-kernel-build
+            sudo chmod 600 /swapfile-kernel-build
+            sudo mkswap /swapfile-kernel-build
+            sudo swapon /swapfile-kernel-build
+          fi
+          free -h
+          swapon --show
+          df -h
       - name: 安装 LLVM/Clang 23
         run: |
           sudo apt-get update
@@ -54,7 +78,7 @@ jobs:
             build-essential bc bison flex libssl-dev libelf-dev libncurses-dev \
             libdw-dev debhelper debhelper-compat dpkg-dev devscripts linux-libc-dev \
             linux-firmware curl wget dwarves pahole fakeroot git pkg-config perl \
-            rsync xz-utils zstd binutils cpio initramfs-tools jq
+            rsync xz-utils zstd binutils cpio initramfs-tools jq time
       - name: 获取 XanMod 内核源码
         env:
           VERSION: ${{ inputs.version }}
@@ -79,7 +103,9 @@ jobs:
           level="${PROFILE%%-*}"
           vendor="${PROFILE#*-}"
           ../config/cpu/apply.sh "$level" "$vendor"
-          make ${LLVM_ARGS} olddefconfig
+          make ${LLVM_ARGS} LD=ld.lld olddefconfig
+          grep -qx 'CONFIG_LTO_CLANG_THIN=y' .config || { echo '未启用 ThinLTO' >&2; exit 1; }
+          grep -qx '# CONFIG_LTO_CLANG_FULL is not set' .config || { echo '不应启用 Full LTO' >&2; exit 1; }
           expected_vendor="CONFIG_CPU_SUP_${vendor^^}=y"
           other_vendor=INTEL
           [[ "$vendor" == intel ]] && other_vendor=AMD
@@ -98,20 +124,30 @@ jobs:
           done
           mkdir -p ../artifacts
           cp .config "../artifacts/config-${VERSION}-${PROFILE}-${GITHUB_RUN_ID}"
-      - name: 编译内核并准备模块
+      - name: 编译内核并构建 Debian 软件包
         run: |
           cd kernel
-          make -j"$(nproc)" ${LLVM_ARGS} \
-            vmlinux modules_prepare \
-            KCFLAGS="${KCFLAGS_ARCH} ${KCFLAGS_OPT}" \
-            LDFLAGS="${LDFLAGS_OPT}"
-      - name: 构建 Debian 软件包
-        run: |
-          cd kernel
-          KDEB_COMPRESS=xz make -j"$(nproc)" ${LLVM_ARGS} \
+          # bindeb-pkg builds the kernel and modules itself. Use the same
+          # LOCALVERSION throughout to avoid rebuilding an initial vmlinux.
+          # LD is invoked directly by Kbuild, so pass raw lld options here.
+          KDEB_COMPRESS=xz /usr/bin/time -v make -j"${BUILD_JOBS}" ${LLVM_ARGS} \
+            LD="ld.lld --thinlto-jobs=${LTO_JOBS}" \
             bindeb-pkg LOCALVERSION="${KERNEL_LOCALVERSION}" \
             KCFLAGS="${KCFLAGS_ARCH} ${KCFLAGS_OPT}" \
             LDFLAGS="${LDFLAGS_OPT}"
+      - name: 构建失败时显示资源诊断
+        if: ${{ failure() }}
+        run: |
+          free -h
+          swapon --show
+          df -h
+          for counter in /sys/fs/cgroup/memory.events /sys/fs/cgroup/memory.peak; do
+            if [[ -r "$counter" ]]; then
+              echo "=== $counter ==="
+              cat "$counter"
+            fi
+          done
+          sudo dmesg --ctime | grep -Ei 'out of memory|oom|killed process' || true
       - name: 收集构建产物
         env:
           VERSION: ${{ inputs.version }}
@@ -126,7 +162,7 @@ jobs:
           fi
           mv -- "${image_packages[@]}" artifacts/
           mv -- "${header_packages[@]}" artifacts/
-          printf 'XanMod %s\nProfile: %s\nLLVM/Clang: 23.1.0\nKCFLAGS: %s %s\nLDFLAGS: %s\n' \
+          printf 'XanMod %s\nProfile: %s\nLLVM/Clang: 23.1.0\nLTO: ThinLTO\nKCFLAGS: %s %s\nLDFLAGS: %s\n' \
             "$VERSION" "$PROFILE" "$KCFLAGS_ARCH" "$KCFLAGS_OPT" "$LDFLAGS_OPT" > release_body.txt
       - name: 发布 GitHub Release
         uses: softprops/action-gh-release@master
