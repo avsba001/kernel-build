@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       versions:
-        description: '内核版本（JSON 数组，例如 ["7.2"]）；填写 [] 构建 6.12、6.18、7.0、7.1、7.2'
+        description: '内核版本（JSON 数组，例如 ["7.2"]）；填写 [] 构建 6.12、6.18、7.0、7.1、7.2、7.3'
         required: false
         default: '[]'
         type: string
@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: 检出仓库
         uses: actions/checkout@v6
-      - name: 检查五个固定 XanMod 分支
+      - name: 检查六个固定 XanMod 分支
         id: discover
         if: github.event_name == 'schedule' || inputs.versions == '[]' || inputs.versions == ''
         run: |

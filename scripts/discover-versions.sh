@@ -4,7 +4,7 @@ set -euo pipefail
 repo="${XANMOD_REPO:-https://gitlab.com/xanmod/linux.git}"
 # Monthly builds intentionally use this fixed list. Do not auto-discover every
 # new XanMod branch; add a version here only after its config is reviewed.
-supported_versions=(6.12 6.18 7.0 7.1 7.2)
+supported_versions=(6.12 6.18 7.0 7.1 7.2 7.3)
 
 branches=()
 for version in "${supported_versions[@]}"; do
