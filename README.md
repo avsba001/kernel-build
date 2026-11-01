@@ -17,6 +17,7 @@
 - 面向无 GPU 的 VPS 虚拟机，禁用 DRM 显卡驱动，保留 EFI/VESA framebuffer、Cirrus/VGA framebuffer 与文本控制台支持。
 - 裁剪 USB gadget、USB/IP、USB 存储与串口等外设、MMC/MemoryStick、COMEDI/IIO、RDMA 和测试模块；保留 PCI USB 控制器及通用 USB HID。
 - 关闭函数追踪、kprobe/uprobe、动态调试、KFENCE、页毒化与调度统计，保留网络 eBPF 和 BTF；依赖探针的 bpftrace/BCC 功能不再支持。
+- 禁用 Chrome、Surface、Mellanox 平台管理及 x86 厂商平台驱动、ACPI-WMI，并关闭会重新选择 P2SB 的实体芯片组驱动；不影响 Mellanox 网卡或虚拟机网络/存储驱动。
 - 使用 **LLVM/Clang 23、O3、Full LTO**，默认 **BBR + fq**。
 - GitHub Runner 默认使用 1 个构建任务，链接线程和 Full LTO 代码生成分区均限制为 1，并配置至少 8 GiB swap，降低链接阶段内存耗尽的风险。
 
