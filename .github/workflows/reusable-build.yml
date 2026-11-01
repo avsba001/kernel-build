@@ -122,12 +122,14 @@ jobs:
               grep -qE "^${key}=[ym]$" .config || { echo "虚拟显示适配器选项异常：$key" >&2; exit 1; }
             fi
           done
-          for symbol in USB_GADGET USBIP_CORE USB_STORAGE USB_UAS USB_SERIAL USB_PRINTER COMEDI IIO MMC MEMSTICK INFINIBAND FTRACE FUNCTION_TRACER FUNCTION_GRAPH_TRACER DYNAMIC_DEBUG DYNAMIC_DEBUG_CORE KPROBES UPROBES BPF_EVENTS KFENCE PAGE_POISONING SCHEDSTATS THERMAL_CORE_TESTING; do
+          trim_failed=0
+          for symbol in USB_GADGET USBIP_CORE USBIP_VHCI_HCD USBIP_HOST USBIP_VUDC USB_STORAGE USB_UAS USB_SERIAL USB_PRINTER COMEDI IIO MMC MEMSTICK INFINIBAND CGROUP_RDMA SMC SMC_DIAG RDS_RDMA NET_9P_USBG NET_9P_RDMA SUNRPC_XPRT_RDMA SMB_SERVER_SMBDIRECT CIFS_SMB_DIRECT SMBDIRECT FTRACE FUNCTION_TRACER FUNCTION_GRAPH_TRACER DYNAMIC_DEBUG DYNAMIC_DEBUG_CORE KPROBES UPROBES BPF_EVENTS KFENCE PAGE_POISONING SCHEDSTATS THERMAL_CORE_TESTING; do
             if grep -qE "^CONFIG_${symbol}=[ym]$" .config; then
-              echo "VPS 裁剪选项被重新启用：CONFIG_${symbol}" >&2
-              exit 1
+              echo "VPS 裁剪选项被重新启用：$(grep -E "^CONFIG_${symbol}=[ym]$" .config)" >&2
+              trim_failed=1
             fi
           done
+          (( trim_failed == 0 )) || exit 1
           if grep -E '^CONFIG_(TEST_.*|.*_KUNIT_TEST.*|KUNIT.*)=[ym]$' .config; then
             echo '不应启用内核测试模块' >&2
             exit 1

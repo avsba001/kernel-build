@@ -186,7 +186,7 @@ scripts/config --disable CONFIG_RT_GROUP_SCHED
 scripts/config --enable CONFIG_EXT_GROUP_SCHED
 scripts/config --enable CONFIG_SCHED_MM_CID
 scripts/config --enable CONFIG_CGROUP_PIDS
-scripts/config --enable CONFIG_CGROUP_RDMA
+scripts/config --disable CONFIG_CGROUP_RDMA
 scripts/config --enable CONFIG_CGROUP_FREEZER
 scripts/config --enable CONFIG_CGROUP_HUGETLB
 scripts/config --enable CONFIG_CPUSETS
@@ -1172,8 +1172,8 @@ scripts/config --module CONFIG_XFRM_IPCOMP
 scripts/config --module CONFIG_NET_KEY
 scripts/config --disable CONFIG_NET_KEY_MIGRATE
 scripts/config --enable CONFIG_XFRM_ESPINTCP
-scripts/config --module CONFIG_SMC
-scripts/config --module CONFIG_SMC_DIAG
+scripts/config --disable CONFIG_SMC
+scripts/config --disable CONFIG_SMC_DIAG
 scripts/config --disable CONFIG_SMC_LO
 scripts/config --enable CONFIG_XDP_SOCKETS
 scripts/config --module CONFIG_XDP_SOCKETS_DIAG
@@ -1662,7 +1662,7 @@ scripts/config --enable CONFIG_SCTP_COOKIE_HMAC_MD5
 scripts/config --enable CONFIG_SCTP_COOKIE_HMAC_SHA1
 scripts/config --module CONFIG_INET_SCTP_DIAG
 scripts/config --module CONFIG_RDS
-scripts/config --module CONFIG_RDS_RDMA
+scripts/config --disable CONFIG_RDS_RDMA
 scripts/config --module CONFIG_RDS_TCP
 scripts/config --disable CONFIG_RDS_DEBUG
 scripts/config --module CONFIG_TIPC
@@ -1963,8 +1963,8 @@ scripts/config --module CONFIG_NET_9P
 scripts/config --module CONFIG_NET_9P_FD
 scripts/config --module CONFIG_NET_9P_VIRTIO
 scripts/config --module CONFIG_NET_9P_XEN
-scripts/config --enable CONFIG_NET_9P_USBG
-scripts/config --module CONFIG_NET_9P_RDMA
+scripts/config --disable CONFIG_NET_9P_USBG
+scripts/config --disable CONFIG_NET_9P_RDMA
 scripts/config --disable CONFIG_NET_9P_DEBUG
 scripts/config --disable CONFIG_CAIF
 scripts/config --disable CONFIG_CAIF_DEBUG
@@ -5295,12 +5295,12 @@ scripts/config --disable CONFIG_USB_UAS
 #
 scripts/config --disable CONFIG_USB_MDC800
 scripts/config --disable CONFIG_USB_MICROTEK
-scripts/config --module CONFIG_USBIP_CORE
-scripts/config --module CONFIG_USBIP_VHCI_HCD
+scripts/config --disable CONFIG_USBIP_CORE
+scripts/config --disable CONFIG_USBIP_VHCI_HCD
 scripts/config --set-val CONFIG_USBIP_VHCI_HC_PORTS 8
 scripts/config --set-val CONFIG_USBIP_VHCI_NR_HCS 1
-scripts/config --module CONFIG_USBIP_HOST
-scripts/config --module CONFIG_USBIP_VUDC
+scripts/config --disable CONFIG_USBIP_HOST
+scripts/config --disable CONFIG_USBIP_VUDC
 scripts/config --disable CONFIG_USBIP_DEBUG
 
 #
@@ -7862,7 +7862,7 @@ scripts/config --enable CONFIG_RPCSEC_GSS_KRB5_ENCTYPES_AES_SHA1
 scripts/config --enable CONFIG_RPCSEC_GSS_KRB5_ENCTYPES_CAMELLIA
 scripts/config --enable CONFIG_RPCSEC_GSS_KRB5_ENCTYPES_AES_SHA2
 scripts/config --enable CONFIG_SUNRPC_DEBUG
-scripts/config --module CONFIG_SUNRPC_XPRT_RDMA
+scripts/config --disable CONFIG_SUNRPC_XPRT_RDMA
 scripts/config --module CONFIG_CEPH_FS
 scripts/config --enable CONFIG_CEPH_FSCACHE
 scripts/config --enable CONFIG_CEPH_FS_POSIX_ACL
@@ -7882,7 +7882,7 @@ scripts/config --disable CONFIG_CIFS_SMB_DIRECT
 scripts/config --enable CONFIG_CIFS_FSCACHE
 scripts/config --enable CONFIG_CIFS_COMPRESSION
 scripts/config --module CONFIG_SMB_SERVER
-scripts/config --enable CONFIG_SMB_SERVER_SMBDIRECT
+scripts/config --disable CONFIG_SMB_SERVER_SMBDIRECT
 scripts/config --enable CONFIG_SMB_SERVER_CHECK_CAP_NET_ADMIN
 scripts/config --enable CONFIG_SMB_SERVER_KERBEROS5
 scripts/config --module CONFIG_SMBFS
@@ -8978,3 +8978,4 @@ scripts/config --disable CONFIG_USB_DWC3_GOOGLE
 scripts/config --disable CONFIG_USB_USBIO
 scripts/config --disable CONFIG_USB_XHCI_PCI_PROM21
 scripts/config --disable CONFIG_USB_XHCI_SIDEBAND
+scripts/config --disable CONFIG_SMBDIRECT
