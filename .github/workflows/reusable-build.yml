@@ -195,3 +195,12 @@ jobs:
           body_path: release_body.txt
           files: artifacts/*
           overwrite_files: true
+
+  cleanup:
+    name: 发布成功后清理同版本重复发布
+    needs: build
+    uses: ./.github/workflows/clean-releases.yml
+    with:
+      version: ${{ inputs.version }}
+      profile: ${{ inputs.profile }}
+    secrets: inherit
