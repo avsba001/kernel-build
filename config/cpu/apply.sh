@@ -20,6 +20,9 @@ while IFS= read -r option; do
 done < <(sed -nE 's/^config (M[A-Z0-9_]+)$/\1/p' arch/x86/Kconfig.cpu)
 scripts/config --enable CONFIG_GENERIC_CPU
 scripts/config --set-val CONFIG_X86_64_VERSION "$version"
+# XanMod's base config hard-codes x64v3; keep the release name in sync with ISA.
+scripts/config --set-str CONFIG_LOCALVERSION "-x64v${version}"
+scripts/config --disable CONFIG_LOCALVERSION_AUTO
 
 # CPU vendor support is distinct from PCI device vendor support: keep network,
 # storage and other peripheral drivers from the major-version baseline.
