@@ -173,7 +173,7 @@ main() {
   echo "v3 优先；若 CPU 不满足 v3，将使用 v2。"
   echo
 
-  read -r -p "选择内核系列 [latest/6.12/6.18/7.2 等，默认 latest]: " series || { echo "未收到输入，已取消。"; return 0; }
+  read -r -p "选择内核系列 [latest/6.12/6.18/7.3 等，默认 latest]: " series || { echo "未收到输入，已取消。"; return 0; }
   series="${series:-latest}"
   if [[ "$series" != latest && ! "$series" =~ ^(6\.(12|18|19|[2-9][0-9]+)|7\.[0-9]+)$ ]]; then
     echo "不支持的内核系列：$series" >&2
